@@ -11,37 +11,63 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="d3dclass.cpp">
+    <ClInclude Include="..\..\..\Downloads\CGP-Tutorial-BuffersShadersHLSL-Src\AlignedAllocationPolicy.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Downloads\CGP-Tutorial-BuffersShadersHLSL-Src\cameraclass.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Downloads\CGP-Tutorial-BuffersShadersHLSL-Src\colorshaderclass.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Downloads\CGP-Tutorial-BuffersShadersHLSL-Src\d3dclass.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Downloads\CGP-Tutorial-BuffersShadersHLSL-Src\graphicsclass.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Downloads\CGP-Tutorial-BuffersShadersHLSL-Src\inputclass.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Downloads\CGP-Tutorial-BuffersShadersHLSL-Src\modelclass.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Downloads\CGP-Tutorial-BuffersShadersHLSL-Src\systemclass.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Downloads\CGP-Tutorial-BuffersShadersHLSL-Src\cameraclass.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphicsclass.cpp">
+    <ClCompile Include="..\..\..\Downloads\CGP-Tutorial-BuffersShadersHLSL-Src\colorshaderclass.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="inputclass.cpp">
+    <ClCompile Include="..\..\..\Downloads\CGP-Tutorial-BuffersShadersHLSL-Src\d3dclass.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="..\..\..\Downloads\CGP-Tutorial-BuffersShadersHLSL-Src\graphicsclass.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="systemclass.cpp">
+    <ClCompile Include="..\..\..\Downloads\CGP-Tutorial-BuffersShadersHLSL-Src\inputclass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Downloads\CGP-Tutorial-BuffersShadersHLSL-Src\main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Downloads\CGP-Tutorial-BuffersShadersHLSL-Src\modelclass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Downloads\CGP-Tutorial-BuffersShadersHLSL-Src\systemclass.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="d3dclass.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="graphicsclass.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="inputclass.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="systemclass.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="AlignedAllocationPolicy.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
+    <None Include="..\..\..\Downloads\CGP-Tutorial-BuffersShadersHLSL-Src\data\color.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="..\..\..\Downloads\CGP-Tutorial-BuffersShadersHLSL-Src\data\color.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
 </Project>
