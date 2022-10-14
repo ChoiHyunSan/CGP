@@ -109,4 +109,11 @@ Scene::~Scene()
 		m_LightShader = 0;
 	}
 
+	for (int i = 0; i < (UINT)GROUP_TYPE::END; i++)
+	{
+		for (int j = 0; j < m_arrModel[i].size(); j++)
+		{
+			delete m_arrModel[i][j];
+		}
+	}
 }

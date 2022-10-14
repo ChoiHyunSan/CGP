@@ -2,6 +2,7 @@
   Scene.cpp
 C:\Users\최현산\Desktop\Study\CGP\CGP_PROJ\CG_HW2_B877039_CHS\Scene.cpp(21,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
 C:\Users\최현산\Desktop\Study\CGP\CGP_PROJ\CG_HW2_B877039_CHS\Scene.cpp(54,7): warning C4101: 'result' :참조되지 않은 지역 변수입니다.
+C:\Users\최현산\Desktop\Study\CGP\CGP_PROJ\CG_HW2_B877039_CHS\Scene.cpp(114,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
   Title_Scene.cpp
   코드를 생성하고 있습니다...
   CG_HW2_B877039_CHS.vcxproj -> C:\Users\최현산\Desktop\Study\CGP\CGP_PROJ\Debug\CGP2_B877039_CHS.exe
