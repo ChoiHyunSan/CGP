@@ -10,6 +10,7 @@
 //////////////
 #include <d3d11.h>
 #include <directxmath.h>
+#include "pch.h"
 
 using namespace DirectX;
 
@@ -32,6 +33,7 @@ private:
 		XMFLOAT3 position;
 	    XMFLOAT2 texture;
 		XMFLOAT3 normal;
+		XMFLOAT3 instancePosition;
 	};
 
 	struct FaceType
@@ -46,6 +48,11 @@ private:
 		float x, y, z;
 		float tu, tv;
 		float nx, ny, nz;
+	};
+
+	struct InstanceType
+	{
+		XMFLOAT3 position;
 	};
 
 public:
@@ -65,6 +72,9 @@ public:
 	bool LoadModel(const WCHAR*);
 	void ReleaseModel();
 
+	int GetVertexCount();
+	int GetInstanceCount();
+	GROUP_TYPE GetType();
 
 private:
 	bool InitializeBuffers(ID3D11Device*);
@@ -77,11 +87,17 @@ private:
 	bool ReadFileCounts(const WCHAR*);
 	bool LoadDataStructures(const WCHAR*, int, int, int, int);
 
+
+
 private:
-	ID3D11Buffer *m_vertexBuffer, *m_indexBuffer;
-	int m_vertexCount, m_indexCount, m_textureCount, m_normalCount, m_faceCount;
+	ID3D11Buffer *m_vertexBuffer;
+	int m_vertexCount, m_textureCount, m_normalCount, m_faceCount;
 	TextureClass* m_Texture;
 
+	ID3D11Buffer * m_instanceBuffer;
+	int m_instanceCount;
+
+	GROUP_TYPE m_ObjType;
 	ModelType* m_model;
 };
 

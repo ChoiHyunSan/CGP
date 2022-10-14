@@ -22,8 +22,7 @@ void Stage01_Scene::init(D3DClass* D3D)
 	// 모델들을을 생성 후, 벡터에 추가
 
 	// TODO : 타이틀 씬에서 생성할 도형들을 벡터에 추가
-	m_Model = new ModelClass(D3D->GetDevice(), L"./data/chair.obj", L"./data/seafloor.dds");
-	AddObject(m_Model, GROUP_TYPE::DEFAULT);
+	AddObject(D3D , GROUP_TYPE::DEFAULT);
 
 	// 라이트 효과 추가
 	if (m_Light == nullptr)
