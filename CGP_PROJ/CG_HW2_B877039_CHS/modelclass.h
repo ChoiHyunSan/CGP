@@ -25,6 +25,16 @@ using namespace std;
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: ModelClass
 ////////////////////////////////////////////////////////////////////////////////
+
+// 모델클래스에서 추가해야 하는 것
+// 1. 위치 (Position) 값 조절
+// 2. 회전 (Rotation) 값 조절
+// 3. 크기 (Scale) 값 조절
+
+// 4. 콜라이더
+// 5. 이벤트
+
+
 class ModelClass
 {
 private:
@@ -55,6 +65,13 @@ private:
 		XMFLOAT3 position;
 	};
 
+	struct Pos
+	{
+		float x;
+		float y;
+		float z;
+	};
+
 public:
 	ModelClass();
 	ModelClass(const ModelClass&);
@@ -66,7 +83,6 @@ public:
 	void Shutdown();
 	void Render(ID3D11DeviceContext*);
 
-	int GetIndexCount();
 	ID3D11ShaderResourceView* GetTexture();
 
 	bool LoadModel(const WCHAR*);
@@ -75,6 +91,8 @@ public:
 	int GetVertexCount();
 	int GetInstanceCount();
 	GROUP_TYPE GetType();
+	Pos getPos() { return m_Pos; }
+	XMMATRIX getRotate() { return m_rotate; }
 
 private:
 	bool InitializeBuffers(ID3D11Device*);
@@ -87,7 +105,13 @@ private:
 	bool ReadFileCounts(const WCHAR*);
 	bool LoadDataStructures(const WCHAR*, int, int, int, int);
 
+public:
+	virtual void Update();
 
+protected:
+	void setPos(float ,float ,float);
+	void addPos(float ,float ,float);
+	void setRotate(char, float);
 
 private:
 	ID3D11Buffer *m_vertexBuffer;
@@ -99,6 +123,9 @@ private:
 
 	GROUP_TYPE m_ObjType;
 	ModelType* m_model;
+
+	Pos m_Pos;
+	XMMATRIX m_rotate;
 };
 
 #endif

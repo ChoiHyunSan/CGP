@@ -8,6 +8,7 @@
 #include  <assert.h>
 #include "inputclass.h"
 #include "SceneMgr.h"
+#include "Player.h"
 
 void Scene::render(D3DClass* D3D, float rotation)
 {
@@ -28,10 +29,16 @@ void Scene::render(D3DClass* D3D, float rotation)
 			D3D->GetWorldMatrix(worldMatrix);
 			D3D->GetProjectionMatrix(projectionMatrix);
 
-			// 여기서 2D 랜더링의 경우 ortho 메트릭스를 발동시킨다.
+			
+			// 뷰 메트릭스 조절
 
-			// Rotate the world matrix by the rotation value so that the triangle will spin.
-			worldMatrix = XMMatrixRotationY(rotation);
+
+			// 월드 메트릭스 조절
+			worldMatrix = 
+				m_arrModel[i][j]->getRotate() *
+				XMMatrixTranslation(m_arrModel[i][j]->getPos().x, m_arrModel[i][j]->getPos().y, m_arrModel[i][j]->getPos().z);
+
+			// 여기서 2D 랜더링의 경우 ortho 메트릭스를 발동시킨다.
 
 
 			// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
@@ -54,13 +61,21 @@ void Scene::update(D3DClass* D3D)
 	bool result;
 
 	// TODO : 오브젝트들을 업데이트 시킨다.
-	if (InputClass::GetInst()->IsKeyDown(VK_LEFT))
+	if (InputClass::GetInst()->IsKeyDown(VK_UP))
 	{
 		SceneMgr::GetInst()->setCurScene(SCENE_TYPE::START);
 	}
-	else if (InputClass::GetInst()->IsKeyDown(VK_RIGHT))
+	else if (InputClass::GetInst()->IsKeyDown(VK_DOWN))
 	{
 		SceneMgr::GetInst()->setCurScene(SCENE_TYPE::STAGE_01);
+	}
+
+	for (int i = 0; i < (UINT)GROUP_TYPE::END; i++)
+	{
+		for (int j = 0; j < m_arrModel[i].size(); i++)
+		{
+			m_arrModel[i][j]->Update();
+		}
 	}
 
 }
@@ -69,8 +84,9 @@ void Scene::AddObject(D3DClass* D3D, GROUP_TYPE _eType)
 {
 	if(_eType == GROUP_TYPE::DEFAULT)
 		m_Model = new ModelClass(D3D->GetDevice(), L"./data/cube.obj", L"./data/seafloor.dds");
+
 	if (_eType == GROUP_TYPE::PLAYER)
-		m_Model = new ModelClass(D3D->GetDevice(), L"./data/chair.obj", L"./data/chair_d.dds");
+		m_Model = new Player(D3D->GetDevice(), L"./data/chair.obj", L"./data/chair_d.dds");
 
 	m_arrModel[(UINT)_eType].push_back(m_Model);
 }

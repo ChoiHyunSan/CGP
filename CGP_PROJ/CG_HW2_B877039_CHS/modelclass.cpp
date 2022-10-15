@@ -39,7 +39,8 @@ ModelClass::ModelClass(ID3D11Device* device, const WCHAR* modelFilename, const W
 	m_normalCount(0),
 	m_model(0),
 	m_vertexCount(0),
-	m_instanceBuffer(0)
+	m_instanceBuffer(0),
+	m_rotate(XMMatrixRotationX(0))
 {
 	Initialize(device, modelFilename, textureFilename);
 }
@@ -595,4 +596,38 @@ bool ModelClass::LoadDataStructures(const WCHAR* filename, int vertexCount, int 
 	}
 
 	return true;
+}
+
+void ModelClass::Update()
+{
+}
+
+void ModelClass::setPos(float x, float y, float z)
+{
+	m_Pos.x = x;
+	m_Pos.y = y;
+	m_Pos.z = z;
+}
+
+void ModelClass::addPos(float x, float y, float z)
+{
+	m_Pos.x += x;
+	m_Pos.y += y;
+	m_Pos.z += z;
+}
+
+void ModelClass::setRotate(char dir,float rotation)
+{
+	switch (dir)
+	{
+	case 'x':
+		m_rotate = XMMatrixRotationX(rotation);
+		break;
+	case 'y':
+		m_rotate = XMMatrixRotationY(rotation);
+		break;
+	case'z':
+		m_rotate = XMMatrixRotationZ(rotation);
+		break;
+	}
 }

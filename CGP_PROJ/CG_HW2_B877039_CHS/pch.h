@@ -7,3 +7,6 @@
 
 using namespace std;
 using std::vector;
+
+#define BOXSCALE 1
+#define fDT TimeMgr::GetInst()->GetfDT()
