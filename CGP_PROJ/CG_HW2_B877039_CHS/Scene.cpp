@@ -35,8 +35,8 @@ void Scene::render(D3DClass* D3D, float rotation)
 
 			// 월드 메트릭스 조절
 			worldMatrix = 
-				m_arrModel[i][j]->getRotate() *
-				XMMatrixTranslation(m_arrModel[i][j]->getPos().x, m_arrModel[i][j]->getPos().y, m_arrModel[i][j]->getPos().z);
+				m_arrModel[i][j]->getRotate() * m_arrModel[i][j]->getScale() *
+				XMMatrixTranslation(m_arrModel[i][j]->getPos().x, m_arrModel[i][j]->getPos().y-2, m_arrModel[i][j]->getPos().z);
 
 			// 여기서 2D 랜더링의 경우 ortho 메트릭스를 발동시킨다.
 
@@ -86,7 +86,7 @@ void Scene::AddObject(D3DClass* D3D, GROUP_TYPE _eType)
 		m_Model = new ModelClass(D3D->GetDevice(), L"./data/cube.obj", L"./data/seafloor.dds");
 
 	if (_eType == GROUP_TYPE::PLAYER)
-		m_Model = new Player(D3D->GetDevice(), L"./data/chair.obj", L"./data/chair_d.dds");
+		m_Model = new Player(D3D->GetDevice(), L"./data/player1.obj", L"./data/player.dds");
 
 	m_arrModel[(UINT)_eType].push_back(m_Model);
 }

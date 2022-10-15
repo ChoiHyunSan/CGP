@@ -93,7 +93,7 @@ public:
 	GROUP_TYPE GetType();
 	Pos getPos() { return m_Pos; }
 	XMMATRIX getRotate() { return m_rotate; }
-
+	XMMATRIX getScale() { return m_scale; }
 private:
 	bool InitializeBuffers(ID3D11Device*);
 	void ShutdownBuffers();
@@ -112,6 +112,7 @@ protected:
 	void setPos(float ,float ,float);
 	void addPos(float ,float ,float);
 	void setRotate(char, float);
+	void setScale(float, float, float);
 
 private:
 	ID3D11Buffer *m_vertexBuffer;
@@ -126,6 +127,7 @@ private:
 
 	Pos m_Pos;
 	XMMATRIX m_rotate;
+	XMMATRIX m_scale;
 };
 
 #endif

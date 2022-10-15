@@ -189,5 +189,8 @@
     <Image Include="data\seafloor.dds">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="data\player.dds">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>

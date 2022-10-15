@@ -40,9 +40,14 @@ ModelClass::ModelClass(ID3D11Device* device, const WCHAR* modelFilename, const W
 	m_model(0),
 	m_vertexCount(0),
 	m_instanceBuffer(0),
-	m_rotate(XMMatrixRotationX(0))
+	m_rotate(XMMatrixRotationY(0.f)),
+	m_scale(XMMatrixScaling(1.f,1.f,1.f))
 {
 	Initialize(device, modelFilename, textureFilename);
+
+	m_Pos.x = 0.f;
+	m_Pos.y = 0.f;
+	m_Pos.z = 0.f;
 }
 
 
@@ -630,4 +635,9 @@ void ModelClass::setRotate(char dir,float rotation)
 		m_rotate = XMMatrixRotationZ(rotation);
 		break;
 	}
+}
+
+void ModelClass::setScale(float xScale, float yScale, float zScale)
+{
+	m_scale = XMMatrixScaling(xScale, yScale, zScale);
 }
