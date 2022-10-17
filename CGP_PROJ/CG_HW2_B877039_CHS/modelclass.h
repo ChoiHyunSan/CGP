@@ -94,6 +94,10 @@ public:
 	Pos getPos() { return m_Pos; }
 	XMMATRIX getRotate() { return m_rotate; }
 	XMMATRIX getScale() { return m_scale; }
+
+	void setInstatncePos(const vector<XMFLOAT3> instancePos) { m_instatncePos = instancePos; };
+	vector<XMFLOAT3> getInstancePos() { return m_instatncePos; }
+
 private:
 	bool InitializeBuffers(ID3D11Device*);
 	void ShutdownBuffers();
@@ -128,6 +132,8 @@ private:
 	Pos m_Pos;
 	XMMATRIX m_rotate;
 	XMMATRIX m_scale;
+
+	vector<XMFLOAT3> m_instatncePos;
 };
 
 #endif

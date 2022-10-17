@@ -12,7 +12,8 @@ ModelClass::ModelClass()
 	m_normalCount(0),
 	m_model(0),
 	m_vertexCount(0),
-	m_instanceBuffer(0)
+	m_instanceBuffer(0),
+	m_instatncePos(0)
 {
 
 }
@@ -48,6 +49,11 @@ ModelClass::ModelClass(ID3D11Device* device, const WCHAR* modelFilename, const W
 	m_Pos.x = 0.f;
 	m_Pos.y = 0.f;
 	m_Pos.z = 0.f;
+
+	vector<XMFLOAT3> modelPos;
+	modelPos.push_back(XMFLOAT3(0, 0, 0));
+
+	setInstatncePos(modelPos);
 }
 
 
@@ -118,17 +124,18 @@ ID3D11ShaderResourceView* ModelClass::GetTexture()
 bool ModelClass::InitializeBuffers(ID3D11Device* device)
 {
 	VertexType* vertices;
-    InstanceType* instances;
+	InstanceType* instances;
 	D3D11_BUFFER_DESC vertexBufferDesc, instanceBufferDesc;
-    D3D11_SUBRESOURCE_DATA vertexData, instanceData;
+	D3D11_SUBRESOURCE_DATA vertexData, instanceData;
 	HRESULT result;
 
 	// Create the vertex array.
 	vertices = new VertexType[m_vertexCount];
-	if(!vertices)
+	if (!vertices)
 	{
 		return false;
 	}
+
 
 	// Load the vertex array and index array with data.
 	for (int i = 0; i < m_vertexCount; i++)
@@ -139,70 +146,49 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device)
 	}
 
 	// Set up the description of the static vertex buffer.
-    vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-    vertexBufferDesc.ByteWidth = sizeof(VertexType) * m_vertexCount;
-    vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-    vertexBufferDesc.CPUAccessFlags = 0;
-    vertexBufferDesc.MiscFlags = 0;
+	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	vertexBufferDesc.ByteWidth = sizeof(VertexType) * m_vertexCount;
+	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	vertexBufferDesc.CPUAccessFlags = 0;
+	vertexBufferDesc.MiscFlags = 0;
 	vertexBufferDesc.StructureByteStride = 0;
 
 	// Give the subresource structure a pointer to the vertex data.
-    vertexData.pSysMem = vertices;
+	vertexData.pSysMem = vertices;
 	vertexData.SysMemPitch = 0;
 	vertexData.SysMemSlicePitch = 0;
 
 	// Now create the vertex buffer.
-    result = device->CreateBuffer(&vertexBufferDesc, &vertexData, &m_vertexBuffer);
-	if(FAILED(result))
-	{
-		return false;
-	}
-
-	// Release the arrays now that the vertex and index buffers have been created and loaded.
-	delete [] vertices;
-	vertices = 0;
-
-	// 인스턴스 수 설정
-	m_instanceCount = 1;
-
-	// 인스턴스 배열 생성
-	instances = new InstanceType[m_instanceCount];
-	if (!instances)
-	{
-		return false;
-	}
-
-	// 인스턴스 배열에 데이터를 넣습니다.
-	for (int i = 0; i < m_instanceCount; i++)
-	{
-		instances[i].position = XMFLOAT3(m_model[i].x, m_model[i].y, m_model[i].z);
-	}
-
-	// 인스턴스 버퍼의 디스크립션입니다.
-	instanceBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	instanceBufferDesc.ByteWidth = sizeof(InstanceType) * m_instanceCount;
-	instanceBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	instanceBufferDesc.CPUAccessFlags = 0;
-	instanceBufferDesc.MiscFlags = 0;
-	instanceBufferDesc.StructureByteStride = 0;
-
-	// 서브리소스 구조체에 인스턴스 데이터의 포인터를 설정합니다.
-	instanceData.pSysMem = instances;
-	instanceData.SysMemPitch = 0;
-	instanceData.SysMemSlicePitch = 0;
-
-	// 인스턴스 버퍼를 생성합니다.
-	result = device->CreateBuffer(&instanceBufferDesc, &instanceData, &m_instanceBuffer);
+	result = device->CreateBuffer(&vertexBufferDesc, &vertexData, &m_vertexBuffer);
 	if (FAILED(result))
 	{
 		return false;
 	}
 
-	// 인스턴스 버퍼가 생성되었으므로 인스턴스 배열의 할당을 해제합니다.
+	// Release the arrays now that the vertex and index buffers have been created and loaded.
+	delete[] vertices;
+	vertices = 0;
+
+	instances = new InstanceType[m_instatncePos.size()];
+	if (!instances) { return false; }
+	for (int i = 0; i < m_instatncePos.size(); i++)
+	{
+		instances[i].position = m_instatncePos.at(i);
+	}
+
+	instanceBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	instanceBufferDesc.ByteWidth = sizeof(InstanceType) * m_instatncePos.size();
+	instanceBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	instanceBufferDesc.CPUAccessFlags = 0;
+	instanceBufferDesc.MiscFlags = 0;
+	instanceBufferDesc.StructureByteStride = 0;
+
+	instanceData.pSysMem = instances; instanceData.SysMemPitch = 0;
+	instanceData.SysMemSlicePitch = 0; // 인스턴스 버퍼를 생성합니다. 
+	result = device->CreateBuffer(&instanceBufferDesc, &instanceData, &m_instanceBuffer);
+	if (FAILED(result)) { return false; } // 인스턴스 버퍼가 생성되었으므로 인스턴스 배열의 할당을 해제합니다. 
 	delete[] instances;
 	instances = 0;
-
-	return true;
 }
 
 

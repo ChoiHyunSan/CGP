@@ -31,11 +31,11 @@ void Scene::render(D3DClass* D3D, float rotation)
 
 			
 			// 뷰 메트릭스 조절
+			viewMatrix *= XMMatrixRotationX(-1.6f) * XMMatrixTranslation(0,-5,15);
 
-
-			// 월드 메트릭스 조절
-			worldMatrix = 
-				m_arrModel[i][j]->getRotate() * m_arrModel[i][j]->getScale() *
+			// 월드 메트릭스 조절 m_arrModel[i][j]->getRotate() 
+			worldMatrix =
+				XMMatrixRotationY(rotation) * m_arrModel[i][j]->getScale()*
 				XMMatrixTranslation(m_arrModel[i][j]->getPos().x, m_arrModel[i][j]->getPos().y-2, m_arrModel[i][j]->getPos().z);
 
 			// 여기서 2D 랜더링의 경우 ortho 메트릭스를 발동시킨다.
