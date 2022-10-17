@@ -12,8 +12,7 @@ ModelClass::ModelClass()
 	m_normalCount(0),
 	m_model(0),
 	m_vertexCount(0),
-	m_instanceBuffer(0),
-	m_instatncePos(0)
+	m_instanceBuffer(0)
 {
 
 }
@@ -32,7 +31,7 @@ ModelClass::ModelClass(const ModelClass& other)
 
 }
 
-ModelClass::ModelClass(ID3D11Device* device, const WCHAR* modelFilename, const WCHAR* textureFilename)
+ModelClass::ModelClass(ID3D11Device* device, GROUP_TYPE type)
 	:m_faceCount(0),
 	m_vertexBuffer(0),
 	m_Texture(0),
@@ -42,18 +41,15 @@ ModelClass::ModelClass(ID3D11Device* device, const WCHAR* modelFilename, const W
 	m_vertexCount(0),
 	m_instanceBuffer(0),
 	m_rotate(XMMatrixRotationY(0.f)),
-	m_scale(XMMatrixScaling(1.f,1.f,1.f))
+	m_scale(XMMatrixScaling(1.f,1.f,1.f)),
+	m_type(type)
 {
-	Initialize(device, modelFilename, textureFilename);
+
+	Initialize(device, type);
 
 	m_Pos.x = 0.f;
 	m_Pos.y = 0.f;
 	m_Pos.z = 0.f;
-
-	vector<XMFLOAT3> modelPos;
-	modelPos.push_back(XMFLOAT3(0, 0, 0));
-
-	setInstatncePos(modelPos);
 }
 
 
@@ -62,12 +58,15 @@ ModelClass::~ModelClass()
 }
 
 
-bool ModelClass::Initialize(ID3D11Device* device, const WCHAR* modelFilename, const WCHAR* textureFilename)
+bool ModelClass::Initialize(ID3D11Device* device, GROUP_TYPE type)
 {
 	bool result;
 
+	setInstPosInfo();
+	setFileInfo();
+
 	// Load in the model data,
-	result = LoadModel(modelFilename);
+	result = LoadModel(m_modelFilename);
 	if (!result)
 	{
 		return false;
@@ -81,7 +80,7 @@ bool ModelClass::Initialize(ID3D11Device* device, const WCHAR* modelFilename, co
 	}
 
 	// Load the texture for this model.
-	result = LoadTexture(device, textureFilename);
+	result = LoadTexture(device, m_textureFilename);
 	if(!result)
 	{
 		return false;
@@ -124,18 +123,17 @@ ID3D11ShaderResourceView* ModelClass::GetTexture()
 bool ModelClass::InitializeBuffers(ID3D11Device* device)
 {
 	VertexType* vertices;
-	InstanceType* instances;
+    InstanceType* instances;
 	D3D11_BUFFER_DESC vertexBufferDesc, instanceBufferDesc;
-	D3D11_SUBRESOURCE_DATA vertexData, instanceData;
+    D3D11_SUBRESOURCE_DATA vertexData, instanceData;
 	HRESULT result;
 
 	// Create the vertex array.
 	vertices = new VertexType[m_vertexCount];
-	if (!vertices)
+	if(!vertices)
 	{
 		return false;
 	}
-
 
 	// Load the vertex array and index array with data.
 	for (int i = 0; i < m_vertexCount; i++)
@@ -146,49 +144,70 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device)
 	}
 
 	// Set up the description of the static vertex buffer.
-	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	vertexBufferDesc.ByteWidth = sizeof(VertexType) * m_vertexCount;
-	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	vertexBufferDesc.CPUAccessFlags = 0;
-	vertexBufferDesc.MiscFlags = 0;
+    vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+    vertexBufferDesc.ByteWidth = sizeof(VertexType) * m_vertexCount;
+    vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+    vertexBufferDesc.CPUAccessFlags = 0;
+    vertexBufferDesc.MiscFlags = 0;
 	vertexBufferDesc.StructureByteStride = 0;
 
 	// Give the subresource structure a pointer to the vertex data.
-	vertexData.pSysMem = vertices;
+    vertexData.pSysMem = vertices;
 	vertexData.SysMemPitch = 0;
 	vertexData.SysMemSlicePitch = 0;
 
 	// Now create the vertex buffer.
-	result = device->CreateBuffer(&vertexBufferDesc, &vertexData, &m_vertexBuffer);
-	if (FAILED(result))
+    result = device->CreateBuffer(&vertexBufferDesc, &vertexData, &m_vertexBuffer);
+	if(FAILED(result))
 	{
 		return false;
 	}
 
 	// Release the arrays now that the vertex and index buffers have been created and loaded.
-	delete[] vertices;
+	delete [] vertices;
 	vertices = 0;
 
-	instances = new InstanceType[m_instatncePos.size()];
-	if (!instances) { return false; }
-	for (int i = 0; i < m_instatncePos.size(); i++)
+	// 인스턴스 수 설정
+	m_instanceCount = 1;
+
+	// 인스턴스 배열 생성
+	instances = new InstanceType[m_vInstancePos.size()];
+	if (!instances)
 	{
-		instances[i].position = m_instatncePos.at(i);
+		return false;
 	}
 
+	// 인스턴스 배열에 데이터를 넣습니다.
+	for (int i = 0; i < m_vInstancePos.size(); i++)
+	{
+		instances[i].position = m_vInstancePos[i];
+	}
+
+	// 인스턴스 버퍼의 디스크립션입니다.
 	instanceBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	instanceBufferDesc.ByteWidth = sizeof(InstanceType) * m_instatncePos.size();
+	instanceBufferDesc.ByteWidth = sizeof(InstanceType) * m_vInstancePos.size();
 	instanceBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	instanceBufferDesc.CPUAccessFlags = 0;
 	instanceBufferDesc.MiscFlags = 0;
 	instanceBufferDesc.StructureByteStride = 0;
 
-	instanceData.pSysMem = instances; instanceData.SysMemPitch = 0;
-	instanceData.SysMemSlicePitch = 0; // 인스턴스 버퍼를 생성합니다. 
+	// 서브리소스 구조체에 인스턴스 데이터의 포인터를 설정합니다.
+	instanceData.pSysMem = instances;
+	instanceData.SysMemPitch = 0;
+	instanceData.SysMemSlicePitch = 0;
+
+	// 인스턴스 버퍼를 생성합니다.
 	result = device->CreateBuffer(&instanceBufferDesc, &instanceData, &m_instanceBuffer);
-	if (FAILED(result)) { return false; } // 인스턴스 버퍼가 생성되었으므로 인스턴스 배열의 할당을 해제합니다. 
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	// 인스턴스 버퍼가 생성되었으므로 인스턴스 배열의 할당을 해제합니다.
 	delete[] instances;
 	instances = 0;
+
+	return true;
 }
 
 
@@ -300,7 +319,7 @@ int ModelClass::GetVertexCount()
 
 int ModelClass::GetInstanceCount()
 {
-	return m_instanceCount;
+	return m_vInstancePos.size();
 }
 
 GROUP_TYPE ModelClass::GetType()
@@ -589,6 +608,38 @@ bool ModelClass::LoadDataStructures(const WCHAR* filename, int vertexCount, int 
 	return true;
 }
 
+void ModelClass::setInstPosInfo()
+{
+	switch (m_type)
+	{
+	case GROUP_TYPE::DEFAULT:
+		m_vInstancePos.push_back(XMFLOAT3(-1, 0, 0));
+		m_vInstancePos.push_back(XMFLOAT3(0, 0, 0));
+		break;
+
+	case GROUP_TYPE::PLAYER:
+		m_vInstancePos.push_back(XMFLOAT3(1, 0, 0));
+		break;
+	}
+
+}
+
+void ModelClass::setFileInfo()
+{
+	switch (m_type)
+	{
+	case GROUP_TYPE::DEFAULT:
+		m_modelFilename = (WCHAR*)L"./data/cube.obj";
+		m_textureFilename = (WCHAR*)L"./data/seafloor.dds";
+		break;
+
+	case GROUP_TYPE::PLAYER:
+		m_modelFilename = (WCHAR*)L"./data/chair.obj";
+		m_textureFilename = (WCHAR*)L"./data/player.dds";
+		break;
+	}
+}
+
 void ModelClass::Update()
 {
 }
@@ -609,18 +660,21 @@ void ModelClass::addPos(float x, float y, float z)
 
 void ModelClass::setRotate(char dir,float rotation)
 {
+	// 초기 지정된 위치값만큼 원점으로 이동 후 회전 
+	m_rotate = XMMatrixTranslation(-1,0,0);
 	switch (dir)
 	{
 	case 'x':
-		m_rotate = XMMatrixRotationX(rotation);
+		m_rotate *= XMMatrixRotationX(rotation);
 		break;
 	case 'y':
-		m_rotate = XMMatrixRotationY(rotation);
+		m_rotate *= XMMatrixRotationY(rotation);
 		break;
 	case'z':
-		m_rotate = XMMatrixRotationZ(rotation);
+		m_rotate *= XMMatrixRotationZ(rotation);
 		break;
 	}
+	m_rotate *= XMMatrixTranslation(1, 0, 0);
 }
 
 void ModelClass::setScale(float xScale, float yScale, float zScale)

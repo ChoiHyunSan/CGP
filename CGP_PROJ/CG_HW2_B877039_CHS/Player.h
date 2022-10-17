@@ -6,7 +6,7 @@ class Player :
 
 
 public:
-    Player(ID3D11Device*, const WCHAR*, const WCHAR*);
+    Player(ID3D11Device*, GROUP_TYPE type);
     ~Player();
 
 public:

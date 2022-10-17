@@ -3,13 +3,10 @@
 #include "pch.h"
 #include "TimeMgr.h"
 
-Player::Player(ID3D11Device* device, const WCHAR* modelFilename, const WCHAR* textureFilename)
-	: ModelClass(device, modelFilename, textureFilename)
+Player::Player(ID3D11Device* device, GROUP_TYPE type)
+	: ModelClass(device, GROUP_TYPE::PLAYER)
 {
-	vector<XMFLOAT3> playerPos;
-	playerPos.push_back(XMFLOAT3(0, 0, 0));
-
-	setInstatncePos(playerPos);
+	setPos(1.f, 0.f, 0.f);
 }
 
 Player::~Player()
@@ -22,13 +19,13 @@ void Player::Update()
 {
 	if (InputClass::GetInst()->IsKeyDown(VK_LEFT))
 	{
-		//addPos(-1.0f * fDT, 0.0f, 0.0f);
 		setRotate('y', 3.141592f / 2);
+		addPos(-4.0f * fDT, 0.0f, 0.0f);
 	}
 	else if (InputClass::GetInst()->IsKeyDown(VK_RIGHT))
 	{
-		//addPos(1.0f * fDT, 0.0f, 0.0f);
-		setRotate('y', 3.141592f / 2 *3);
+		addPos(4.0f * fDT, 0.0f, 0.0f);
+		setRotate('y', 3.141592f / 2 * 3);
 	}
 }
 

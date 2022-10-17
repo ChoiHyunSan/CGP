@@ -1,1 +1,22 @@
+<<<<<<< HEAD
 ﻿  CG_light.vcxproj -> C:\Users\user\Desktop\CGP\CG_Project_B877039\Debug\CG_light.exe
+=======
+﻿  graphicsclass.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\최현산\Desktop\새 폴더 (2)\CG_Project - 복사본\CG_light\graphicsclass.cpp(380,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\새 폴더 (2)\CG_Project - 복사본\CG_light\graphicsclass.cpp(381,11): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\새 폴더 (2)\CG_Project - 복사본\CG_light\graphicsclass.cpp(388,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\새 폴더 (2)\CG_Project - 복사본\CG_light\graphicsclass.cpp(389,11): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\새 폴더 (2)\CG_Project - 복사본\CG_light\graphicsclass.cpp(399,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\새 폴더 (2)\CG_Project - 복사본\CG_light\graphicsclass.cpp(400,11): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\새 폴더 (2)\CG_Project - 복사본\CG_light\graphicsclass.cpp(410,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\새 폴더 (2)\CG_Project - 복사본\CG_light\graphicsclass.cpp(411,11): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\새 폴더 (2)\CG_Project - 복사본\CG_light\graphicsclass.cpp(435,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\새 폴더 (2)\CG_Project - 복사본\CG_light\graphicsclass.cpp(442,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\새 폴더 (2)\CG_Project - 복사본\CG_light\graphicsclass.cpp(452,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\새 폴더 (2)\CG_Project - 복사본\CG_light\graphicsclass.cpp(462,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\새 폴더 (2)\CG_Project - 복사본\CG_light\graphicsclass.cpp(484,27): warning C4101: 'modelPosition' :참조되지 않은 지역 변수입니다.
+C:\Users\최현산\Desktop\새 폴더 (2)\CG_Project - 복사본\CG_light\graphicsclass.cpp(485,9): warning C4101: 'angle' :참조되지 않은 지역 변수입니다.
+C:\Users\최현산\Desktop\새 폴더 (2)\CG_Project - 복사본\CG_light\graphicsclass.cpp(480,54): warning C4101: 'translateMatrix' :참조되지 않은 지역 변수입니다.
+  CG_light.vcxproj -> C:\Users\최현산\Desktop\새 폴더 (2)\CG_Project - 복사본\Debug\CG_light.exe
+>>>>>>> parent of a98ad0f (컴그 작업중)

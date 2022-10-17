@@ -75,11 +75,11 @@ private:
 public:
 	ModelClass();
 	ModelClass(const ModelClass&);
-	ModelClass(ID3D11Device*, const WCHAR*, const WCHAR*);
+	ModelClass(ID3D11Device*, GROUP_TYPE type);
 
 	virtual ~ModelClass();
 
-	bool Initialize(ID3D11Device*, const WCHAR*, const WCHAR*);
+	bool Initialize(ID3D11Device* , GROUP_TYPE type);
 	void Shutdown();
 	void Render(ID3D11DeviceContext*);
 
@@ -94,10 +94,6 @@ public:
 	Pos getPos() { return m_Pos; }
 	XMMATRIX getRotate() { return m_rotate; }
 	XMMATRIX getScale() { return m_scale; }
-
-	void setInstatncePos(const vector<XMFLOAT3> instancePos) { m_instatncePos = instancePos; };
-	vector<XMFLOAT3> getInstancePos() { return m_instatncePos; }
-
 private:
 	bool InitializeBuffers(ID3D11Device*);
 	void ShutdownBuffers();
@@ -109,6 +105,9 @@ private:
 	bool ReadFileCounts(const WCHAR*);
 	bool LoadDataStructures(const WCHAR*, int, int, int, int);
 
+	void setInstPosInfo();
+	void setFileInfo();
+
 public:
 	virtual void Update();
 
@@ -117,7 +116,7 @@ protected:
 	void addPos(float ,float ,float);
 	void setRotate(char, float);
 	void setScale(float, float, float);
-
+	Pos getPos()const { return m_Pos; }
 private:
 	ID3D11Buffer *m_vertexBuffer;
 	int m_vertexCount, m_textureCount, m_normalCount, m_faceCount;
@@ -133,7 +132,13 @@ private:
 	XMMATRIX m_rotate;
 	XMMATRIX m_scale;
 
-	vector<XMFLOAT3> m_instatncePos;
+	GROUP_TYPE m_type;
+	WCHAR* m_modelFilename;
+	WCHAR* m_textureFilename;
+
+protected:
+	vector<XMFLOAT3> m_vInstancePos;
+
 };
 
 #endif
