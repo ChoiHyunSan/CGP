@@ -22,8 +22,15 @@ void Scene::render(D3DClass* D3D, float rotation)
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoMatrix;
 	bool result;
 	// Clear the buffers to begin the scene.
-	D3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
+	D3D->BeginScene(163 / 255.0f, 230 / 255.0f, 163 / 255.0f, 1.0f);
 
+	// Generate the view matrix based on the camera's position.
+	m_Camera->Render();
+
+	// Get the world, view, and projection matrices from the camera and d3d objects.
+	m_Camera->GetViewMatrix(viewMatrix);
+	D3D->GetWorldMatrix(worldMatrix);
+	D3D->GetProjectionMatrix(projectionMatrix);
 
 	for (int i = 0; i< (UINT)GROUP_TYPE::END; i++)
 	{
@@ -62,6 +69,19 @@ void Scene::render(D3DClass* D3D, float rotation)
 			assert(result); 
 		}
 	}
+
+	m_Camera->GetViewMatrix(viewMatrix);
+	D3D->GetWorldMatrix(worldMatrix);
+	D3D->GetProjectionMatrix(projectionMatrix);
+	D3D->GetOrthoMatrix(orthoMatrix);
+	D3D->TurnZBufferOff();
+
+	result = m_Bitmap->Render(D3D->GetDeviceContext(), 0, 500);
+
+	m_TextureShader->Render(D3D->GetDeviceContext(), m_Bitmap->GetIndexCount(), 
+		worldMatrix, viewMatrix, orthoMatrix, m_Bitmap->GetTexture());
+
+	D3D->TurnZBufferOn();
 }
 
 void Scene::update(D3DClass* D3D)
@@ -111,7 +131,9 @@ Scene::Scene():
 	m_Model(0),
 	m_Camera(0),
 	m_Light(0),
-	m_LightShader(0)
+	m_LightShader(0),
+	m_Bitmap(0),
+	m_TextureShader(0)
 {
 
 }
@@ -143,6 +165,21 @@ Scene::~Scene()
 		m_LightShader->Shutdown();
 		delete m_LightShader;
 		m_LightShader = 0;
+	}
+	// Release the bitmap object.
+	if (m_Bitmap)
+	{
+		m_Bitmap->Shutdown();
+		delete m_Bitmap;
+		m_Bitmap = 0;
+	}
+
+	// Release the texture shader object.
+	if (m_TextureShader)
+	{
+		m_TextureShader->Shutdown();
+		delete m_TextureShader;
+		m_TextureShader = 0;
 	}
 
 	for (int i = 0; i < (UINT)GROUP_TYPE::END; i++)

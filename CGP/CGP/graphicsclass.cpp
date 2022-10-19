@@ -5,8 +5,8 @@
 #include "Scene.h"
 #include "SceneMgr.h"
 
-GraphicsClass::GraphicsClass()
-	: m_D3D(0)
+GraphicsClass::GraphicsClass(): 
+	m_D3D(0)
 {
 
 }
@@ -51,20 +51,6 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 
 void GraphicsClass::Shutdown()
 {
-	if (m_Bitmap)
-	{
-		m_Bitmap->Shutdown();
-		delete m_Bitmap;
-		m_Bitmap = 0;
-	}
-
-	// Release the texture shader object.
-	if (m_TextureShader)
-	{
-		m_TextureShader->Shutdown();
-		delete m_TextureShader;
-		m_TextureShader = 0;
-	}
 	if (m_D3D)
 	{
 		m_D3D->Shutdown();

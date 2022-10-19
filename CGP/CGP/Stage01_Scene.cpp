@@ -4,6 +4,9 @@
 #include "systemclass.h"
 #include "lightshaderclass.h"
 #include "lightclass.h"
+#include "textureshaderclass.h"
+#include "bitmapclass.h"
+#include "textureclass.h"
 
 Stage01_Scene::Stage01_Scene()
 {
@@ -50,7 +53,31 @@ void Stage01_Scene::init(D3DClass* D3D)
 
 		assert(result);
 	}
+	// Create the texture shader object.
+	if (m_TextureShader == nullptr)
+	{
+		m_TextureShader = new TextureShaderClass;
 
+		// Initialize the texture shader object.
+		result = m_TextureShader->Initialize(D3D->GetDevice(), SystemClass::GetInst()->GetHwnd());
+		if (!result)
+		{
+			MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the texture shader object.", L"Error", MB_OK);
+		}
+	}
+
+	// Create the bitmap object.
+	if (m_Bitmap == nullptr)
+	{
+		m_Bitmap = new BitmapClass;
+
+		// Initialize the bitmap object.
+		result = m_Bitmap->Initialize(D3D->GetDevice(), 800, 600, L"./data/chair_d.dds", 256, 256);
+		if (!result)
+		{
+			MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the bitmap object.", L"Error", MB_OK);
+		}
+	}
 	if (m_Camera == nullptr)
 	{
 		m_Camera = new CameraClass;

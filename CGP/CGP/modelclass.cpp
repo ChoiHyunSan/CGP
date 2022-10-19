@@ -642,7 +642,7 @@ void ModelClass::setFileInfo()
 	{
 	case GROUP_TYPE::DEFAULT:
 		m_modelFilename = (WCHAR*)L"./data/cube.obj";
-		m_textureFilename = (WCHAR*)L"./data/chair_d.dds";
+		m_textureFilename = (WCHAR*)L"./data/Block.dds";
 		break;
 
 	case GROUP_TYPE::PLAYER:

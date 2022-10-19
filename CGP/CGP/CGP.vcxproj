@@ -23,6 +23,7 @@
     <Image Include="data\chair_d.dds" />
     <Image Include="data\player.dds" />
     <Image Include="data\seafloor.dds" />
+    <Image Include="data\UI.dds" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\color.ps" />

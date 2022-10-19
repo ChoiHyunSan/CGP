@@ -22,6 +22,9 @@ protected:
 	LightClass*			m_Light;
 	LightShaderClass*	m_LightShader;
 
+	TextureShaderClass*	m_TextureShader;
+	BitmapClass*		m_Bitmap;
+
 public:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
 	const wstring& GetName() { return m_strName; }
