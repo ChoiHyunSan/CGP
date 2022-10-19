@@ -646,7 +646,7 @@ void ModelClass::setFileInfo()
 		break;
 
 	case GROUP_TYPE::PLAYER:
-		m_modelFilename = (WCHAR*)L"./data/Player.obj";
+		m_modelFilename = (WCHAR*)L"./data/player.obj";
 		m_textureFilename = (WCHAR*)L"./data/player.dds";
 		break;
 

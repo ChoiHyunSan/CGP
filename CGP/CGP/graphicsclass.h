@@ -15,6 +15,8 @@
 #include "lightclass.h"
 #include "pch.h"
 #include "Scene.h"
+#include "textureshaderclass.h"
+#include "bitmapclass.h"
 
 /////////////
 // GLOBALS //
@@ -39,13 +41,15 @@ public:
 	bool Frame();
 
 	D3DClass* GetD3D() const { return m_D3D; } 
-
+	BitmapClass* GtBitMap() const { return m_Bitmap; }
+	TextureShaderClass* GetTextureShader() const { return m_TextureShader; }
 private:
 	bool Render(float);
 
 private:
 	D3DClass* m_D3D;
-
+	BitmapClass* m_Bitmap;
+	TextureShaderClass* m_TextureShader;
 };
 
 #endif

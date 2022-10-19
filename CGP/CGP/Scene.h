@@ -1,7 +1,9 @@
 #pragma once
 #include "pch.h"
 #include "modelclass.h"
-
+#include "bitmapclass.h"
+#include "textureshaderclass.h"
+#include "textureclass.h"
 class ModelClass;
 class CameraClass;
 class LightClass;
@@ -20,8 +22,6 @@ protected:
 	LightClass*			m_Light;
 	LightShaderClass*	m_LightShader;
 
-
-
 public:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
 	const wstring& GetName() { return m_strName; }
@@ -32,6 +32,7 @@ public:
 	void update(D3DClass* D3D);
 
 	void AddObject(D3DClass* D3D, GROUP_TYPE _eType);
+	void ClearObjects(GROUP_TYPE _eType);
 
 	virtual void init(D3DClass* D3D) = 0;	// 해당 Scene 에 진입 시 호출
 	virtual void Exit() = 0;	// 해당 Scene 을 탈출 시 호출

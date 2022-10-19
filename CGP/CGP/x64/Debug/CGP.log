@@ -1,0 +1,5 @@
+﻿cl : 명령줄 warning D9014: '2665' 값이 '/wd'에 대해 잘못되었습니다. '5999'(으)로 가정합니다.
+  Scene.cpp
+C:\Users\user\Desktop\CGP\CGP\CGP\Scene.cpp(22,54): warning C4101: 'orthoMatrix' :참조되지 않은 지역 변수입니다.
+C:\Users\user\Desktop\CGP\CGP\CGP\Scene.cpp(69,7): warning C4101: 'result' :참조되지 않은 지역 변수입니다.
+  CGP.vcxproj -> C:\Users\user\Desktop\CGP\CGP\x64\Debug\CGP.exe

@@ -1,5 +1,8 @@
+#pragma once
 #include "Scene.h"
 #include "modelclass.h"
+#include "textureshaderclass.h"
+#include "bitmapclass.h"
 #include "lightshaderclass.h"
 #include "cameraclass.h"
 #include "lightclass.h"
@@ -9,13 +12,18 @@
 #include "inputclass.h"
 #include "SceneMgr.h"
 #include "Player.h"
+#include "Bomb.h"
+#include "bitmapclass.h"
+#include "textureshaderclass.h"
+#include "textureclass.h"
 
 void Scene::render(D3DClass* D3D, float rotation)
 {
-	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
-
+	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoMatrix;
+	bool result;
 	// Clear the buffers to begin the scene.
 	D3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
+
 
 	for (int i = 0; i< (UINT)GROUP_TYPE::END; i++)
 	{
@@ -45,7 +53,7 @@ void Scene::render(D3DClass* D3D, float rotation)
 			m_arrModel[i][j]->Render(D3D->GetDeviceContext());
 
 			// Render the model using the light shader.
-			bool result = m_LightShader->Render(D3D->GetDeviceContext(), m_arrModel[i][j]->GetVertexCount(), m_arrModel[i][j]->GetInstanceCount(),
+			result = m_LightShader->Render(D3D->GetDeviceContext(), m_arrModel[i][j]->GetVertexCount(), m_arrModel[i][j]->GetInstanceCount(),
 				worldMatrix, viewMatrix, projectionMatrix,
 				m_arrModel[i][j]->GetTexture(),
 				m_Light->GetDirection(), m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(),
@@ -89,12 +97,21 @@ void Scene::AddObject(D3DClass* D3D, GROUP_TYPE _eType)
 		m_Model = new Player(D3D->GetDevice(), GROUP_TYPE::PLAYER);
 
 	if (_eType == GROUP_TYPE::BOMB)
-		m_Model = new ModelClass(D3D->GetDevice(), GROUP_TYPE::BOMB);
+		m_Model = new Bomb(D3D->GetDevice(), GROUP_TYPE::BOMB);
 
 	m_arrModel[(UINT)_eType].push_back(m_Model);
 }
 
-Scene::Scene()
+void Scene::ClearObjects(GROUP_TYPE _eType)
+{
+	m_arrModel[(UINT)_eType].clear();
+}
+
+Scene::Scene():
+	m_Model(0),
+	m_Camera(0),
+	m_Light(0),
+	m_LightShader(0)
 {
 
 }

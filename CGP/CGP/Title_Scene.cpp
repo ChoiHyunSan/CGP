@@ -1,9 +1,13 @@
+#pragma once
 #include "Title_Scene.h"
 #include "modelclass.h"
 #include "d3dclass.h"
 #include "systemclass.h"
 #include "lightshaderclass.h"
 #include "lightclass.h"
+#include "textureshaderclass.h"
+#include "bitmapclass.h"
+#include "textureclass.h"
 
 Title_Scene::Title_Scene()
 {

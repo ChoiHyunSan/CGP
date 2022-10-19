@@ -58,6 +58,23 @@ void Stage01_Scene::init(D3DClass* D3D)
 		// Set the initial position of the camera.
 		m_Camera->SetPosition(0.0f, 0.0f, -5.0f);	// for cube
 	}
+
+	//// Create the texture shader object.
+	//m_TextureShader = new TextureShaderClass;
+
+	//// Initialize the texture shader object.
+	//result = m_TextureShader->Initialize(D3D->GetDevice(), SystemClass::GetInst()->GetHwnd());
+	//if (!result)
+	//{
+	//	MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the texture shader object.", L"Error", MB_OK);
+	//}
+
+	//// Create the bitmap object.
+	//m_Bitmap = new BitmapClass;
+
+	//// Initialize the bitmap object.
+	//result = m_Bitmap->Initialize(D3D->GetDevice(), 800, 600,
+	//	L"./data/chair_d.dds", 256, 256);
 }
 
 void Stage01_Scene::Exit()
