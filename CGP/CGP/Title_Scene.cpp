@@ -89,6 +89,23 @@ void Title_Scene::init(D3DClass* D3D)
 		// Set the initial position of the camera.
 		m_Camera->SetPosition(0.0f, 0.0f, -5.0f);	// for cube
 	}
+
+	// Create the text object.
+	if (m_Text == nullptr)
+	{
+		m_Camera->Render();
+		m_Camera->GetViewMatrix(m_baseViewMatrix);
+
+		m_Text = new TextClass;
+
+		// Initialize the text object.
+		result = m_Text->Initialize(D3D->GetDevice(), D3D->GetDeviceContext(), SystemClass::GetInst()->GetHwnd(), 800, 600, m_baseViewMatrix);
+		if (!result)
+		{
+			MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the text object.", L"Error", MB_OK);
+		}
+	}
+
 }
 
 void Title_Scene::Exit()

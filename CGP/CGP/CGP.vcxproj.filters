@@ -30,6 +30,9 @@
     <Image Include="data\UI.dds">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="data\font.dds">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\color.ps">
@@ -48,6 +51,12 @@
       <Filter>리소스 파일</Filter>
     </None>
     <None Include="data\texture.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\font.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\font.vs">
       <Filter>리소스 파일</Filter>
     </None>
   </ItemGroup>
@@ -124,6 +133,15 @@
     <ClInclude Include="bitmapclass.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="fontclass.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="fontshaderclass.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="textclass.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cameraclass.cpp">
@@ -187,6 +205,15 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="bitmapclass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="fontclass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="fontshaderclass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="textclass.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

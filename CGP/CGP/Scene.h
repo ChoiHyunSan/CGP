@@ -4,6 +4,8 @@
 #include "bitmapclass.h"
 #include "textureshaderclass.h"
 #include "textureclass.h"
+#include "textclass.h"
+
 class ModelClass;
 class CameraClass;
 class LightClass;
@@ -24,6 +26,7 @@ protected:
 
 	TextureShaderClass*	m_TextureShader;
 	BitmapClass*		m_Bitmap;
+	TextClass*			m_Text;
 
 public:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
@@ -45,7 +48,7 @@ public:
 	bool isModelArrEmpty(GROUP_TYPE type) { return m_arrModel[(UINT)type].size() == 0; }
 
 protected:
-
+	XMMATRIX m_baseViewMatrix;
 
 public:
 	Scene();

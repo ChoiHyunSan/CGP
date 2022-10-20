@@ -20,9 +20,11 @@
 void Scene::render(D3DClass* D3D, float rotation)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoMatrix;
+
 	bool result;
 	// Clear the buffers to begin the scene.
-	D3D->BeginScene(163 / 255.0f, 230 / 255.0f, 163 / 255.0f, 1.0f);
+	//D3D->BeginScene(163 / 255.0f, 230 / 255.0f, 163 / 255.0f, 1.0f);
+	D3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
 
 	// Generate the view matrix based on the camera's position.
 	m_Camera->Render();
@@ -44,7 +46,6 @@ void Scene::render(D3DClass* D3D, float rotation)
 			D3D->GetWorldMatrix(worldMatrix);
 			D3D->GetProjectionMatrix(projectionMatrix);
 
-			
 			// 뷰 메트릭스 조절
 			viewMatrix *= XMMatrixRotationX(-0.8f) * XMMatrixTranslation(0,-8,20);
 
@@ -71,6 +72,7 @@ void Scene::render(D3DClass* D3D, float rotation)
 	}
 
 	m_Camera->GetViewMatrix(viewMatrix);
+
 	D3D->GetWorldMatrix(worldMatrix);
 	D3D->GetProjectionMatrix(projectionMatrix);
 	D3D->GetOrthoMatrix(orthoMatrix);
@@ -80,6 +82,18 @@ void Scene::render(D3DClass* D3D, float rotation)
 
 	m_TextureShader->Render(D3D->GetDeviceContext(), m_Bitmap->GetIndexCount(), 
 		worldMatrix, viewMatrix, orthoMatrix, m_Bitmap->GetTexture());
+
+	D3D->GetWorldMatrix(worldMatrix);
+	D3D->GetProjectionMatrix(projectionMatrix);
+	D3D->GetOrthoMatrix(orthoMatrix);
+	// Initialize a base view matrix with the camera for 2D user interface rendering.
+	//m_Camera->SetPosition(0.0f, 0.0f, -1.0f);
+
+	D3D->TurnOnAlphaBlending();
+
+	result = m_Text->Render(D3D->GetDeviceContext(), worldMatrix, orthoMatrix);
+	
+	D3D->TurnOffAlphaBlending();
 
 	D3D->TurnZBufferOn();
 }
@@ -133,7 +147,8 @@ Scene::Scene():
 	m_Light(0),
 	m_LightShader(0),
 	m_Bitmap(0),
-	m_TextureShader(0)
+	m_TextureShader(0),
+	m_Text(0)
 {
 
 }
@@ -180,6 +195,14 @@ Scene::~Scene()
 		m_TextureShader->Shutdown();
 		delete m_TextureShader;
 		m_TextureShader = 0;
+	}
+
+	// Release the text object.
+	if (m_Text)
+	{
+		m_Text->Shutdown();
+		delete m_Text;
+		m_Text = 0;
 	}
 
 	for (int i = 0; i < (UINT)GROUP_TYPE::END; i++)

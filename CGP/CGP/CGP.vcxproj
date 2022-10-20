@@ -21,6 +21,7 @@
   <ItemGroup>
     <Image Include="data\bomb.dds" />
     <Image Include="data\chair_d.dds" />
+    <Image Include="data\font.dds" />
     <Image Include="data\player.dds" />
     <Image Include="data\seafloor.dds" />
     <Image Include="data\UI.dds" />
@@ -28,6 +29,8 @@
   <ItemGroup>
     <None Include="data\color.ps" />
     <None Include="data\color.vs" />
+    <None Include="data\font.ps" />
+    <None Include="data\font.vs" />
     <None Include="data\light.ps" />
     <None Include="data\light.vs" />
     <None Include="data\texture.ps" />
@@ -42,6 +45,8 @@
     <ClInclude Include="d3dclass.h" />
     <ClInclude Include="DDSTextureLoader.h" />
     <ClInclude Include="define.h" />
+    <ClInclude Include="fontclass.h" />
+    <ClInclude Include="fontshaderclass.h" />
     <ClInclude Include="graphicsclass.h" />
     <ClInclude Include="inputclass.h" />
     <ClInclude Include="lightclass.h" />
@@ -54,6 +59,7 @@
     <ClInclude Include="Stage01_Scene.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="systemclass.h" />
+    <ClInclude Include="textclass.h" />
     <ClInclude Include="textureclass.h" />
     <ClInclude Include="textureshaderclass.h" />
     <ClInclude Include="TimeMgr.h" />
@@ -66,6 +72,8 @@
     <ClCompile Include="colorshaderclass.cpp" />
     <ClCompile Include="d3dclass.cpp" />
     <ClCompile Include="DDSTextureLoader.cpp" />
+    <ClCompile Include="fontclass.cpp" />
+    <ClCompile Include="fontshaderclass.cpp" />
     <ClCompile Include="graphicsclass.cpp" />
     <ClCompile Include="inputclass.cpp" />
     <ClCompile Include="lightclass.cpp" />
@@ -77,6 +85,7 @@
     <ClCompile Include="SceneMgr.cpp" />
     <ClCompile Include="Stage01_Scene.cpp" />
     <ClCompile Include="systemclass.cpp" />
+    <ClCompile Include="textclass.cpp" />
     <ClCompile Include="textureclass.cpp" />
     <ClCompile Include="textureshaderclass.cpp" />
     <ClCompile Include="TimeMgr.cpp" />
