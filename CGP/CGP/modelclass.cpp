@@ -633,6 +633,9 @@ void ModelClass::setInstPosInfo()
 		m_vInstancePos.push_back(XMFLOAT3(tempPos.x + 1, tempPos.y + 1 , tempPos.z));
 		break;
 
+	case GROUP_TYPE::ENEMY:
+		m_vInstancePos.push_back(XMFLOAT3(1, 1, 0));
+		break;
 }
 	}
 
@@ -652,6 +655,11 @@ void ModelClass::setFileInfo()
 
 	case GROUP_TYPE::BOMB:
 		m_modelFilename = (WCHAR*)L"./data/bomb.obj";
+		m_textureFilename = (WCHAR*)L"./data/bomb.dds";
+		break;
+
+	case GROUP_TYPE::ENEMY:
+		m_modelFilename = (WCHAR*)L"./data/player.obj";
 		m_textureFilename = (WCHAR*)L"./data/bomb.dds";
 		break;
 	}

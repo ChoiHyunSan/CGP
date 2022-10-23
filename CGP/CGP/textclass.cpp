@@ -2,15 +2,19 @@
 // Filename: textclass.cpp
 ///////////////////////////////////////////////////////////////////////////////
 #include "textclass.h"
-
+#include "graphicsclass.h"
+#include "d3dclass.h"
+#include <string>
+#include "GameMgr.h"
+using namespace std;
 
 TextClass::TextClass()
 {
 	m_Font = 0;
 	m_FontShader = 0;
 
-	m_sentence1 = 0;
-	m_sentence2 = 0;
+	m_playTime = 0;
+	m_playerLife = 0;
 }
 
 
@@ -68,28 +72,28 @@ bool TextClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceCont
 	}
 
 	// Initialize the first sentence.
-	result = InitializeSentence(&m_sentence1, 16, device);
+	result = InitializeSentence(&m_playTime, 16, device);
 	if(!result)
 	{
 		return false;
 	}
 
 	// Now update the sentence vertex buffer with the new string information.
-	result = UpdateSentence(m_sentence1, "Hello", 100, 100, 1.0f, 1.0f, 1.0f, deviceContext);
+	result = UpdateSentence(m_playTime, "Hello", 100, 100, 1.0f, 1.0f, 1.0f, deviceContext);
 	if(!result)
 	{
 		return false;
 	}
 
 	// Initialize the first sentence.
-	result = InitializeSentence(&m_sentence2, 16, device);
+	result = InitializeSentence(&m_playerLife, 16, device);
 	if(!result)
 	{
 		return false;
 	}
 
 	// Now update the sentence vertex buffer with the new string information.
-	result = UpdateSentence(m_sentence2, "Goodbye", 100, 200, 1.0f, 1.0f, 0.0f, deviceContext);
+	result = UpdateSentence(m_playerLife, "Goodbye", 100, 200, 1.0f, 1.0f, 0.0f, deviceContext);
 	if(!result)
 	{
 		return false;
@@ -102,10 +106,10 @@ bool TextClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceCont
 void TextClass::Shutdown()
 {
 	// Release the first sentence.
-	ReleaseSentence(&m_sentence1);
+	ReleaseSentence(&m_playTime);
 
 	// Release the second sentence.
-	ReleaseSentence(&m_sentence2);
+	ReleaseSentence(&m_playerLife);
 
 	// Release the font shader object.
 	if(m_FontShader)
@@ -133,20 +137,40 @@ bool TextClass::Render(ID3D11DeviceContext* deviceContext, XMMATRIX worldMatrix,
 
 
 	// Draw the first sentence.
-	result = RenderSentence(deviceContext, m_sentence1, worldMatrix, orthoMatrix);
+	result = RenderSentence(deviceContext, m_playTime, worldMatrix, orthoMatrix);
 	if(!result)
 	{
 		return false;
 	}
 
 	// Draw the second sentence.
-	result = RenderSentence(deviceContext, m_sentence2, worldMatrix, orthoMatrix);
+	result = RenderSentence(deviceContext, m_playerLife, worldMatrix, orthoMatrix);
 	if(!result)
 	{
 		return false;
 	}
 
 	return true;
+}
+
+void TextClass::update()
+{
+	ID3D11DeviceContext* deviceContext = GraphicsClass::GetInst()->GetD3D()->GetDeviceContext();
+
+	// GameMgr 정보를 const char* 형식으로 변환
+	string s_playTime = to_string(GameMgr::GetInst()->getPlayTime());
+	string s_playerLife = to_string(GameMgr::GetInst()->getPlayerLife());
+
+	const char* temp_playerTime = s_playTime.c_str();
+	const char* temp_playerLife = s_playerLife.c_str();
+
+
+	// 정보를 업데이트
+	UpdateSentence(m_playTime, temp_playerTime, 200, 200, 1.0f, 1.0f, 1.0f, deviceContext);
+	UpdateSentence(m_playerLife, temp_playerLife, 100, 100, 1.0f, 1.0f, 1.0f, deviceContext);
+	//UpdateSentence(m_playTime, "Hello", 100, 100, 1.0f, 1.0f, 1.0f, deviceContext);
+	//UpdateSentence(m_playTime, "Hello", 100, 100, 1.0f, 1.0f, 1.0f, deviceContext);
+
 }
 
 

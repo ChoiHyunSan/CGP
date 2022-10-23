@@ -15,6 +15,7 @@ enum class GROUP_TYPE
 	PLAYER,  // 1
 	MISSILE, // 2
 	MONSTER, // 3
+	ENEMY,
 	BOMB,
 
 

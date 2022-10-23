@@ -16,7 +16,8 @@
 #include "bitmapclass.h"
 #include "textureshaderclass.h"
 #include "textureclass.h"
-
+#include "GameMgr.h"
+#include "Enemy.h"
 void Scene::render(D3DClass* D3D, float rotation)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoMatrix;
@@ -86,8 +87,6 @@ void Scene::render(D3DClass* D3D, float rotation)
 	D3D->GetWorldMatrix(worldMatrix);
 	D3D->GetProjectionMatrix(projectionMatrix);
 	D3D->GetOrthoMatrix(orthoMatrix);
-	// Initialize a base view matrix with the camera for 2D user interface rendering.
-	//m_Camera->SetPosition(0.0f, 0.0f, -1.0f);
 
 	D3D->TurnOnAlphaBlending();
 
@@ -111,6 +110,8 @@ void Scene::update(D3DClass* D3D)
 	{
 		SceneMgr::GetInst()->setCurScene(SCENE_TYPE::STAGE_01);
 	}
+	GameMgr::GetInst()->update();
+	m_Text->update();
 
 	for (int i = 0; i < (UINT)GROUP_TYPE::END; i++)
 	{
@@ -132,6 +133,9 @@ void Scene::AddObject(D3DClass* D3D, GROUP_TYPE _eType)
 
 	if (_eType == GROUP_TYPE::BOMB)
 		m_Model = new Bomb(D3D->GetDevice(), GROUP_TYPE::BOMB);
+
+	if (_eType == GROUP_TYPE::ENEMY)
+		m_Model = new Enemy(D3D->GetDevice(), GROUP_TYPE::ENEMY);
 
 	m_arrModel[(UINT)_eType].push_back(m_Model);
 }

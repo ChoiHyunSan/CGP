@@ -38,6 +38,10 @@ public:
 	bool Initialize(ID3D11Device*, ID3D11DeviceContext*, HWND, int, int, XMMATRIX);
 	void Shutdown();
 	bool Render(ID3D11DeviceContext*, XMMATRIX, XMMATRIX);
+	void update();
+
+public:
+
 
 private:
 	bool InitializeSentence(SentenceType**, int, ID3D11Device*);
@@ -50,8 +54,10 @@ private:
 	FontShaderClass* m_FontShader;
 	int m_screenWidth, m_screenHeight;
 	XMMATRIX m_baseViewMatrix;
-	SentenceType* m_sentence1;
-	SentenceType* m_sentence2;
+
+	// 게임 매니저로부터 정보값을 받아와서 띄울 폰트 선언
+	SentenceType* m_playTime;
+	SentenceType* m_playerLife;
 };
 
 #endif
