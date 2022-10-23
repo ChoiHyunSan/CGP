@@ -19,9 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="data\alpha01.dds" />
     <Image Include="data\bomb.dds" />
     <Image Include="data\chair_d.dds" />
+    <Image Include="data\fire01.dds" />
     <Image Include="data\font.dds" />
+    <Image Include="data\noise01.dds" />
     <Image Include="data\player.dds" />
     <Image Include="data\seafloor.dds" />
     <Image Include="data\UI.dds" />
@@ -29,6 +32,8 @@
   <ItemGroup>
     <None Include="data\color.ps" />
     <None Include="data\color.vs" />
+    <None Include="data\fire.ps" />
+    <None Include="data\fire.vs" />
     <None Include="data\font.ps" />
     <None Include="data\font.vs" />
     <None Include="data\light.ps" />
@@ -45,7 +50,10 @@
     <ClInclude Include="d3dclass.h" />
     <ClInclude Include="DDSTextureLoader.h" />
     <ClInclude Include="define.h" />
+    <ClInclude Include="EffectClass.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Fire.h" />
+    <ClInclude Include="fireshaderclass.h" />
     <ClInclude Include="fontclass.h" />
     <ClInclude Include="fontshaderclass.h" />
     <ClInclude Include="GameMgr.h" />
@@ -74,7 +82,10 @@
     <ClCompile Include="colorshaderclass.cpp" />
     <ClCompile Include="d3dclass.cpp" />
     <ClCompile Include="DDSTextureLoader.cpp" />
+    <ClCompile Include="EffectClass.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Fire.cpp" />
+    <ClCompile Include="fireshaderclass.cpp" />
     <ClCompile Include="fontclass.cpp" />
     <ClCompile Include="fontshaderclass.cpp" />
     <ClCompile Include="GameMgr.cpp" />
@@ -94,6 +105,9 @@
     <ClCompile Include="textureshaderclass.cpp" />
     <ClCompile Include="TimeMgr.cpp" />
     <ClCompile Include="Title_Scene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data\square.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

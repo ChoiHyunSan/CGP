@@ -9,7 +9,7 @@
 ModelClass::ModelClass()
 	:m_faceCount(0),
 	m_vertexBuffer(0),
-	m_Texture(0),
+	m_Texture1(0),
 	m_textureCount(0),
 	m_normalCount(0),
 	m_model(0),
@@ -23,7 +23,7 @@ ModelClass::ModelClass()
 ModelClass::ModelClass(const ModelClass& other)
 	:m_faceCount(0),
 	m_vertexBuffer(0),
-	m_Texture(0),
+	m_Texture1(0),
 	m_textureCount(0),
 	m_normalCount(0),
 	m_model(0),
@@ -36,7 +36,7 @@ ModelClass::ModelClass(const ModelClass& other)
 ModelClass::ModelClass(ID3D11Device* device, GROUP_TYPE type)
 	:m_faceCount(0),
 	m_vertexBuffer(0),
-	m_Texture(0),
+	m_Texture1(0),
 	m_textureCount(0),
 	m_normalCount(0),
 	m_model(0),
@@ -44,7 +44,8 @@ ModelClass::ModelClass(ID3D11Device* device, GROUP_TYPE type)
 	m_instanceBuffer(0),
 	m_rotate(XMMatrixRotationY(0.f)),
 	m_scale(XMMatrixScaling(1.f,1.f,1.f)),
-	m_type(type)
+	m_type(type),
+	m_textureFilename1(0)
 {
 
 	Initialize(device, type);
@@ -82,7 +83,7 @@ bool ModelClass::Initialize(ID3D11Device* device, GROUP_TYPE type)
 	}
 
 	// Load the texture for this model.
-	result = LoadTexture(device, m_textureFilename);
+	result = LoadTexture(device, m_textureFilename1);
 	if(!result)
 	{
 		return false;
@@ -118,7 +119,7 @@ void ModelClass::Render(ID3D11DeviceContext* deviceContext)
 
 ID3D11ShaderResourceView* ModelClass::GetTexture()
 {
-	return m_Texture->GetTexture();
+	return m_Texture1->GetTexture();
 }
 
 
@@ -266,14 +267,14 @@ bool ModelClass::LoadTexture(ID3D11Device* device, const WCHAR* filename)
 
 
 	// Create the texture object.
-	m_Texture = new TextureClass;
-	if(!m_Texture)
+	m_Texture1 = new TextureClass;
+	if(!m_Texture1)
 	{
 		return false;
 	}
 
 	// Initialize the texture object.
-	result = m_Texture->Initialize(device, filename);
+	result = m_Texture1->Initialize(device, filename);
 	if(!result)
 	{
 		return false;
@@ -286,11 +287,11 @@ bool ModelClass::LoadTexture(ID3D11Device* device, const WCHAR* filename)
 void ModelClass::ReleaseTexture()
 {
 	// Release the texture object.
-	if(m_Texture)
+	if(m_Texture1)
 	{
-		m_Texture->Shutdown();
-		delete m_Texture;
-		m_Texture = 0;
+		m_Texture1->Shutdown();
+		delete m_Texture1;
+		m_Texture1 = 0;
 	}
 
 	return;
@@ -645,24 +646,30 @@ void ModelClass::setFileInfo()
 	{
 	case GROUP_TYPE::DEFAULT:
 		m_modelFilename = (WCHAR*)L"./data/cube.obj";
-		m_textureFilename = (WCHAR*)L"./data/Block.dds";
+		m_textureFilename1 = (WCHAR*)L"./data/Block.dds";
 		break;
 
 	case GROUP_TYPE::PLAYER:
 		m_modelFilename = (WCHAR*)L"./data/player.obj";
-		m_textureFilename = (WCHAR*)L"./data/player.dds";
+		m_textureFilename1 = (WCHAR*)L"./data/player.dds";
 		break;
 
 	case GROUP_TYPE::BOMB:
 		m_modelFilename = (WCHAR*)L"./data/bomb.obj";
-		m_textureFilename = (WCHAR*)L"./data/bomb.dds";
+		m_textureFilename1 = (WCHAR*)L"./data/bomb.dds";
 		break;
 
 	case GROUP_TYPE::ENEMY:
 		m_modelFilename = (WCHAR*)L"./data/player.obj";
-		m_textureFilename = (WCHAR*)L"./data/bomb.dds";
+		m_textureFilename1 = (WCHAR*)L"./data/bomb.dds";
+		break;
+
+	case GROUP_TYPE::FIRE:
+		m_modelFilename = (WCHAR*)L"./data/player.obj";
+		m_textureFilename1 = (WCHAR*)L"./data/fire01.dds";
 		break;
 	}
+	
 }
 
 void ModelClass::Update()

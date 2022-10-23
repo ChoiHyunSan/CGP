@@ -17,6 +17,7 @@ enum class GROUP_TYPE
 	MONSTER, // 3
 	ENEMY,
 	BOMB,
+	FIRE,
 
 
 	END = 32,
@@ -24,6 +25,12 @@ enum class GROUP_TYPE
 };
 
 
+enum class EFFECT_TYPE
+{
+	FIRE,
+	FOG,
+	END,
+};
 
 enum class SCENE_TYPE
 {

@@ -5,12 +5,15 @@
 #include "textureshaderclass.h"
 #include "textureclass.h"
 #include "textclass.h"
+#include "EffectClass.h"
+#include "fireshaderclass.h"
 
 class ModelClass;
 class CameraClass;
 class LightClass;
 class LightShaderClass;
 class D3DClass;
+class EffectClass;
 
 class Scene
 {
@@ -20,9 +23,12 @@ private:
 
 protected:
 	ModelClass*			m_Model;
+	EffectClass*		m_Effect;
+
 	CameraClass*		m_Camera;
 	LightClass*			m_Light;
 	LightShaderClass*	m_LightShader;
+	FireShaderClass*	m_FireShader;
 
 	TextureShaderClass*	m_TextureShader;
 	BitmapClass*		m_Bitmap;

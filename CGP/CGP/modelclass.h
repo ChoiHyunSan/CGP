@@ -112,7 +112,7 @@ protected:
 private:
 	ID3D11Buffer *m_vertexBuffer;
 	int m_vertexCount, m_textureCount, m_normalCount, m_faceCount;
-	TextureClass* m_Texture;
+	TextureClass* m_Texture1;
 
 	ID3D11Buffer * m_instanceBuffer;
 	int m_instanceCount;
@@ -126,7 +126,7 @@ private:
 
 	GROUP_TYPE m_type;
 	WCHAR* m_modelFilename;
-	WCHAR* m_textureFilename;
+	WCHAR* m_textureFilename1;
 
 protected:
 	vector<XMFLOAT3> m_vInstancePos;

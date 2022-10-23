@@ -107,6 +107,30 @@ void Title_Scene::init(D3DClass* D3D)
 		}
 	}
 
+	if (m_Effect == nullptr)
+	{
+		m_Effect = new EffectClass;
+
+		result = m_Effect->Initialize(D3D->GetDevice(), L"./data/square.txt", L"./data/fire01.dds",
+			L"./data/noise01.dds", L"./data/alpha01.dds");
+		if (!result)
+		{
+			MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the model object.", L"Error", MB_OK);
+		}
+	}
+
+	if (m_FireShader == nullptr)
+	{
+		m_FireShader = new FireShaderClass;
+
+		// ºÒ²É ¼ÎÀÌ´õ °´Ã¼¸¦ ÃÊ±âÈ­ÇÕ´Ï´Ù.
+		result = m_FireShader->Initialize(D3D->GetDevice(), SystemClass::GetInst()->GetHwnd());
+		if (!result)
+		{
+			MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the fire shader object.", L"Error", MB_OK);
+		}
+	}
+
 }
 
 void Title_Scene::Exit()

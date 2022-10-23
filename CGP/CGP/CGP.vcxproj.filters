@@ -29,6 +29,15 @@
     <Image Include="data\font.dds">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="data\fire01.dds">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="data\noise01.dds">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="data\alpha01.dds">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\color.ps">
@@ -53,6 +62,12 @@
       <Filter>리소스 파일</Filter>
     </None>
     <None Include="data\font.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\fire.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\fire.vs">
       <Filter>리소스 파일</Filter>
     </None>
   </ItemGroup>
@@ -141,7 +156,18 @@
     <ClInclude Include="GameMgr.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Enemy.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="fireshaderclass.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Fire.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectClass.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cameraclass.cpp">
@@ -222,5 +248,19 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="fireshaderclass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Fire.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectClass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data\square.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
   </ItemGroup>
 </Project>

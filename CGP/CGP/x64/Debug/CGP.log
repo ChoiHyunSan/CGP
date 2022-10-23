@@ -1,4 +1,4 @@
 ﻿cl : 명령줄 warning D9014: '2665' 값이 '/wd'에 대해 잘못되었습니다. '5999'(으)로 가정합니다.
   Scene.cpp
-C:\Users\chsan\OneDrive\문서\GitHub\CGP\CGP\CGP\Scene.cpp(102,7): warning C4101: 'result' :참조되지 않은 지역 변수입니다.
-  CGP.vcxproj -> C:\Users\chsan\OneDrive\문서\GitHub\CGP\CGP\x64\Debug\CGP.exe
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\Scene.cpp(153,7): warning C4101: 'result' :참조되지 않은 지역 변수입니다.
+  CGP.vcxproj -> C:\Users\최현산\Desktop\Study\CGP\CGP\x64\Debug\CGP.exe

@@ -18,9 +18,18 @@
 #include "textureclass.h"
 #include "GameMgr.h"
 #include "Enemy.h"
+#include "EffectClass.h"
+#include "fireshaderclass.h"
+
 void Scene::render(D3DClass* D3D, float rotation)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoMatrix;
+	
+	// effet를 위한 변수 선언
+	XMFLOAT3 scrollSpeeds, scales;
+	XMFLOAT2 distortion1, distortion2, distortion3;
+	float distortionScale, distortionBias;
+	static float frameTime = 0.0f;
 
 	bool result;
 	// Clear the buffers to begin the scene.
@@ -95,6 +104,48 @@ void Scene::render(D3DClass* D3D, float rotation)
 	D3D->TurnOffAlphaBlending();
 
 	D3D->TurnZBufferOn();
+
+	// frameTime 카운터를 증가시킵니다.
+	frameTime += 0.01f;
+	if (frameTime > 1000.0f)
+	{
+		frameTime = 0.0f;
+	}
+	// 세 노이즈 텍스쳐의 스크롤 속도를 설정합니다.
+	scrollSpeeds = XMFLOAT3(1.3f, 2.1f, 2.3f);
+
+	// 세 크기값을 사용하여 세 가지의 다른 노이즈 옥타브 텍스쳐를 만듭니다.
+	scales = XMFLOAT3(1.0f, 2.0f, 3.0f);
+
+	// 세 노이즈 텍스쳐의 서로 다른 세 개의 x, y 왜곡 인자를 설정합니다.
+	distortion1 = XMFLOAT2(0.1f, 0.2f);
+	distortion2 = XMFLOAT2(0.1f, 0.3f);
+	distortion3 = XMFLOAT2(0.1f, 0.1f);
+
+	// 텍스쳐 샘플링 좌표의 교란을 위한 크기 및 바이어스 값입니다.
+	distortionScale = 0.8f;
+	distortionBias = 0.5f;
+
+	// 카메라의 위치에 기반하여 뷰 행렬을 생성합니다.
+	m_Camera->Render();
+
+	// 카메라와 d3d객체에서 월드, 뷰, 투영 행렬을 가져옵니다.
+	D3D->GetWorldMatrix(worldMatrix);
+	m_Camera->GetViewMatrix(viewMatrix);
+	D3D->GetProjectionMatrix(projectionMatrix);
+
+	D3D->TurnOnAlphaBlending();
+
+	m_Effect->Render(D3D->GetDeviceContext());
+
+	// 불꽃 셰이더를 이용하여 사각형 모델을 그립니다.
+	result = m_FireShader->Render(D3D->GetDeviceContext(), m_Effect->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
+		m_Effect->GetTexture1(), m_Effect->GetTexture2(), m_Effect->GetTexture3(), frameTime, scrollSpeeds,
+		scales, distortion1, distortion2, distortion3, distortionScale, distortionBias);
+
+	// 알파 블렌딩을 끕니다.
+	D3D->TurnOffAlphaBlending();
+
 }
 
 void Scene::update(D3DClass* D3D)
@@ -152,7 +203,9 @@ Scene::Scene():
 	m_LightShader(0),
 	m_Bitmap(0),
 	m_TextureShader(0),
-	m_Text(0)
+	m_Text(0),
+	m_Effect(0),
+	m_FireShader(0)
 {
 
 }
@@ -199,6 +252,22 @@ Scene::~Scene()
 		m_TextureShader->Shutdown();
 		delete m_TextureShader;
 		m_TextureShader = 0;
+	}
+
+	// Release the Effect object.
+	if (m_Effect)
+	{
+		m_Effect->Shutdown();
+		delete m_Effect;
+		m_Effect = 0;
+	}
+
+	// Release the fire shader object.
+	if (m_FireShader)
+	{
+		m_FireShader->Shutdown();
+		delete m_FireShader;
+		m_FireShader = 0;
 	}
 
 	// Release the text object.
