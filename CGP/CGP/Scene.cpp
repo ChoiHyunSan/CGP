@@ -58,7 +58,7 @@ void Scene::render(D3DClass* D3D, float rotation)
 			D3D->GetProjectionMatrix(projectionMatrix);
 
 			// 뷰 메트릭스 조절
-			viewMatrix *= XMMatrixRotationX(-0.8f) * XMMatrixTranslation(0,-8,20);
+			viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0,-8,20);
 
 			// 월드 메트릭스 조절
 			worldMatrix = 
@@ -138,8 +138,8 @@ void Scene::render(D3DClass* D3D, float rotation)
 	D3D->TurnOnAlphaBlending();
 
 	m_Effect->Render(D3D->GetDeviceContext());
-
-	worldMatrix *= XMMatrixRotationY(3.14 / 4) * XMMatrixTranslation(0,0,0) * XMMatrixScaling(0.08f,0.08f,0.08f);
+	viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0, -8, 20);
+	worldMatrix *= XMMatrixRotationX(0) * XMMatrixTranslation(-5,-1,0) * XMMatrixScaling(1.0f,1.0f,1.0f);
 
 	// 불꽃 셰이더를 이용하여 사각형 모델을 그립니다.
 	result = m_FireShader->Render(D3D->GetDeviceContext(), m_Effect->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
@@ -147,7 +147,7 @@ void Scene::render(D3DClass* D3D, float rotation)
 		scales, distortion1, distortion2, distortion3, distortionScale, distortionBias);
 
 	D3D->GetWorldMatrix(worldMatrix);
-	worldMatrix *=  XMMatrixRotationY(-3.14 / 4) * XMMatrixTranslation(0, 0, 0) * XMMatrixScaling(0.08f, 0.08f, 0.08f);
+	worldMatrix *=  XMMatrixRotationX(3.14/2) * XMMatrixTranslation(0.0f, -2.9f, 0) * XMMatrixScaling(0.5f, 0.5f, 0.5f);
 
 	result = m_FireShader->Render(D3D->GetDeviceContext(), m_Effect->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
 		m_Effect->GetTexture1(), m_Effect->GetTexture2(), m_Effect->GetTexture3(), frameTime, scrollSpeeds,

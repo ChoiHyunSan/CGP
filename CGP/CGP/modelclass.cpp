@@ -627,16 +627,16 @@ void ModelClass::setInstPosInfo()
 		break;
 
 	case GROUP_TYPE::PLAYER:
-		m_vInstancePos.push_back(XMFLOAT3(1, 1, 0));
+		m_vInstancePos.push_back(XMFLOAT3(1, 0.5, 0));
 		break;
 
 	case GROUP_TYPE::BOMB:
 		Pos tempPos = SceneMgr::GetInst()->getCureScene()->getPlayerPos();
-		m_vInstancePos.push_back(XMFLOAT3(tempPos.x + 1, tempPos.y + 1 , tempPos.z));
+		m_vInstancePos.push_back(XMFLOAT3(tempPos.x + 1, tempPos.y +0.5f , tempPos.z));
 		break;
 
 	case GROUP_TYPE::ENEMY:
-		m_vInstancePos.push_back(XMFLOAT3(1, 1, 0));
+		m_vInstancePos.push_back(XMFLOAT3(0, -0.5f, 0));
 		break;
 }
 	}
