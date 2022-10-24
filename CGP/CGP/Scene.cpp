@@ -53,6 +53,7 @@ void Scene::render(D3DClass* D3D, float rotation)
 
 			// Get the world, view, and projection matrices from the camera and d3d objects.
 			m_Camera->GetViewMatrix(viewMatrix);
+
 			D3D->GetWorldMatrix(worldMatrix);
 			D3D->GetProjectionMatrix(projectionMatrix);
 
@@ -138,7 +139,16 @@ void Scene::render(D3DClass* D3D, float rotation)
 
 	m_Effect->Render(D3D->GetDeviceContext());
 
+	worldMatrix *= XMMatrixRotationY(3.14 / 4) * XMMatrixTranslation(0,0,0) * XMMatrixScaling(0.08f,0.08f,0.08f);
+
 	// 불꽃 셰이더를 이용하여 사각형 모델을 그립니다.
+	result = m_FireShader->Render(D3D->GetDeviceContext(), m_Effect->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
+		m_Effect->GetTexture1(), m_Effect->GetTexture2(), m_Effect->GetTexture3(), frameTime, scrollSpeeds,
+		scales, distortion1, distortion2, distortion3, distortionScale, distortionBias);
+
+	D3D->GetWorldMatrix(worldMatrix);
+	worldMatrix *=  XMMatrixRotationY(-3.14 / 4) * XMMatrixTranslation(0, 0, 0) * XMMatrixScaling(0.08f, 0.08f, 0.08f);
+
 	result = m_FireShader->Render(D3D->GetDeviceContext(), m_Effect->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
 		m_Effect->GetTexture1(), m_Effect->GetTexture2(), m_Effect->GetTexture3(), frameTime, scrollSpeeds,
 		scales, distortion1, distortion2, distortion3, distortionScale, distortionBias);

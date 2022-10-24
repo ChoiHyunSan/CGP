@@ -616,6 +616,7 @@ void ModelClass::setInstPosInfo()
 	switch (m_type)
 	{
 	case GROUP_TYPE::DEFAULT:
+		// 맵 생성을 다른 방식으로 제작해야함 (인스턴싱 사용 안할 계획)
 		for (int i = 0; i < MAPSIZE; i++)
 		{
 			for (int j = 0; j < MAPSIZE; j++)
