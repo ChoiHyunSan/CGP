@@ -8,7 +8,7 @@
 Player::Player(ID3D11Device* device, GROUP_TYPE type)
 	: ModelClass(device, GROUP_TYPE::PLAYER)
 {
-	setPos(1.f, 0.f, 0.f);
+	setPos(0.f, 0.f, 0.f);
 }
 
 Player::~Player()

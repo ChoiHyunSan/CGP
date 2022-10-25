@@ -14,6 +14,8 @@ Bomb::Bomb(ID3D11Device* device, GROUP_TYPE type)
 
 Bomb::~Bomb()
 {
+	// 사라짐과 동시에 본인 위치 포함 가로세로로 각각 PlayerPower만큼 Fire Effect생성
+
 
 }
 

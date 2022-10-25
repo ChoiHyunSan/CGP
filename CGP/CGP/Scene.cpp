@@ -139,7 +139,9 @@ void Scene::render(D3DClass* D3D, float rotation)
 
 	m_Effect->Render(D3D->GetDeviceContext());
 	viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0, -8, 20);
-	worldMatrix *= XMMatrixRotationX(0) * XMMatrixTranslation(-5,-1,0) * XMMatrixScaling(1.0f,1.0f,1.0f);
+	// 한 칸당 (2,2)의 크기로 이동한다. (ex. (2,1) -> (4,2)) 
+	// 폭탄 생성 시 폭탄이 있던 위치를 기준으로 불을 생성할때 참고
+	worldMatrix *= XMMatrixRotationX(3.141592 / 2) * XMMatrixTranslation(0.0f, -2.9f, 2.0f) * XMMatrixScaling(0.5f, 0.5f, 0.5f);
 
 	// 불꽃 셰이더를 이용하여 사각형 모델을 그립니다.
 	result = m_FireShader->Render(D3D->GetDeviceContext(), m_Effect->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
@@ -147,7 +149,7 @@ void Scene::render(D3DClass* D3D, float rotation)
 		scales, distortion1, distortion2, distortion3, distortionScale, distortionBias);
 
 	D3D->GetWorldMatrix(worldMatrix);
-	worldMatrix *=  XMMatrixRotationX(3.14/2) * XMMatrixTranslation(0.0f, -2.9f, 0) * XMMatrixScaling(0.5f, 0.5f, 0.5f);
+	worldMatrix *=  XMMatrixRotationX(3.141592 / 2) * XMMatrixTranslation(4.0f, -2.9f, 2.0f) * XMMatrixScaling(0.5f, 0.5f, 0.5f);
 
 	result = m_FireShader->Render(D3D->GetDeviceContext(), m_Effect->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
 		m_Effect->GetTexture1(), m_Effect->GetTexture2(), m_Effect->GetTexture3(), frameTime, scrollSpeeds,

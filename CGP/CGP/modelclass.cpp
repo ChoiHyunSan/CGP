@@ -627,12 +627,12 @@ void ModelClass::setInstPosInfo()
 		break;
 
 	case GROUP_TYPE::PLAYER:
-		m_vInstancePos.push_back(XMFLOAT3(1, 0.5, 0));
+		m_vInstancePos.push_back(XMFLOAT3(0, 0.5, 0));
 		break;
 
 	case GROUP_TYPE::BOMB:
 		Pos tempPos = SceneMgr::GetInst()->getCureScene()->getPlayerPos();
-		m_vInstancePos.push_back(XMFLOAT3(tempPos.x + 1, tempPos.y +0.5f , tempPos.z));
+		m_vInstancePos.push_back(XMFLOAT3(tempPos.x, tempPos.y +0.5f , tempPos.z));
 		break;
 
 	case GROUP_TYPE::ENEMY:
@@ -694,7 +694,7 @@ void ModelClass::addPos(float x, float y, float z)
 void ModelClass::setRotate(char dir,float rotation)
 {
 	// 초기 지정된 위치값만큼 원점으로 이동 후 회전 
-	m_rotate = XMMatrixTranslation(-1,0,0);
+	m_rotate = XMMatrixTranslation(0,0,0);
 	switch (dir)
 	{
 	case 'x':
@@ -707,7 +707,7 @@ void ModelClass::setRotate(char dir,float rotation)
 		m_rotate *= XMMatrixRotationZ(rotation);
 		break;
 	}
-	m_rotate *= XMMatrixTranslation(1, 0, 0);
+	m_rotate *= XMMatrixTranslation(0, 0, 0);
 }
 
 void ModelClass::setScale(float xScale, float yScale, float zScale)

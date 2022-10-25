@@ -18,7 +18,7 @@ private:
 	int		m_score;
 	int		m_playTime;
 	int		m_playerLife;
-
+	int		m_playerPower;
 
 };
 
