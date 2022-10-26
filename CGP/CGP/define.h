@@ -29,7 +29,10 @@ enum class EFFECT_TYPE
 {
 	FIRE,
 	FOG,
-	END,
+
+
+
+	END = 32
 };
 
 enum class SCENE_TYPE

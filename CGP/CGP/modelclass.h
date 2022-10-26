@@ -83,7 +83,8 @@ public:
 	int GetVertexCount();
 	int GetInstanceCount();
 	GROUP_TYPE GetType();
-	Pos getPos() { return m_Pos; }
+	Pos getPos() const{ return m_Pos; }
+
 	XMMATRIX getRotate() { return m_rotate; }
 	XMMATRIX getScale() { return m_scale; }
 private:
@@ -108,7 +109,7 @@ protected:
 	void addPos(float ,float ,float);
 	void setRotate(char, float);
 	void setScale(float, float, float);
-	Pos getPos()const { return m_Pos; }
+
 private:
 	ID3D11Buffer *m_vertexBuffer;
 	int m_vertexCount, m_textureCount, m_normalCount, m_faceCount;

@@ -2,20 +2,22 @@
 // Filename: modelclass.cpp
 ////////////////////////////////////////////////////////////////////////////////
 #include "EffectClass.h"
+#include "SceneMgr.h"
+#include "Scene.h"
 
-
-void EffectClass::update()
+void EffectClass::Update()
 {
 }
 
-EffectClass::EffectClass(ID3D11Device* device, EFFECT_TYPE _type):
+EffectClass::EffectClass(ID3D11Device* device, EFFECT_TYPE _type, Pos pos):
 	m_type(_type),
 	m_vertexBuffer(0),
 	m_indexBuffer(0),
 	m_Texture1(0),
 	m_Texture2(0),
 	m_Texture3(0),
-	m_model(0)
+	m_model(0),
+	m_pos(pos)
 {
 	Initialize(device);
 }
@@ -23,6 +25,7 @@ EffectClass::EffectClass(ID3D11Device* device, EFFECT_TYPE _type):
 
 EffectClass::EffectClass(const EffectClass& other)
 {
+
 }
 
 
@@ -393,6 +396,8 @@ void EffectClass::setFileInfo()
 		m_textureFilename1 = (WCHAR*)L"./data/fire01.dds";
 		m_textureFilename2 = (WCHAR*)L"./data/noise01.dds";
 		m_textureFilename3 = (WCHAR*)L"./data/alpha01.dds";
+
+		m_pos = m_pos + Pos(0.f, 2.9f, 0.f);
 		break;
 	}
 }

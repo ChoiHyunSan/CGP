@@ -1,3 +1,55 @@
-﻿cl : 명령줄 warning D9014: '2665' 값이 '/wd'에 대해 잘못되었습니다. '5999'(으)로 가정합니다.
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppClean.targets(77,5): warning : 'c:\users\user\desktop\cgp\cgp\x64\debug\cgp.pdb' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+cl : 명령줄 warning D9014: '2665' 값이 '/wd'에 대해 잘못되었습니다. '5999'(으)로 가정합니다.
+  bitmapclass.cpp
+  Bomb.cpp
+C:\Users\user\Desktop\CGP\CGP\CGP\Bomb.cpp(27,124): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\user\Desktop\CGP\CGP\CGP\Bomb.cpp(28,123): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\user\Desktop\CGP\CGP\CGP\Bomb.cpp(31,126): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\user\Desktop\CGP\CGP\CGP\Bomb.cpp(32,125): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  cameraclass.cpp
+  colorshaderclass.cpp
+C:\Users\user\Desktop\CGP\CGP\CGP\colorshaderclass.cpp(251,42): warning C4244: '=': 'SIZE_T'에서 'unsigned long'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  d3dclass.cpp
+C:\Users\user\Desktop\CGP\CGP\CGP\d3dclass.cpp(44,6): warning C4101: 'error' :참조되지 않은 지역 변수입니다.
+C:\Users\user\Desktop\CGP\CGP\CGP\d3dclass.cpp(41,52): warning C4101: 'stringLength' :참조되지 않은 지역 변수입니다.
+  DDSTextureLoader.cpp
   EffectClass.cpp
-  CGP.vcxproj -> C:\Users\chsan\OneDrive\문서\GitHub\CGP\CGP\x64\Debug\CGP.exe
+  Enemy.cpp
+  Fire.cpp
+  fireshaderclass.cpp
+C:\Users\user\Desktop\CGP\CGP\CGP\fireshaderclass.cpp(356,42): warning C4244: '=': 'SIZE_T'에서 'unsigned long'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  fontclass.cpp
+  fontshaderclass.cpp
+C:\Users\user\Desktop\CGP\CGP\CGP\fontshaderclass.cpp(297,42): warning C4244: '=': 'SIZE_T'에서 'unsigned long'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  GameMgr.cpp
+  graphicsclass.cpp
+  inputclass.cpp
+  lightclass.cpp
+  lightshaderclass.cpp
+C:\Users\user\Desktop\CGP\CGP\CGP\lightshaderclass.cpp(336,42): warning C4244: '=': 'SIZE_T'에서 'unsigned long'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  main.cpp
+  modelclass.cpp
+C:\Users\user\Desktop\CGP\CGP\CGP\modelclass.cpp(191,77): warning C4267: '=': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\user\Desktop\CGP\CGP\CGP\modelclass.cpp(325,30): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\user\Desktop\CGP\CGP\CGP\modelclass.cpp(624,57): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\user\Desktop\CGP\CGP\CGP\modelclass.cpp(624,40): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Player.cpp
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  Scene.cpp
+C:\Users\user\Desktop\CGP\CGP\CGP\Scene.cpp(62,40): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+C:\Users\user\Desktop\CGP\CGP\CGP\Scene.cpp(146,40): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+C:\Users\user\Desktop\CGP\CGP\CGP\Scene.cpp(147,49): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+C:\Users\user\Desktop\CGP\CGP\CGP\Scene.cpp(179,7): warning C4101: 'result' :참조되지 않은 지역 변수입니다.
+  SceneMgr.cpp
+  Stage01_Scene.cpp
+  systemclass.cpp
+C:\Users\user\Desktop\CGP\CGP\CGP\systemclass.cpp(30,7): warning C4101: 'result' :참조되지 않은 지역 변수입니다.
+  textclass.cpp
+  textureclass.cpp
+  textureshaderclass.cpp
+C:\Users\user\Desktop\CGP\CGP\CGP\textureshaderclass.cpp(281,42): warning C4244: '=': 'SIZE_T'에서 'unsigned long'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  TimeMgr.cpp
+  Title_Scene.cpp
+  코드를 생성하고 있습니다...
+  CGP.vcxproj -> C:\Users\user\Desktop\CGP\CGP\x64\Debug\CGP.exe

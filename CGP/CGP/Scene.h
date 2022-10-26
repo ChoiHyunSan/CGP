@@ -54,6 +54,7 @@ public:
 	virtual void Exit() = 0;	// 해당 Scene 을 탈출 시 호출
 
 	Pos getPlayerPos() { return m_arrModel[(UINT)GROUP_TYPE::PLAYER][0]->getPos() ; }
+	Pos getBombPos() { return m_arrModel[(UINT)GROUP_TYPE::BOMB][0]->getPos() ; }
 
 	bool isModelArrEmpty(GROUP_TYPE type) { return m_arrModel[(UINT)type].size() == 0; }
 

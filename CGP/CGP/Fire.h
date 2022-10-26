@@ -8,10 +8,10 @@ class Fire :
     float timer;
 
 public:
-    virtual void update();
+    virtual void Update();
 
 public:
-    Fire(ID3D11Device* device);
+    Fire(ID3D11Device* device, Pos pos);
     ~Fire();
 };
 

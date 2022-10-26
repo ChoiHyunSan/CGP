@@ -45,14 +45,11 @@ ModelClass::ModelClass(ID3D11Device* device, GROUP_TYPE type)
 	m_rotate(XMMatrixRotationY(0.f)),
 	m_scale(XMMatrixScaling(1.f,1.f,1.f)),
 	m_type(type),
-	m_textureFilename1(0)
+	m_textureFilename1(0),
+	m_Pos()
 {
 
 	Initialize(device, type);
-
-	m_Pos.x = 0.f;
-	m_Pos.y = 0.f;
-	m_Pos.z = 0.f;
 }
 
 
@@ -631,10 +628,11 @@ void ModelClass::setInstPosInfo()
 		break;
 
 	case GROUP_TYPE::BOMB:
-		Pos tempPos = SceneMgr::GetInst()->getCureScene()->getPlayerPos();
-		m_vInstancePos.push_back(XMFLOAT3(tempPos.x, tempPos.y +0.5f , tempPos.z));
+	{
+		m_Pos = SceneMgr::GetInst()->getCureScene()->getPlayerPos();
+		m_vInstancePos.push_back(XMFLOAT3(0.f, 0.5f, 0.f));
 		break;
-
+	}
 	case GROUP_TYPE::ENEMY:
 		m_vInstancePos.push_back(XMFLOAT3(0, -0.5f, 0));
 		break;
@@ -663,11 +661,6 @@ void ModelClass::setFileInfo()
 	case GROUP_TYPE::ENEMY:
 		m_modelFilename = (WCHAR*)L"./data/player.obj";
 		m_textureFilename1 = (WCHAR*)L"./data/bomb.dds";
-		break;
-
-	case GROUP_TYPE::FIRE:
-		m_modelFilename = (WCHAR*)L"./data/player.obj";
-		m_textureFilename1 = (WCHAR*)L"./data/fire01.dds";
 		break;
 	}
 	

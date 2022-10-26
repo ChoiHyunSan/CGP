@@ -39,10 +39,10 @@ private:
 	};
 
 public:
-	virtual void update();
+	virtual void Update();
 
 public:
-	EffectClass(ID3D11Device* device, EFFECT_TYPE _eType);
+	EffectClass(ID3D11Device* device, EFFECT_TYPE _eType, Pos pos);
 	EffectClass(const EffectClass&);
 	~EffectClass();
 
@@ -51,7 +51,7 @@ public:
 	void Render(ID3D11DeviceContext*);
 
 	int GetIndexCount();
-
+	Pos getPos()const { return m_pos; }
 	ID3D11ShaderResourceView* GetTexture1();
 	ID3D11ShaderResourceView* GetTexture2();
 	ID3D11ShaderResourceView* GetTexture3();

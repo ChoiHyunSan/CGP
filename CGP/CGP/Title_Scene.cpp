@@ -29,7 +29,7 @@ void Title_Scene::init(D3DClass* D3D)
 	AddObject(D3D, GROUP_TYPE::DEFAULT);
 	AddObject(D3D, GROUP_TYPE::PLAYER);
 	AddObject(D3D, GROUP_TYPE::ENEMY);
-	AddEffect(D3D, EFFECT_TYPE::FIRE);
+
 	// 라이트 효과 추가
 	if (m_Light == nullptr)
 	{

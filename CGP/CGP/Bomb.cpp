@@ -5,6 +5,8 @@
 #include "SceneMgr.h"
 #include "Scene.h"
 #include "GameMgr.h"
+#include "graphicsclass.h"
+
 Bomb::Bomb(ID3D11Device* device)
 	: ModelClass(device, GROUP_TYPE::BOMB),
 	timer(0.0f)
@@ -14,8 +16,6 @@ Bomb::Bomb(ID3D11Device* device)
 
 Bomb::~Bomb()
 {
-	// 사라짐과 동시에 본인 위치 포함 가로세로로 각각 PlayerPower만큼 Fire Effect생성
-	int power = GameMgr::GetInst()->Get
 
 }
 
@@ -27,6 +27,24 @@ void Bomb::Update()
 	}
 	else
 	{
+		// 사라짐과 동시에 본인 위치 포함 가로세로로 각각 PlayerPower만큼 Fire Effect생성
+		int power = GameMgr::GetInst()->getPlayerPower();
+
+		// 폭탄 위치 생성
+		SceneMgr::GetInst()->getCureScene()->AddEffect(GraphicsClass::GetInst()->GetD3D(), EFFECT_TYPE::FIRE, getPos());
+
+		for (int i = 0; i < power; ++i)
+		{
+			// 폭탄 좌우 생성
+			SceneMgr::GetInst()->getCureScene()->AddEffect(GraphicsClass::GetInst()->GetD3D(), EFFECT_TYPE::FIRE, getPos() + Pos((i + 1), 0, 0));
+			SceneMgr::GetInst()->getCureScene()->AddEffect(GraphicsClass::GetInst()->GetD3D(), EFFECT_TYPE::FIRE, getPos() + Pos(-(i + 1), 0, 0));
+
+			// 폭탄 상하 생성
+			SceneMgr::GetInst()->getCureScene()->AddEffect(GraphicsClass::GetInst()->GetD3D(), EFFECT_TYPE::FIRE, getPos() + Pos(0,0,  (i + 1)));
+			SceneMgr::GetInst()->getCureScene()->AddEffect(GraphicsClass::GetInst()->GetD3D(), EFFECT_TYPE::FIRE, getPos() + Pos(0, 0 , -(i + 1)));
+		}
+		OutputDebugStringA("Fire");
+
 		SceneMgr::GetInst()->getCureScene()->ClearObjects(GROUP_TYPE::BOMB);
 	}
 }
