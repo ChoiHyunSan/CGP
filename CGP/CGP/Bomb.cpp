@@ -4,8 +4,8 @@
 #include "TimeMgr.h"
 #include "SceneMgr.h"
 #include "Scene.h"
-
-Bomb::Bomb(ID3D11Device* device, GROUP_TYPE type)
+#include "GameMgr.h"
+Bomb::Bomb(ID3D11Device* device)
 	: ModelClass(device, GROUP_TYPE::BOMB),
 	timer(0.0f)
 {
@@ -15,7 +15,7 @@ Bomb::Bomb(ID3D11Device* device, GROUP_TYPE type)
 Bomb::~Bomb()
 {
 	// 사라짐과 동시에 본인 위치 포함 가로세로로 각각 PlayerPower만큼 Fire Effect생성
-
+	int power = GameMgr::GetInst()->Get
 
 }
 

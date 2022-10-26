@@ -9,7 +9,7 @@ public:
     void Update();
 
 public:
-    Enemy(ID3D11Device* device, GROUP_TYPE type);
+    Enemy(ID3D11Device* device);
     ~Enemy();
 };
 

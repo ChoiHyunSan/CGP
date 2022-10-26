@@ -20,6 +20,7 @@
 #include "Enemy.h"
 #include "EffectClass.h"
 #include "fireshaderclass.h"
+#include "Fire.h"
 
 void Scene::render(D3DClass* D3D, float rotation)
 {
@@ -127,33 +128,46 @@ void Scene::render(D3DClass* D3D, float rotation)
 	distortionScale = 0.8f;
 	distortionBias = 0.5f;
 
-	// 카메라의 위치에 기반하여 뷰 행렬을 생성합니다.
-	m_Camera->Render();
-
-	// 카메라와 d3d객체에서 월드, 뷰, 투영 행렬을 가져옵니다.
-	D3D->GetWorldMatrix(worldMatrix);
-	m_Camera->GetViewMatrix(viewMatrix);
-	D3D->GetProjectionMatrix(projectionMatrix);
-
 	D3D->TurnOnAlphaBlending();
 
-	m_Effect->Render(D3D->GetDeviceContext());
-	viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0, -8, 20);
-	// 한 칸당 (2,2)의 크기로 이동한다. (ex. (2,1) -> (4,2)) 
-	// 폭탄 생성 시 폭탄이 있던 위치를 기준으로 불을 생성할때 참고
-	worldMatrix *= XMMatrixRotationX(3.141592 / 2) * XMMatrixTranslation(0.0f, -2.9f, 2.0f) * XMMatrixScaling(0.5f, 0.5f, 0.5f);
+	for (int i = 0; i < (UINT)EFFECT_TYPE::END; ++i)
+	{
+		for (int j = 0; j < m_arrEffect[i].size(); ++j)
+		{
+			// 카메라의 위치에 기반하여 뷰 행렬을 생성합니다.
+			m_Camera->Render();
+			
+			// 카메라와 d3d객체에서 월드, 뷰, 투영 행렬을 가져옵니다.
+			D3D->GetWorldMatrix(worldMatrix);
+			m_Camera->GetViewMatrix(viewMatrix);
+			D3D->GetProjectionMatrix(projectionMatrix);
 
-	// 불꽃 셰이더를 이용하여 사각형 모델을 그립니다.
-	result = m_FireShader->Render(D3D->GetDeviceContext(), m_Effect->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
-		m_Effect->GetTexture1(), m_Effect->GetTexture2(), m_Effect->GetTexture3(), frameTime, scrollSpeeds,
-		scales, distortion1, distortion2, distortion3, distortionScale, distortionBias);
+			m_Effect->Render(D3D->GetDeviceContext());
+			viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0, -8, 20);
+			worldMatrix *= XMMatrixRotationX(3.141592 / 2) * XMMatrixTranslation(0.0f, -2.9f, 2.0f) * XMMatrixScaling(0.5f, 0.5f, 0.5f);
 
-	D3D->GetWorldMatrix(worldMatrix);
-	worldMatrix *=  XMMatrixRotationX(3.141592 / 2) * XMMatrixTranslation(4.0f, -2.9f, 2.0f) * XMMatrixScaling(0.5f, 0.5f, 0.5f);
+			result = m_FireShader->Render(D3D->GetDeviceContext(), m_arrEffect[i][j]->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
+				m_arrEffect[i][j]->GetTexture1(), m_arrEffect[i][j]->GetTexture2(), m_arrEffect[i][j]->GetTexture3(), frameTime, scrollSpeeds,
+				scales, distortion1, distortion2, distortion3, distortionScale, distortionBias);
+		}
+	}
+	//m_Effect->Render(D3D->GetDeviceContext());
+	//viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0, -8, 20);
+	//// 한 칸당 (2,2)의 크기로 이동한다. (ex. (2,1) -> (4,2)) 
+	//// 폭탄 생성 시 폭탄이 있던 위치를 기준으로 불을 생성할때 참고
+	//worldMatrix *= XMMatrixRotationX(3.141592 / 2) * XMMatrixTranslation(0.0f, -2.9f, 2.0f) * XMMatrixScaling(0.5f, 0.5f, 0.5f);
 
-	result = m_FireShader->Render(D3D->GetDeviceContext(), m_Effect->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
-		m_Effect->GetTexture1(), m_Effect->GetTexture2(), m_Effect->GetTexture3(), frameTime, scrollSpeeds,
-		scales, distortion1, distortion2, distortion3, distortionScale, distortionBias);
+	//// 불꽃 셰이더를 이용하여 사각형 모델을 그립니다.
+	//result = m_FireShader->Render(D3D->GetDeviceContext(), m_Effect->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
+	//	m_Effect->GetTexture1(), m_Effect->GetTexture2(), m_Effect->GetTexture3(), frameTime, scrollSpeeds,
+	//	scales, distortion1, distortion2, distortion3, distortionScale, distortionBias);
+
+	//D3D->GetWorldMatrix(worldMatrix);
+	//worldMatrix *=  XMMatrixRotationX(3.141592 / 2) * XMMatrixTranslation(4.0f, -2.9f, 2.0f) * XMMatrixScaling(0.5f, 0.5f, 0.5f);
+
+	//result = m_FireShader->Render(D3D->GetDeviceContext(), m_Effect->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
+	//	m_Effect->GetTexture1(), m_Effect->GetTexture2(), m_Effect->GetTexture3(), frameTime, scrollSpeeds,
+	//	scales, distortion1, distortion2, distortion3, distortionScale, distortionBias);
 
 	// 알파 블렌딩을 끕니다.
 	D3D->TurnOffAlphaBlending();
@@ -192,20 +206,35 @@ void Scene::AddObject(D3DClass* D3D, GROUP_TYPE _eType)
 		m_Model = new ModelClass(D3D->GetDevice(), GROUP_TYPE::DEFAULT);
 
 	if (_eType == GROUP_TYPE::PLAYER)
-		m_Model = new Player(D3D->GetDevice(), GROUP_TYPE::PLAYER);
+		m_Model = new Player(D3D->GetDevice());
 
 	if (_eType == GROUP_TYPE::BOMB)
-		m_Model = new Bomb(D3D->GetDevice(), GROUP_TYPE::BOMB);
+		m_Model = new Bomb(D3D->GetDevice());
 
 	if (_eType == GROUP_TYPE::ENEMY)
-		m_Model = new Enemy(D3D->GetDevice(), GROUP_TYPE::ENEMY);
+		m_Model = new Enemy(D3D->GetDevice());
 
 	m_arrModel[(UINT)_eType].push_back(m_Model);
+}
+
+void Scene::AddEffect(D3DClass* D3D, EFFECT_TYPE _eType, Pos pos)
+{
+	if (_eType == EFFECT_TYPE::FIRE)
+	{
+		m_Effect = new Fire(D3D->GetDevice());
+		
+	}
+	m_arrEffect[(UINT)_eType].push_back(m_Effect);
 }
 
 void Scene::ClearObjects(GROUP_TYPE _eType)
 {
 	m_arrModel[(UINT)_eType].clear();
+}
+
+void Scene::ClearEffects(EFFECT_TYPE _eType)
+{
+	m_arrEffect[(UINT)_eType].clear();
 }
 
 Scene::Scene():
@@ -297,4 +326,13 @@ Scene::~Scene()
 			delete m_arrModel[i][j];
 		}
 	}
+
+	for (int i = 0; i < (UINT)EFFECT_TYPE::END; i++)
+	{
+		for (int j = 0; j < m_arrEffect[i].size(); j++)
+		{
+			delete m_arrEffect[i][j];
+		}
+	}
+
 }

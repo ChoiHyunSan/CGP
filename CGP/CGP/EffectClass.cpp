@@ -4,14 +4,20 @@
 #include "EffectClass.h"
 
 
-EffectClass::EffectClass()
+void EffectClass::update()
 {
-	m_vertexBuffer = 0;
-	m_indexBuffer = 0;
-	m_Texture1 = 0;
-	m_Texture2 = 0;
-	m_Texture3 = 0;
-	m_model = 0;
+}
+
+EffectClass::EffectClass(ID3D11Device* device, EFFECT_TYPE _type):
+	m_type(_type),
+	m_vertexBuffer(0),
+	m_indexBuffer(0),
+	m_Texture1(0),
+	m_Texture2(0),
+	m_Texture3(0),
+	m_model(0)
+{
+	Initialize(device);
 }
 
 
@@ -25,14 +31,14 @@ EffectClass::~EffectClass()
 }
 
 
-bool EffectClass::Initialize(ID3D11Device* device, const WCHAR* modelFilename, const WCHAR* textureFilename1, const WCHAR* textureFilename2,
-	const WCHAR* textureFilename3)
+bool EffectClass::Initialize(ID3D11Device* device)
 {
 	bool result;
 
+	setFileInfo();
 
 	// Load in the model data,
-	result = LoadModel(modelFilename);
+	result = LoadModel(m_modelFilename);
 	if (!result)
 	{
 		return false;
@@ -46,7 +52,7 @@ bool EffectClass::Initialize(ID3D11Device* device, const WCHAR* modelFilename, c
 	}
 
 	// Load the textures for this model.
-	result = LoadTextures(device, textureFilename1, textureFilename2, textureFilename3);
+	result = LoadTextures(device, m_textureFilename1, m_textureFilename2, m_textureFilename3);
 	if (!result)
 	{
 		return false;
@@ -376,4 +382,17 @@ void EffectClass::ReleaseModel()
 	}
 
 	return;
+}
+
+void EffectClass::setFileInfo()
+{
+	switch (m_type)
+	{
+	case EFFECT_TYPE::FIRE:
+		m_modelFilename = (WCHAR*)L"./data/square.txt";
+		m_textureFilename1 = (WCHAR*)L"./data/fire01.dds";
+		m_textureFilename2 = (WCHAR*)L"./data/noise01.dds";
+		m_textureFilename3 = (WCHAR*)L"./data/alpha01.dds";
+		break;
+	}
 }

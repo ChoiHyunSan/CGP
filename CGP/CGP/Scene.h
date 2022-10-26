@@ -19,6 +19,7 @@ class Scene
 {
 private:
 	vector<ModelClass*> m_arrModel[(UINT)GROUP_TYPE::END];	// 오브젝트를 저장 및 관리할 벡터를 그룹만큼 선언
+	vector<EffectClass*> m_arrEffect[(UINT)EFFECT_TYPE::END];	// 오브젝트를 저장 및 관리할 벡터를 그룹만큼 선언
 	wstring				m_strName;							// Scene 이름
 
 protected:
@@ -44,7 +45,10 @@ public:
 	void update(D3DClass* D3D);
 
 	void AddObject(D3DClass* D3D, GROUP_TYPE _eType);
+	void AddEffect(D3DClass* D3D, EFFECT_TYPE _eType, Pos pos);
+
 	void ClearObjects(GROUP_TYPE _eType);
+	void ClearEffects(EFFECT_TYPE _eType);
 
 	virtual void init(D3DClass* D3D) = 0;	// 해당 Scene 에 진입 시 호출
 	virtual void Exit() = 0;	// 해당 Scene 을 탈출 시 호출

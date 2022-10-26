@@ -9,7 +9,7 @@ public:
     void Update();
 
 public:
-    Bomb(ID3D11Device*, GROUP_TYPE type);
+    Bomb(ID3D11Device*);
     ~Bomb();
 };
 

@@ -10,6 +10,7 @@ public:
 
 public:
 	int		getPlayerLife() const { return m_playerLife; }
+	int		getPlayerPower() const { return m_playerPower; }
 	void	setPlayerLife(int playerLife) { m_playerLife = playerLife; };
 
 	int		getPlayTime() const { return m_playTime; }

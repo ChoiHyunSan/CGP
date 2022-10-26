@@ -5,7 +5,7 @@
 #include "SceneMgr.h"
 #include "Scene.h"
 #include "graphicsclass.h"
-Player::Player(ID3D11Device* device, GROUP_TYPE type)
+Player::Player(ID3D11Device* device)
 	: ModelClass(device, GROUP_TYPE::PLAYER)
 {
 	setPos(0.f, 0.f, 0.f);

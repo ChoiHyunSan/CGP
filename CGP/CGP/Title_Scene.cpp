@@ -29,7 +29,7 @@ void Title_Scene::init(D3DClass* D3D)
 	AddObject(D3D, GROUP_TYPE::DEFAULT);
 	AddObject(D3D, GROUP_TYPE::PLAYER);
 	AddObject(D3D, GROUP_TYPE::ENEMY);
-
+	AddEffect(D3D, EFFECT_TYPE::FIRE);
 	// 라이트 효과 추가
 	if (m_Light == nullptr)
 	{
@@ -104,18 +104,6 @@ void Title_Scene::init(D3DClass* D3D)
 		if (!result)
 		{
 			MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the text object.", L"Error", MB_OK);
-		}
-	}
-
-	if (m_Effect == nullptr)
-	{
-		m_Effect = new EffectClass;
-
-		result = m_Effect->Initialize(D3D->GetDevice(), L"./data/square.txt", L"./data/fire01.dds",
-			L"./data/noise01.dds", L"./data/alpha01.dds");
-		if (!result)
-		{
-			MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the model object.", L"Error", MB_OK);
 		}
 	}
 

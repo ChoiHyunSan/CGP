@@ -39,11 +39,14 @@ private:
 	};
 
 public:
-	EffectClass();
+	virtual void update();
+
+public:
+	EffectClass(ID3D11Device* device, EFFECT_TYPE _eType);
 	EffectClass(const EffectClass&);
 	~EffectClass();
 
-	bool Initialize(ID3D11Device*, const WCHAR*, const WCHAR*, const WCHAR*,const WCHAR*);
+	bool Initialize(ID3D11Device*);
 	void Shutdown();
 	void Render(ID3D11DeviceContext*);
 
@@ -64,10 +67,19 @@ private:
 	bool LoadModel(const WCHAR*);
 	void ReleaseModel();
 
+	void setFileInfo();
 private:
 	ID3D11Buffer* m_vertexBuffer, * m_indexBuffer;
 	int m_vertexCount, m_indexCount;
 	TextureClass* m_Texture1, * m_Texture2, * m_Texture3;
 	ModelType* m_model;
+
+	EFFECT_TYPE m_type;
+	Pos		m_pos;
+
+	WCHAR* m_modelFilename;
+	WCHAR* m_textureFilename1;
+	WCHAR* m_textureFilename2;
+	WCHAR* m_textureFilename3;
 };
 #endif
