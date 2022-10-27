@@ -7,7 +7,7 @@
 #include "textclass.h"
 #include "EffectClass.h"
 #include "fireshaderclass.h"
-
+#define MAPSIZE 15
 class ModelClass;
 class CameraClass;
 class LightClass;
@@ -44,7 +44,7 @@ public:
 	void render(D3DClass* D3D, float rotation) ;
 	void update(D3DClass* D3D);
 
-	void AddObject(D3DClass* D3D, GROUP_TYPE _eType);
+	void AddObject(D3DClass* D3D, GROUP_TYPE _eType, Pos pos = Pos());
 	void AddEffect(D3DClass* D3D, EFFECT_TYPE _eType, Pos pos);
 
 	void ClearObjects(GROUP_TYPE _eType);

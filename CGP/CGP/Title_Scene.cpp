@@ -26,9 +26,15 @@ void Title_Scene::init(D3DClass* D3D)
 	// 모델들을을 생성 후, 벡터에 추가
 
 	// TODO : 타이틀 씬에서 생성할 도형들을 벡터에 추가
-	AddObject(D3D, GROUP_TYPE::DEFAULT);
-	AddObject(D3D, GROUP_TYPE::PLAYER);
-	AddObject(D3D, GROUP_TYPE::ENEMY);
+	for (int i = 0; i < MAPSIZE; i++)
+	{
+		for (int j = 0; j < MAPSIZE; j++)
+		{
+			AddObject(D3D, GROUP_TYPE::DEFAULT, Pos(i - (MAPSIZE / 2), 0, j));
+		}
+	}
+	AddObject(D3D, GROUP_TYPE::PLAYER, Pos(0,0,0));
+	AddObject(D3D, GROUP_TYPE::ENEMY, Pos(0, 0, 0));
 
 	// 라이트 효과 추가
 	if (m_Light == nullptr)

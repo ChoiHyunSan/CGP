@@ -47,7 +47,7 @@ void Scene::render(D3DClass* D3D, float rotation)
 
 	for (int i = 0; i< (UINT)GROUP_TYPE::END; i++)
 	{
-		for(int j = 0; j < m_arrModel[i].size(); i++)
+		for(int j = 0; j < m_arrModel[i].size(); j++)
 		{
 			// Generate the view matrix based on the camera's position.
 			m_Camera->Render();
@@ -65,9 +65,6 @@ void Scene::render(D3DClass* D3D, float rotation)
 			worldMatrix = 
 				m_arrModel[i][j]->getRotate() * m_arrModel[i][j]->getScale() *
 				XMMatrixTranslation(m_arrModel[i][j]->getPos().x, m_arrModel[i][j]->getPos().y-2, m_arrModel[i][j]->getPos().z);
-
-			// 여기서 2D 랜더링의 경우 ortho 메트릭스를 발동시킨다.
-
 
 			// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
 			m_arrModel[i][j]->Render(D3D->GetDeviceContext());
@@ -189,10 +186,10 @@ void Scene::update(D3DClass* D3D)
 	}
 }
 
-void Scene::AddObject(D3DClass* D3D, GROUP_TYPE _eType)
+void Scene::AddObject(D3DClass* D3D, GROUP_TYPE _eType, Pos pos)
 {
 	if(_eType == GROUP_TYPE::DEFAULT)
-		m_Model = new ModelClass(D3D->GetDevice(), GROUP_TYPE::DEFAULT);
+		m_Model = new ModelClass(D3D->GetDevice(), GROUP_TYPE::DEFAULT, pos);
 
 	if (_eType == GROUP_TYPE::PLAYER)
 		m_Model = new Player(D3D->GetDevice());

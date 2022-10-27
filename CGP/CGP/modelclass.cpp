@@ -4,7 +4,6 @@
 #include "modelclass.h"
 #include "Scene.h"
 #include "SceneMgr.h"
-#define MAPSIZE 15
 
 ModelClass::ModelClass()
 	:m_faceCount(0),
@@ -48,6 +47,26 @@ ModelClass::ModelClass(ID3D11Device* device, GROUP_TYPE type)
 	m_textureFilename1(0),
 	m_Pos()
 {
+
+	Initialize(device, type);
+}
+
+ModelClass::ModelClass(ID3D11Device* device, GROUP_TYPE type, Pos pos)
+	:m_faceCount(0),
+	m_vertexBuffer(0),
+	m_Texture1(0),
+	m_textureCount(0),
+	m_normalCount(0),
+	m_model(0),
+	m_vertexCount(0),
+	m_instanceBuffer(0),
+	m_rotate(XMMatrixRotationY(0.f)),
+	m_scale(XMMatrixScaling(1.f, 1.f, 1.f)),
+	m_type(type),
+	m_textureFilename1(0),
+	m_Pos(pos)
+{
+	m_Pos = pos;
 
 	Initialize(device, type);
 }
@@ -614,13 +633,7 @@ void ModelClass::setInstPosInfo()
 	{
 	case GROUP_TYPE::DEFAULT:
 		// 맵 생성을 다른 방식으로 제작해야함 (인스턴싱 사용 안할 계획)
-		for (int i = 0; i < MAPSIZE; i++)
-		{
-			for (int j = 0; j < MAPSIZE; j++)
-			{
-				m_vInstancePos.push_back(XMFLOAT3(i-(MAPSIZE/2), 0, j));
-			}
-		}
+		m_vInstancePos.push_back(XMFLOAT3(0, 0, 0));
 		break;
 
 	case GROUP_TYPE::PLAYER:

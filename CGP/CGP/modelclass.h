@@ -68,6 +68,7 @@ public:
 	ModelClass();
 	ModelClass(const ModelClass&);
 	ModelClass(ID3D11Device*, GROUP_TYPE type);
+	ModelClass(ID3D11Device*, GROUP_TYPE type, Pos pos);
 
 	virtual ~ModelClass();
 
