@@ -85,6 +85,7 @@ public:
 	int GetInstanceCount();
 	GROUP_TYPE GetType();
 	Pos getPos() const{ return m_Pos; }
+	void correctPos();
 
 	XMMATRIX getRotate() { return m_rotate; }
 	XMMATRIX getScale() { return m_scale; }
@@ -101,7 +102,6 @@ private:
 
 	void setInstPosInfo();
 	void setFileInfo();
-
 public:
 	virtual void Update();
 

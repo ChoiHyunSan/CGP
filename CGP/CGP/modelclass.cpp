@@ -346,6 +346,18 @@ GROUP_TYPE ModelClass::GetType()
 	return m_ObjType;
 }
 
+void ModelClass::correctPos()
+{
+	for (int i = -MAPSIZE/2; i < MAPSIZE / 2; ++i)
+	{
+		if (i - 0.5f < m_Pos.x && m_Pos.x <= i + 0.5f)
+			m_Pos.x = i;
+		if (i - 0.5f < m_Pos.y && m_Pos.y <= i + 0.5f)
+			m_Pos.y = i;
+	}
+
+}
+
 bool ModelClass::ReadFileCounts(const WCHAR* filename)
 {
 	ifstream fin;
@@ -643,6 +655,10 @@ void ModelClass::setInstPosInfo()
 	case GROUP_TYPE::BOMB:
 	{
 		m_Pos = SceneMgr::GetInst()->getCureScene()->getPlayerPos();
+
+		// Player Pos에 관한 보정이 필요함
+		correctPos();
+
 		m_vInstancePos.push_back(XMFLOAT3(0.f, 0.5f, 0.f));
 		break;
 	}

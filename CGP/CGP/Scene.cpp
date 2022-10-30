@@ -141,7 +141,7 @@ void Scene::render(D3DClass* D3D, float rotation)
 
 			m_Effect->Render(D3D->GetDeviceContext());
 			viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0, -8, 20);
-			worldMatrix *= XMMatrixRotationX(3.141592 / 2) * XMMatrixTranslation(0.0f, -4.5f, 0.0f) * XMMatrixScaling(0.5f, 0.5f, 0.5f) * XMMatrixTranslation(m_arrEffect[i][j]->getPos().x, m_arrEffect[i][j]->getPos().y -2 , m_arrEffect[i][j]->getPos().z);
+			worldMatrix *= XMMatrixRotationX(3.141592 / 2) * XMMatrixTranslation(0.0f, -4.55f, 0.0f) * XMMatrixScaling(0.5f, 0.5f, 0.5f) * XMMatrixTranslation(m_arrEffect[i][j]->getPos().x, m_arrEffect[i][j]->getPos().y -2 , m_arrEffect[i][j]->getPos().z);
 
 			result = m_FireShader->Render(D3D->GetDeviceContext(), m_arrEffect[i][j]->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
 				m_arrEffect[i][j]->GetTexture1(), m_arrEffect[i][j]->GetTexture2(), m_arrEffect[i][j]->GetTexture3(), frameTime, scrollSpeeds,
