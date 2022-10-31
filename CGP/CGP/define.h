@@ -9,6 +9,14 @@
 							type(); \
 							~type();
 
+enum class DIR
+{
+	UP = 0,
+	DOWN,
+	LEFT,
+	RIGHT
+};
+
 enum class GROUP_TYPE
 {
 	DEFAULT, // 0
