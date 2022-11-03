@@ -7,6 +7,7 @@ class Enemy :
 private:
     bool isMove;        // 이동중인가
     Pos  targetPos;     // 이동하는 위치 
+    float speed;
 
 public:
     void Update();

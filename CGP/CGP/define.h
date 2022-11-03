@@ -9,6 +9,7 @@
 							type(); \
 							~type();
 
+#define MAPSIZE 15
 enum class DIR
 {
 	UP = 0,

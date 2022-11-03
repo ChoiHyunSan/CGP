@@ -7,7 +7,7 @@
 #include "textclass.h"
 #include "EffectClass.h"
 #include "fireshaderclass.h"
-#define MAPSIZE 15
+
 class ModelClass;
 class CameraClass;
 class LightClass;

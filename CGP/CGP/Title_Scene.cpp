@@ -31,7 +31,6 @@ void Title_Scene::init(D3DClass* D3D)
 		for (int j = 0; j < MAPSIZE; j++)
 		{
 			// Map[i][j]의 값이 0인 경우에만 설치
-			if (i == 3 && (j == 5 || j == 8)) continue;
 			AddObject(D3D, GROUP_TYPE::DEFAULT, Pos(i - (MAPSIZE / 2), 0, j));
 		}
 	}

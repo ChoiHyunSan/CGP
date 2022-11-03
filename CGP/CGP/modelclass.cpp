@@ -350,10 +350,10 @@ void ModelClass::correctPos()
 {
 	for (int i = -MAPSIZE/2; i < MAPSIZE / 2; ++i)
 	{
-		if (i - 0.5f < m_Pos.x && m_Pos.x <= i + 0.5f)
+		if (i - 0.5f <= m_Pos.x && m_Pos.x <= i + 0.5f)
 			m_Pos.x = i;
-		if (i - 0.5f < m_Pos.y && m_Pos.y <= i + 0.5f)
-			m_Pos.y = i;
+		if (i - 0.5f <= m_Pos.z && m_Pos.z <= i + 0.5f)
+			m_Pos.z = i;
 	}
 
 }
@@ -697,6 +697,7 @@ void ModelClass::setFileInfo()
 
 void ModelClass::Update()
 {
+
 }
 
 void ModelClass::setPos(float x, float y, float z)
