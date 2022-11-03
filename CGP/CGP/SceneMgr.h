@@ -19,7 +19,7 @@ public:
 	void render(D3DClass* D3D, float rotation);
 
 	void setCurScene(SCENE_TYPE _eType);
-	Scene* getCureScene() const {return m_pCurScene;}
+	Scene* GetCurScene() const {return m_pCurScene;}
 
 public:
 

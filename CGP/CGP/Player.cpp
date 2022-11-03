@@ -42,9 +42,9 @@ void Player::Update()
 
 	if (InputClass::GetInst()->IsKeyDown(VK_SPACE))
 	{
-		if (SceneMgr::GetInst()->getCureScene()->isModelArrEmpty(GROUP_TYPE::BOMB))
+		if (SceneMgr::GetInst()->GetCurScene()->isModelArrEmpty(GROUP_TYPE::BOMB))
 		{
-			SceneMgr::GetInst()->getCureScene()->AddObject(GraphicsClass::GetInst()->GetD3D(), GROUP_TYPE::BOMB);
+			SceneMgr::GetInst()->GetCurScene()->AddObject(GraphicsClass::GetInst()->GetD3D(), GROUP_TYPE::BOMB);
 			OutputDebugStringA("bomb");
 		}
 		

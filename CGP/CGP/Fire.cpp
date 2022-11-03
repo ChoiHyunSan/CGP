@@ -11,7 +11,7 @@ void Fire::Update()
 	}
 	else
 	{
-		SceneMgr::GetInst()->getCureScene()->ClearEffects(EFFECT_TYPE::FIRE);
+		SceneMgr::GetInst()->GetCurScene()->ClearEffects(EFFECT_TYPE::FIRE);
 		OutputDebugStringA("FireOut");
 	}
 }

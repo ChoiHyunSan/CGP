@@ -1,5 +1,9 @@
 ﻿cl : 명령줄 warning D9014: '2665' 값이 '/wd'에 대해 잘못되었습니다. '5999'(으)로 가정합니다.
-  Enemy.cpp
-  Player.cpp
+  Collider.cpp
+  ColliderMgr.cpp
+  EventMgr.cpp
+  fireshaderclass.cpp
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\fireshaderclass.cpp(356,42): warning C4244: '=': 'SIZE_T'에서 'unsigned long'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Wall.cpp
   코드를 생성하고 있습니다...
   CGP.vcxproj -> C:\Users\최현산\Desktop\Study\CGP\CGP\x64\Debug\CGP.exe

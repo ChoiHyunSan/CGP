@@ -102,8 +102,16 @@ private:
 
 	void setInstPosInfo();
 	void setFileInfo();
+
+	void SetDead() { m_bAlive = false; }
+
 public:
 	virtual void Update();
+
+	// 콜라이더로부터 호출받은 함수를 다형성으로 처리한다.
+	virtual void OnCollision(Collider* _pOther);
+	virtual void OnCollisionEnter(Collider* _pOther);
+	virtual void OnCollisionExit(Collider* _pOther);
 
 protected:
 	void setPos(float ,float ,float);
@@ -130,9 +138,13 @@ private:
 	WCHAR* m_modelFilename;
 	WCHAR* m_textureFilename1;
 
+	bool m_bAlive = true;
+
 protected:
 	vector<XMFLOAT3> m_vInstancePos;
 
+
+	friend class EventMgr;
 };
 
 #endif

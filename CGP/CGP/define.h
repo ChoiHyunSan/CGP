@@ -21,12 +21,10 @@ enum class DIR
 enum class GROUP_TYPE
 {
 	DEFAULT, // 0
-	PLAYER,  // 1
-	MISSILE, // 2
-	MONSTER, // 3
+	WALL,
+	PLAYER,  
 	ENEMY,
 	BOMB,
-	FIRE,
 
 
 	END = 32,
@@ -50,6 +48,16 @@ enum class SCENE_TYPE
 	START,
 	STAGE_01,
 	STAGE_02,
+
+	END,
+};
+
+enum class EVENT_TYPE
+{
+	CREATE_OBJECT,
+	DELETE_OBJECT,
+	SCENE_CHANGE,
+
 
 	END,
 };

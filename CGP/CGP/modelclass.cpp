@@ -4,6 +4,8 @@
 #include "modelclass.h"
 #include "Scene.h"
 #include "SceneMgr.h"
+#include "Collider.h"
+
 
 ModelClass::ModelClass()
 	:m_faceCount(0),
@@ -654,7 +656,7 @@ void ModelClass::setInstPosInfo()
 
 	case GROUP_TYPE::BOMB:
 	{
-		m_Pos = SceneMgr::GetInst()->getCureScene()->getPlayerPos();
+		m_Pos = SceneMgr::GetInst()->GetCurScene()->getPlayerPos();
 
 		// Player Pos에 관한 보정이 필요함
 		correctPos();
@@ -736,4 +738,16 @@ void ModelClass::setRotate(char dir,float rotation)
 void ModelClass::setScale(float xScale, float yScale, float zScale)
 {
 	m_scale = XMMatrixScaling(xScale, yScale, zScale);
+}
+
+void ModelClass::OnCollision(Collider* _pOther)
+{
+}
+
+void ModelClass::OnCollisionEnter(Collider* _pOther)
+{
+}
+
+void ModelClass::OnCollisionExit(Collider* _pOther)
+{
 }

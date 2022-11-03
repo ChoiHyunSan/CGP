@@ -46,12 +46,15 @@
     <ClInclude Include="bitmapclass.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="cameraclass.h" />
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="CollisionMgr.h" />
     <ClInclude Include="colorshaderclass.h" />
     <ClInclude Include="d3dclass.h" />
     <ClInclude Include="DDSTextureLoader.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="EffectClass.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EventMgr.h" />
     <ClInclude Include="Fire.h" />
     <ClInclude Include="fireshaderclass.h" />
     <ClInclude Include="fontclass.h" />
@@ -74,16 +77,20 @@
     <ClInclude Include="textureshaderclass.h" />
     <ClInclude Include="TimeMgr.h" />
     <ClInclude Include="Title_Scene.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bitmapclass.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="cameraclass.cpp" />
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="colorshaderclass.cpp" />
     <ClCompile Include="d3dclass.cpp" />
     <ClCompile Include="DDSTextureLoader.cpp" />
     <ClCompile Include="EffectClass.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EventMgr.cpp" />
     <ClCompile Include="Fire.cpp" />
     <ClCompile Include="fireshaderclass.cpp" />
     <ClCompile Include="fontclass.cpp" />
@@ -105,6 +112,7 @@
     <ClCompile Include="textureshaderclass.cpp" />
     <ClCompile Include="TimeMgr.cpp" />
     <ClCompile Include="Title_Scene.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\square.txt" />

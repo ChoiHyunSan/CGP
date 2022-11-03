@@ -8,6 +8,12 @@
 using namespace std;
 using std::vector;
 
+#include <map>
+using std::map;
+using std::make_pair;
+using std::string;
+using std::wstring;
+
 #define BOXSCALE 1
 #define fDT TimeMgr::GetInst()->GetfDT()
 
