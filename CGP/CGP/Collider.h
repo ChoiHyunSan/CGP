@@ -47,6 +47,6 @@ public:
 
 	~Collider();
 
-	friend class Object;
+	friend class ModelClass;
 };
 

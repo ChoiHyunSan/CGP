@@ -141,6 +141,20 @@ ID3D11ShaderResourceView* ModelClass::GetTexture()
 }
 
 
+void ModelClass::finalUpdate()
+{
+	if (m_pCollider)
+	{
+		m_pCollider->finalUpdate();
+	}
+}
+
+void ModelClass::CreateCollider()
+{
+	m_pCollider = new Collider;
+	m_pCollider->m_pOwner = this;
+}
+
 bool ModelClass::InitializeBuffers(ID3D11Device* device)
 {
 	VertexType* vertices;
@@ -702,6 +716,18 @@ void ModelClass::Update()
 
 }
 
+void ModelClass::OnCollision(Collider* _pOther)
+{
+}
+
+void ModelClass::OnCollisionEnter(Collider* _pOther)
+{
+}
+
+void ModelClass::OnCollisionExit(Collider* _pOther)
+{
+}
+
 void ModelClass::setPos(float x, float y, float z)
 {
 	m_Pos.x = x;
@@ -740,14 +766,3 @@ void ModelClass::setScale(float xScale, float yScale, float zScale)
 	m_scale = XMMatrixScaling(xScale, yScale, zScale);
 }
 
-void ModelClass::OnCollision(Collider* _pOther)
-{
-}
-
-void ModelClass::OnCollisionEnter(Collider* _pOther)
-{
-}
-
-void ModelClass::OnCollisionExit(Collider* _pOther)
-{
-}

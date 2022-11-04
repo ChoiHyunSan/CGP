@@ -35,6 +35,8 @@ void Bomb::Update()
 
 		for (int i = 0; i < power; ++i)
 		{
+			// TODO : 폭탄을 생성하면서 같은 위치에 충돌판정을 일으킬 오브젝트를 같이 생성한다.
+
 			// 폭탄 좌우 생성
 			SceneMgr::GetInst()->GetCurScene()->AddEffect(GraphicsClass::GetInst()->GetD3D(), EFFECT_TYPE::FIRE, getPos() + Pos((i + 1), 0, 0));
 			SceneMgr::GetInst()->GetCurScene()->AddEffect(GraphicsClass::GetInst()->GetD3D(), EFFECT_TYPE::FIRE, getPos() + Pos(-(i + 1), 0, 0));

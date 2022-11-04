@@ -24,10 +24,7 @@ Collider::Collider(const Collider& _origin)
 
 Collider::~Collider()
 {
-	//if (nullptr != m_pOwner)
-	//{
-	//	delete m_pOwner;
-	//}
+
 }
 
 void Collider::finalUpdate()
