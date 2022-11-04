@@ -12,6 +12,7 @@
 #include <directxmath.h>
 #include "pch.h"
 #include "Collider.h"
+
 using namespace DirectX;
 
 ///////////////////////
@@ -90,12 +91,15 @@ public:
 	XMMATRIX getRotate() { return m_rotate; }
 	XMMATRIX getScale() { return m_scale; }
 
-	bool IsDead() const { return m_bAlive; }
+	bool IsDead() const { return !m_bAlive; }
 
 	Collider* GetCollider() const { return m_pCollider; }
 
 	virtual void finalUpdate() final;
 	void CreateCollider();
+
+	const wstring& GetName() { return m_strName; }
+	void SetName(const wstring& str) { m_strName = str; }
 private:
 	bool InitializeBuffers(ID3D11Device*);
 	void ShutdownBuffers();
@@ -149,6 +153,7 @@ private:
 
 	Collider* m_pCollider;
 
+	wstring m_strName;
 protected:
 	vector<XMFLOAT3> m_vInstancePos;
 	friend class EventMgr;

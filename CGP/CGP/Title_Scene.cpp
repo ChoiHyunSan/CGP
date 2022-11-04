@@ -8,6 +8,7 @@
 #include "textureshaderclass.h"
 #include "bitmapclass.h"
 #include "textureclass.h"
+#include "CollisionMgr.h"
 
 Title_Scene::Title_Scene()
 {
@@ -125,6 +126,9 @@ void Title_Scene::init(D3DClass* D3D)
 			MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the fire shader object.", L"Error", MB_OK);
 		}
 	}
+
+	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::ENEMY);
+	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::FIRE);
 
 }
 

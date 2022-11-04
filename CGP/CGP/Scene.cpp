@@ -76,6 +76,9 @@ void Scene::render(D3DClass* D3D, float rotation)
 				m_Light->GetDirection(), m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(),
 				m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());
 
+
+			m_arrModel[i][j]->finalUpdate();
+
 			assert(result); 
 		}
 	}
@@ -146,6 +149,8 @@ void Scene::render(D3DClass* D3D, float rotation)
 			result = m_FireShader->Render(D3D->GetDeviceContext(), m_arrEffect[i][j]->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
 				m_arrEffect[i][j]->GetTexture1(), m_arrEffect[i][j]->GetTexture2(), m_arrEffect[i][j]->GetTexture3(), frameTime, scrollSpeeds,
 				scales, distortion1, distortion2, distortion3, distortionScale, distortionBias);
+		
+			m_arrEffect[i][j]->finalUpdate();
 		}
 	}
 

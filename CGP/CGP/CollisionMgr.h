@@ -30,6 +30,7 @@ public:
 
 private:
 	void CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight);
+	void CollisionGroupUpdate(GROUP_TYPE _eLeft, EFFECT_TYPE _eRight);
 	bool isCollision(Collider* _pLeftCol, Collider* _pRightCol);
 };
 

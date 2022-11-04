@@ -76,6 +76,11 @@ void EffectClass::Shutdown()
 	// Release the model data.
 	ReleaseModel();
 
+	if (m_pCollider != nullptr)
+	{
+		delete m_pCollider;
+	}
+
 	return;
 }
 
@@ -317,6 +322,18 @@ ID3D11ShaderResourceView* EffectClass::GetTexture3()
 	return m_Texture3->GetTexture();
 }
 
+void EffectClass::OnCollision(Collider* _pOther)
+{
+}
+
+void EffectClass::OnCollisionEnter(Collider* _pOther)
+{
+}
+
+void EffectClass::OnCollisionExit(Collider* _pOther)
+{
+}
+
 
 bool EffectClass::LoadModel(const WCHAR* filename)
 {
@@ -400,4 +417,18 @@ void EffectClass::setFileInfo()
 		m_pos = m_pos + Pos(0.f, 2.9f, 0.f);
 		break;
 	}
+}
+
+void EffectClass::finalUpdate()
+{
+	if (m_pCollider)
+	{
+		m_pCollider->finalUpdate();
+	}
+}
+
+void EffectClass::CreateCollider()
+{
+	m_pCollider = new Collider;
+	m_pCollider->m_pOwnerEffect = this;
 }

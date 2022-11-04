@@ -4,7 +4,7 @@
 #include "graphicsclass.h"
 #include "Scene.h"
 #include "SceneMgr.h"
-
+#include "CollisionMgr.h"
 GraphicsClass::GraphicsClass(): 
 	m_D3D(0)
 {
@@ -91,6 +91,7 @@ bool GraphicsClass::Render(float rotation)
 	SceneMgr::GetInst()->update(m_D3D);
 	SceneMgr::GetInst()->render(m_D3D, rotation);
 
+	CollisionMgr::GetInst()->update();
 	// Present the rendered scene to the screen.
 	m_D3D->EndScene();
 

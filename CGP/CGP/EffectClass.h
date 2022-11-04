@@ -21,6 +21,8 @@ using namespace DirectX;
 #include <fstream>
 using namespace std;
 
+#include "CollisionMgr.h"
+#include "Collider.h"
 
 class EffectClass
 {
@@ -56,6 +58,22 @@ public:
 	ID3D11ShaderResourceView* GetTexture2();
 	ID3D11ShaderResourceView* GetTexture3();
 
+	// 콜라이더로부터 호출받은 함수를 다형성으로 처리한다.
+	virtual void OnCollision(Collider* _pOther);
+	virtual void OnCollisionEnter(Collider* _pOther);
+	virtual void OnCollisionExit(Collider* _pOther);
+
+	bool IsDead(){ return !m_bAlive; }
+
+	Collider* GetCollider() { return m_pCollider; }
+
+	Collider* GetCollider() const { return m_pCollider; }
+	virtual void finalUpdate() final;
+	void CreateCollider();
+
+	const wstring& GetName() { return m_strName; }
+	void SetName(const wstring& str) { m_strName = str; }
+	void SetDead() { m_bAlive = false; }
 private:
 	bool InitializeBuffers(ID3D11Device*);
 	void ShutdownBuffers();
@@ -81,5 +99,15 @@ private:
 	WCHAR* m_textureFilename1;
 	WCHAR* m_textureFilename2;
 	WCHAR* m_textureFilename3;
+
+
+	bool m_bAlive = true;
+
+	Collider* m_pCollider;
+
+	wstring m_strName;
+
+	friend class EventMgr;
+
 };
 #endif

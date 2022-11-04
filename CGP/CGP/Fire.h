@@ -13,5 +13,7 @@ public:
 public:
     Fire(ID3D11Device* device, Pos pos);
     ~Fire();
+
+    void OnCollisionEnter(Collider* _pOther);
 };
 

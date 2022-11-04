@@ -2,13 +2,16 @@
 #include "pch.h"
 
 class ModelClass;
+class EffectClass;
 
 class Collider
 {
 private:
 	static UINT g_iNextID;		//
 
-	ModelClass* m_pOwner;		// collider를 소유하고 있는 오브젝트
+	ModelClass* m_pOwnerModel;		// collider를 소유하고 있는 오브젝트
+	EffectClass* m_pOwnerEffect;	// collider를 소유하고 있는 이펙트
+
 	Pos			m_vOffsetPos;	// 오브젝트로부터 상대적인 위치 
 	Pos			m_vFinalPos;	// finalupdate에서 매 프레임마다 계산
 	Pos			m_vScale;		// 충돌체의 크기
@@ -26,7 +29,9 @@ public:
 
 	UINT GetID() { return m_iID; }
 
-	ModelClass* GetObj() { return m_pOwner; }
+	ModelClass* GetModel() { return m_pOwnerModel; }
+	EffectClass* GetEffect() { return m_pOwnerEffect; }
+
 public:
 	void finalUpdate();
 	void render();
@@ -48,5 +53,6 @@ public:
 	~Collider();
 
 	friend class ModelClass;
+	friend class EffectClass;
 };
 

@@ -122,6 +122,9 @@ void ModelClass::Shutdown()
 	// Release the model data.
 	ReleaseModel();
 
+	if (m_pCollider != nullptr)
+		delete m_pCollider;
+
 	return;
 }
 
@@ -152,7 +155,7 @@ void ModelClass::finalUpdate()
 void ModelClass::CreateCollider()
 {
 	m_pCollider = new Collider;
-	m_pCollider->m_pOwner = this;
+	m_pCollider->m_pOwnerModel = this;
 }
 
 bool ModelClass::InitializeBuffers(ID3D11Device* device)
@@ -368,10 +371,12 @@ void ModelClass::correctPos()
 	{
 		if (i - 0.5f <= m_Pos.x && m_Pos.x <= i + 0.5f)
 			m_Pos.x = i;
+	}
+	for (int i = 0; i < MAPSIZE; ++i)
+	{
 		if (i - 0.5f <= m_Pos.z && m_Pos.z <= i + 0.5f)
 			m_Pos.z = i;
 	}
-
 }
 
 bool ModelClass::ReadFileCounts(const WCHAR* filename)

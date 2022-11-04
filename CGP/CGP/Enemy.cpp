@@ -97,8 +97,14 @@ Enemy::Enemy(ID3D11Device* device)
 {
 	setPos(0.f,1.f,1.f);
 	
+	SetName(L"Enemy");
+
 	// 이동 목적지의 초기위치는 Enemy Class의 스폰 위치로 지정한다.
 	targetPos = this->getPos();
+
+	CreateCollider();
+	GetCollider()->SetOffsetPos(Pos(0.f, 0.f, 0.f));
+	GetCollider()->SetScale(Pos(0.8, 0.8f, 0.8f));
 }
 
 Enemy::~Enemy()

@@ -59,6 +59,8 @@ public:
 	bool isModelArrEmpty(GROUP_TYPE type) { return m_arrModel[(UINT)type].size() == 0; }
 
 	vector<ModelClass*> GetGroupObject(GROUP_TYPE eType) { return m_arrModel[(UINT)eType]; }
+	vector<EffectClass*> GetGroupEffect(EFFECT_TYPE eType) { return m_arrEffect[(UINT)eType]; }
+
 protected:
 	XMMATRIX m_baseViewMatrix;
 

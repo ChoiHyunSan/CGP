@@ -45,7 +45,7 @@ void Bomb::Update()
 			SceneMgr::GetInst()->GetCurScene()->AddEffect(GraphicsClass::GetInst()->GetD3D(), EFFECT_TYPE::FIRE, getPos() + Pos(0,0,  (i + 1)));
 			SceneMgr::GetInst()->GetCurScene()->AddEffect(GraphicsClass::GetInst()->GetD3D(), EFFECT_TYPE::FIRE, getPos() + Pos(0, 0 , -(i + 1)));
 		}
-		OutputDebugStringA("Fire");
+		//OutputDebugStringA("Fire");
 
 		SceneMgr::GetInst()->GetCurScene()->ClearObjects(GROUP_TYPE::BOMB);
 	}

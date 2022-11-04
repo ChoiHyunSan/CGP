@@ -25,7 +25,7 @@ enum class GROUP_TYPE
 	PLAYER,  
 	ENEMY,
 	BOMB,
-
+	FIRE,
 
 	END = 32,
 
@@ -36,8 +36,7 @@ enum class EFFECT_TYPE
 {
 	FIRE,
 	FOG,
-
-
+	WATER,
 
 	END = 32
 };

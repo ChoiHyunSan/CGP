@@ -12,5 +12,6 @@ public:
 public:
     virtual void Update();
 
+    void OnCollisionEnter(Collider* _pOther);
 };
 
