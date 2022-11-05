@@ -50,7 +50,7 @@ void Player::Update()
 		if (SceneMgr::GetInst()->GetCurScene()->isModelArrEmpty(GROUP_TYPE::BOMB))
 		{
 			SceneMgr::GetInst()->GetCurScene()->AddObject(GraphicsClass::GetInst()->GetD3D(), GROUP_TYPE::BOMB);
-			OutputDebugStringA("bomb");
+			OutputDebugStringA("bomb \n");
 		}
 		
 	}
@@ -60,6 +60,6 @@ void Player::OnCollisionEnter(Collider* _pOther)
 
 {
 	if(_pOther->GetModel() != nullptr && _pOther->GetModel()->GetName() == L"Enemy")
-		OutputDebugStringA("OnCollision Enter");
+		OutputDebugStringA("OnCollision Enter \n");
 }
 

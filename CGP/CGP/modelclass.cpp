@@ -76,6 +76,7 @@ ModelClass::ModelClass(ID3D11Device* device, GROUP_TYPE type, Pos pos)
 
 ModelClass::~ModelClass()
 {
+
 }
 
 

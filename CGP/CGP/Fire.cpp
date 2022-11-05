@@ -2,6 +2,7 @@
 #include "TimeMgr.h"
 #include "SceneMgr.h"
 #include "Scene.h"
+#include "EventMgr.h"
 
 void Fire::Update()
 {
@@ -32,6 +33,12 @@ Fire::~Fire()
 
 void Fire::OnCollisionEnter(Collider* _pOther)
 {
-	if(_pOther->GetModel()->GetName() == L"Player")
-		OutputDebugStringA("Bomb Collision");
+	if (_pOther->GetModel()->GetName() == L"Player" 
+		|| _pOther->GetModel()->GetName() == L"Enemy")
+	{
+		OutputDebugStringA("Bomb Collision \n");
+
+		_pOther->GetModel()->SetDead();
+	}
+
 }

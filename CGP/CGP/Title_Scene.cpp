@@ -129,6 +129,7 @@ void Title_Scene::init(D3DClass* D3D)
 
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::ENEMY);
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::FIRE);
+	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::ENEMY, GROUP_TYPE::FIRE);
 
 }
 

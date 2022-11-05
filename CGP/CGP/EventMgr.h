@@ -25,7 +25,7 @@ private:
 	void Excute(const tEvent& _eve);
 
 public:
-	void AddEvenet(const tEvent& _eve) { m_vecEvent.push_back(_eve); }
+	void AddEvent(const tEvent& _eve) { m_vecEvent.push_back(_eve); }
 
 };
 

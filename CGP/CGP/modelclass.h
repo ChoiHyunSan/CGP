@@ -92,6 +92,7 @@ public:
 	XMMATRIX getScale() { return m_scale; }
 
 	bool IsDead() const { return !m_bAlive; }
+	void SetDead() { m_bAlive = false; }
 
 	Collider* GetCollider() const { return m_pCollider; }
 
@@ -113,8 +114,6 @@ private:
 
 	void setInstPosInfo();
 	void setFileInfo();
-
-	void SetDead() { m_bAlive = false; }
 	
 public:
 	virtual void Update();

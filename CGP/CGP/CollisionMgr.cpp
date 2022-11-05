@@ -80,12 +80,18 @@ void CollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 
 	for (size_t i = 0; i < vecLeft.size(); ++i)
 	{
+		// 죽은 상태인지 체크
+		if (vecLeft[i]->IsDead()) continue;
+		
 		// Collider가 있는지 체크
 		if (nullptr == vecLeft[i]->GetCollider())
 			continue;
 
 		for (size_t j = 0; j < vecRight.size(); ++j)
 		{
+			// 죽은 상태인지 체크
+			if (vecRight[j]->IsDead()) continue;
+
 			// Collider가 없거나 자기 자신과 충돌하는지 체크
 			if (nullptr == vecRight[j]->GetCollider()
 				|| vecLeft[i] == vecRight[j])

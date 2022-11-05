@@ -5,6 +5,7 @@
 #include "d3dclass.h"
 #include "struct.h"
 
+
 using namespace std;
 using std::vector;
 
@@ -39,3 +40,4 @@ struct Pos
 
 	}
 };
+

@@ -25,7 +25,11 @@ Collider::Collider(const Collider& _origin)
 
 Collider::~Collider()
 {
+	//if (m_pOwnerModel != nullptr)
+	//	delete m_pOwnerModel;
 
+	//if (m_pOwnerEffect != nullptr)
+	//	delete m_pOwnerEffect;
 }
 
 void Collider::finalUpdate()

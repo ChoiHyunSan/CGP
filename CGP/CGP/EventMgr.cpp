@@ -56,8 +56,12 @@ void EventMgr::Excute(const tEvent& _eve)
 		// 삭제예정 오브젝트들을 모아둔다.
 
 		ModelClass* pDeadObj = (ModelClass*)_eve.lParam;
-		pDeadObj->SetDead();
-		m_vecDead.push_back(pDeadObj);
+
+		if (!pDeadObj->IsDead())
+		{
+			pDeadObj->SetDead();
+			m_vecDead.push_back(pDeadObj);
+		}
 	}
 
 

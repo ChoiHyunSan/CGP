@@ -49,6 +49,8 @@ void Scene::render(D3DClass* D3D, float rotation)
 	{
 		for(int j = 0; j < m_arrModel[i].size(); j++)
 		{
+			if (m_arrModel[i][j]->IsDead()) continue;
+
 			// Generate the view matrix based on the camera's position.
 			m_Camera->Render();
 
@@ -175,18 +177,21 @@ void Scene::update(D3DClass* D3D)
 	GameMgr::GetInst()->update();
 	m_Text->update();
 
-	for (int i = 0; i < (UINT)GROUP_TYPE::END; i++)
+	for (UINT i = 0; i < (UINT)GROUP_TYPE::END; i++)
 	{
-		for (int j = 0; j < m_arrModel[i].size(); i++)
+		for(int j = 0; j< m_arrModel[i].size(); j++)
 		{
-			m_arrModel[i][j]->Update();
+			if(!m_arrModel[i][j]->IsDead())
+				m_arrModel[i][j]->Update();
 		}
+
 	}
 	for (int i = 0; i < (UINT)EFFECT_TYPE::END; i++)
 	{
 		for (int j = 0; j < m_arrEffect[i].size(); i++)
 		{
-			m_arrEffect[i][j]->Update();
+			if (!m_arrEffect[i][j]->IsDead())
+				m_arrEffect[i][j]->Update();
 		}
 	}
 }
