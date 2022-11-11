@@ -166,11 +166,11 @@ void Scene::update(D3DClass* D3D)
 	bool result;
 
 	// TODO : 오브젝트들을 업데이트 시킨다.
-	if (InputClass::GetInst()->IsKeyDown(0x60))
+	if (InputClass::GetInst()->GetKeyState(0x60) & 0x80)
 	{
 		SceneMgr::GetInst()->setCurScene(SCENE_TYPE::START);
 	}
-	else if (InputClass::GetInst()->IsKeyDown(0x61))
+	else if (InputClass::GetInst()->GetKeyState(0x61) & 0x80)
 	{
 		SceneMgr::GetInst()->setCurScene(SCENE_TYPE::STAGE_01);
 	}

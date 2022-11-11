@@ -17,7 +17,7 @@ ModelClass::ModelClass()
 	m_vertexCount(0),
 	m_instanceBuffer(0)
 {
-
+	
 }
 
 
@@ -49,8 +49,11 @@ ModelClass::ModelClass(ID3D11Device* device, GROUP_TYPE type)
 	m_textureFilename1(0),
 	m_Pos()
 {
-
 	Initialize(device, type);
+
+	CreateCollider();
+	GetCollider()->SetOffsetPos(Pos(0.f, 0.f, 0.f));
+	GetCollider()->SetScale(Pos(1.0f, 1.0f, 1.0f));
 }
 
 ModelClass::ModelClass(ID3D11Device* device, GROUP_TYPE type, Pos pos)
@@ -69,8 +72,12 @@ ModelClass::ModelClass(ID3D11Device* device, GROUP_TYPE type, Pos pos)
 	m_Pos(pos)
 {
 	m_Pos = pos;
-
 	Initialize(device, type);
+	SetName(L"Default");
+
+	CreateCollider();
+	GetCollider()->SetOffsetPos(Pos(0.f, 0.f, 0.f));
+	GetCollider()->SetScale(Pos(1.0f, 1.0f, 1.0f));
 }
 
 

@@ -22,7 +22,9 @@
 ///////////////////////
 #include "inputclass.h"
 #include "graphicsclass.h"
-
+#include "FpsClass.h"
+#include "CpuClass.h"
+#include "TimerClass.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: SystemClass
@@ -40,6 +42,10 @@ public:
 	LRESULT CALLBACK MessageHandler(HWND, UINT, WPARAM, LPARAM);
 
 	HWND GetHwnd() { return m_hwnd; }
+	HINSTANCE GetHInstance() { return m_hinstance; }
+
+	int GetFps()const { return m_Fps->GetFps(); }
+	int GetCpu()const { return m_Cpu->GetCpuPercentage(); }
 
 private:
 	bool Frame();
@@ -53,6 +59,11 @@ private:
 
 	InputClass* m_Input;
 	GraphicsClass* m_Graphics;
+
+	FpsClass* m_Fps;
+	CpuClass* m_Cpu;
+	TimerClass* m_Timer;
+
 };
 
 

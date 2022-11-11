@@ -58,6 +58,11 @@ private:
 	// 게임 매니저로부터 정보값을 받아와서 띄울 폰트 선언
 	SentenceType* m_playTime;
 	SentenceType* m_playerLife;
+	SentenceType* m_playScore;
+
+
+	SentenceType* m_Cpu;
+	SentenceType* m_Fps;
 };
 
 #endif

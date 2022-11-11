@@ -21,9 +21,7 @@ Fire::Fire(ID3D11Device* device, Pos pos)
 	: EffectClass(device, EFFECT_TYPE::FIRE, pos),
 	timer(0.f)
 {
-	CreateCollider();
-	GetCollider()->SetOffsetPos(Pos(0.f, 0.f, 0.f));
-	GetCollider()->SetScale(Pos(1.0f, 1.0f, 1.0f));
+
 }
 
 Fire::~Fire()

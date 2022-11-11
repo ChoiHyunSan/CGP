@@ -22,7 +22,7 @@
 // GLOBALS //
 /////////////
 const bool FULL_SCREEN = false;
-const bool VSYNC_ENABLED = true;
+const bool VSYNC_ENABLED = true;  // 수직 동기화
 const float SCREEN_DEPTH = 1000.0f;
 const float SCREEN_NEAR = 0.1f;
 
@@ -38,7 +38,7 @@ public:
 
 	bool Initialize(int, int, HWND);
 	void Shutdown();
-	bool Frame();
+	bool Frame(int, int);
 
 	D3DClass* GetD3D() const { return m_D3D; } 
 private:
@@ -46,6 +46,7 @@ private:
 
 private:
 	D3DClass* m_D3D;
+
 };
 
 #endif

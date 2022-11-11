@@ -49,6 +49,7 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionMgr.h" />
     <ClInclude Include="colorshaderclass.h" />
+    <ClInclude Include="CpuClass.h" />
     <ClInclude Include="d3dclass.h" />
     <ClInclude Include="DDSTextureLoader.h" />
     <ClInclude Include="define.h" />
@@ -59,6 +60,7 @@
     <ClInclude Include="fireshaderclass.h" />
     <ClInclude Include="fontclass.h" />
     <ClInclude Include="fontshaderclass.h" />
+    <ClInclude Include="FpsClass.h" />
     <ClInclude Include="GameMgr.h" />
     <ClInclude Include="graphicsclass.h" />
     <ClInclude Include="inputclass.h" />
@@ -76,6 +78,7 @@
     <ClInclude Include="textureclass.h" />
     <ClInclude Include="textureshaderclass.h" />
     <ClInclude Include="TimeMgr.h" />
+    <ClInclude Include="TimerClass.h" />
     <ClInclude Include="Title_Scene.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
@@ -86,6 +89,7 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="colorshaderclass.cpp" />
+    <ClCompile Include="CpuClass.cpp" />
     <ClCompile Include="d3dclass.cpp" />
     <ClCompile Include="DDSTextureLoader.cpp" />
     <ClCompile Include="EffectClass.cpp" />
@@ -95,6 +99,7 @@
     <ClCompile Include="fireshaderclass.cpp" />
     <ClCompile Include="fontclass.cpp" />
     <ClCompile Include="fontshaderclass.cpp" />
+    <ClCompile Include="FpsClass.cpp" />
     <ClCompile Include="GameMgr.cpp" />
     <ClCompile Include="graphicsclass.cpp" />
     <ClCompile Include="inputclass.cpp" />
@@ -111,6 +116,7 @@
     <ClCompile Include="textureclass.cpp" />
     <ClCompile Include="textureshaderclass.cpp" />
     <ClCompile Include="TimeMgr.cpp" />
+    <ClCompile Include="TimerClass.cpp" />
     <ClCompile Include="Title_Scene.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>

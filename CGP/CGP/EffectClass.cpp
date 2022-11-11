@@ -20,6 +20,10 @@ EffectClass::EffectClass(ID3D11Device* device, EFFECT_TYPE _type, Pos pos):
 	m_pos(pos)
 {
 	Initialize(device);
+
+	CreateCollider();
+	GetCollider()->SetOffsetPos(Pos(0.f, 0.f, 0.f));
+	GetCollider()->SetScale(Pos(1.0f, 1.0f, 1.0f));
 }
 
 

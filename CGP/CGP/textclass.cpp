@@ -6,6 +6,8 @@
 #include "d3dclass.h"
 #include <string>
 #include "GameMgr.h"
+#include "systemclass.h"
+
 using namespace std;
 
 TextClass::TextClass()
@@ -15,6 +17,9 @@ TextClass::TextClass()
 
 	m_playTime = 0;
 	m_playerLife = 0;
+	m_playScore = 0;
+	m_Cpu = 0;
+	m_Fps = 0;
 }
 
 
@@ -78,13 +83,6 @@ bool TextClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceCont
 		return false;
 	}
 
-	// Now update the sentence vertex buffer with the new string information.
-	result = UpdateSentence(m_playTime, "Hello", 100, 100, 1.0f, 1.0f, 1.0f, deviceContext);
-	if(!result)
-	{
-		return false;
-	}
-
 	// Initialize the first sentence.
 	result = InitializeSentence(&m_playerLife, 16, device);
 	if(!result)
@@ -92,9 +90,20 @@ bool TextClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceCont
 		return false;
 	}
 
-	// Now update the sentence vertex buffer with the new string information.
-	result = UpdateSentence(m_playerLife, "Goodbye", 100, 200, 1.0f, 1.0f, 0.0f, deviceContext);
-	if(!result)
+	result = InitializeSentence(&m_playScore, 16, device);
+	if (!result)
+	{
+		return false;
+	}
+
+	result = InitializeSentence(&m_Cpu, 16, device);
+	if (!result)
+	{
+		return false;
+	}	
+
+	result = InitializeSentence(&m_Fps, 16, device);
+	if (!result)
 	{
 		return false;
 	}
@@ -110,6 +119,12 @@ void TextClass::Shutdown()
 
 	// Release the second sentence.
 	ReleaseSentence(&m_playerLife);
+
+	ReleaseSentence(&m_playScore);
+
+	ReleaseSentence(&m_Cpu);
+
+	ReleaseSentence(&m_Fps);
 
 	// Release the font shader object.
 	if(m_FontShader)
@@ -150,6 +165,24 @@ bool TextClass::Render(ID3D11DeviceContext* deviceContext, XMMATRIX worldMatrix,
 		return false;
 	}
 
+	result = RenderSentence(deviceContext, m_playScore, worldMatrix, orthoMatrix);
+	if (!result)
+	{
+		return false;
+	}
+
+	result = RenderSentence(deviceContext, m_Cpu, worldMatrix, orthoMatrix);
+	if (!result)
+	{
+		return false;
+	}
+
+	result = RenderSentence(deviceContext, m_Fps, worldMatrix, orthoMatrix);
+	if (!result)
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -158,18 +191,27 @@ void TextClass::update()
 	ID3D11DeviceContext* deviceContext = GraphicsClass::GetInst()->GetD3D()->GetDeviceContext();
 
 	// GameMgr 정보를 const char* 형식으로 변환
-	string s_playTime = to_string(GameMgr::GetInst()->getPlayTime());
-	string s_playerLife = to_string(GameMgr::GetInst()->getPlayerLife());
+	string s_playTime = "Time : " + to_string(GameMgr::GetInst()->getPlayTime());
+	string s_playerLife = "Life : " + to_string(GameMgr::GetInst()->getPlayerLife());
+	string s_playScore = "Score : " + to_string(GameMgr::GetInst()->getPlayScore());
+
+	string s_Cpu = "Cpu : " + to_string(SystemClass::GetInst()->GetCpu()) + "%";
+	string s_Fps = "Fps : " + to_string(SystemClass::GetInst()->GetFps());
 
 	const char* temp_playerTime = s_playTime.c_str();
 	const char* temp_playerLife = s_playerLife.c_str();
-
+	const char* temp_playScore = s_playScore.c_str();
+	const char* temp_Cpu = s_Cpu .c_str();
+	const char* temp_Fps = s_Fps.c_str();
 
 	// 정보를 업데이트
-	UpdateSentence(m_playTime, temp_playerTime, 200, 200, 1.0f, 1.0f, 1.0f, deviceContext);
-	UpdateSentence(m_playerLife, temp_playerLife, 100, 100, 1.0f, 1.0f, 1.0f, deviceContext);
-	//UpdateSentence(m_playTime, "Hello", 100, 100, 1.0f, 1.0f, 1.0f, deviceContext);
-	//UpdateSentence(m_playTime, "Hello", 100, 100, 1.0f, 1.0f, 1.0f, deviceContext);
+	UpdateSentence(m_playTime, temp_playerTime, 200, 550, 1.0f, 1.0f, 1.0f, deviceContext);
+	UpdateSentence(m_playerLife, temp_playerLife, 100, 550, 1.0f, 1.0f, 1.0f, deviceContext);
+	UpdateSentence(m_playScore, temp_playScore, 300, 550, 1.0f, 1.0f, 1.0f, deviceContext);
+
+	UpdateSentence(m_Cpu, temp_Cpu, 50, 50, 1.0f, 1.0f, 1.0f, deviceContext);
+	UpdateSentence(m_Fps, temp_Fps, 50, 100, 1.0f, 1.0f, 1.0f, deviceContext);
+
 
 }
 

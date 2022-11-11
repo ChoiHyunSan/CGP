@@ -6,7 +6,10 @@
 
 SystemClass::SystemClass()
 	:m_Input(0),
-	m_Graphics(0)
+	m_Graphics(0),
+	m_Fps(0),
+	m_Cpu(0),
+	m_Timer(0)
 {
 
 }
@@ -38,19 +41,92 @@ bool SystemClass::Initialize()
 	InitializeWindows(screenWidth, screenHeight);
 	
 	// inputClass ÃÊ±âÈ­
-	InputClass::GetInst()->Initialize();
+	result = InputClass::GetInst()->Initialize(m_hinstance, m_hwnd, screenWidth, screenHeight);
+	if (!result)
+	{
+		MessageBox(m_hwnd, L"Could not initialize the input object.", L"Error", MB_OK);
+		return false;
+	}
+
 	TimeMgr::GetInst()->init();
 
 	// Initialize the graphics object.
 	m_Graphics->GetInst()->Initialize(screenWidth, screenHeight, m_hwnd);
 
-	
+	// Create the fps object.
+	m_Fps = new FpsClass;
+	if (!m_Fps)
+	{
+		return false;
+	}
+
+	// Initialize the fps object.
+	m_Fps->Initialize();
+
+	// Create the cpu object.
+	m_Cpu = new CpuClass;
+	if (!m_Cpu)
+	{
+		return false;
+	}
+
+	// Initialize the cpu object.
+	m_Cpu->Initialize();
+
+	// Create the timer object.
+	m_Timer = new TimerClass;
+	if (!m_Timer)
+	{
+		return false;
+	}
+
+	// Initialize the timer object.
+	result = m_Timer->Initialize();
+	if (!result)
+	{
+		MessageBox(m_hwnd, L"Could not initialize the Timer object.", L"Error", MB_OK);
+		return false;
+	}
+
+
 	return true;
 }
 
 
 void SystemClass::Shutdown()
 {
+	// Release the graphics object.
+	if (m_Graphics)
+	{
+		m_Graphics->Shutdown();
+	}
+
+	if (m_Input)
+	{
+		m_Input->Shutdown();
+	}
+
+	// Release the timer object.
+	if (m_Timer)
+	{
+		delete m_Timer;
+		m_Timer = 0;
+	}
+
+	// Release the cpu object.
+	if (m_Cpu)
+	{
+		m_Cpu->Shutdown();
+		delete m_Cpu;
+		m_Cpu = 0;
+	}
+
+	// Release the fps object.
+	if (m_Fps)
+	{
+		delete m_Fps;
+		m_Fps = 0;
+	}
 
 	// Shutdown the window.
 	ShutdownWindows();
@@ -90,8 +166,14 @@ void SystemClass::Run()
 			result = Frame();
 			if(!result)
 			{
+				MessageBox(m_hwnd, L"Frame Processing Failed", L"Error", MB_OK);
 				done = true;
 			}
+		}
+		// Check if the user pressed escape and wants to quit.
+		if (InputClass::GetInst()->IsEscapePressed() == true)
+		{
+			done = true;
 		}
 
 	}
@@ -103,19 +185,28 @@ void SystemClass::Run()
 bool SystemClass::Frame()
 {
 	bool result;
+	int mouseX, mouseY;
+
+	m_Timer->Frame();
+	m_Fps->Frame();
+	m_Cpu->Frame();
 
 	// Check if the user pressed escape and wants to exit the application.
-	if(m_Input->GetInst()->IsKeyDown(VK_ESCAPE))
+	result = InputClass::GetInst()->Frame();
+	if (!result)
 	{
 		return false;
 	}
+
+	// Get the location of the mouse from the input object,
+	InputClass::GetInst()->GetMouseLocation(mouseX, mouseY);
 
 	// TODO : TimeMgr()::GetInst()->update();
 	TimeMgr::GetInst()->update();
 	TimeMgr::GetInst()->render();
 
 	// Do the frame processing for the graphics object.
-	result = m_Graphics->GetInst()->Frame();
+	result = m_Graphics->GetInst()->Frame(mouseX, mouseY);
 	if(!result)
 	{
 		return false;
@@ -127,30 +218,7 @@ bool SystemClass::Frame()
 
 LRESULT CALLBACK SystemClass::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam)
 {
-	switch(umsg)
-	{
-		// Check if a key has been pressed on the keyboard.
-		case WM_KEYDOWN:
-		{
-			// If a key is pressed send it to the input object so it can record that state.
-			m_Input->GetInst()->KeyDown((unsigned int)wparam);
-			return 0;
-		}
-
-		// Check if a key has been released on the keyboard.
-		case WM_KEYUP:
-		{
-			// If a key is released then send it to the input object so it can unset the state for that key.
-			m_Input->GetInst()->KeyUp((unsigned int)wparam);
-			return 0;
-		}
-
-		// Any other messages send to the default message handler as our application won't make use of them.
-		default:
-		{
-			return DefWindowProc(hwnd, umsg, wparam, lparam);
-		}
-	}
+	return DefWindowProc(hwnd, umsg, wparam, lparam);
 }
 
 
