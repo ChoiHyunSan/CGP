@@ -22,10 +22,11 @@
 #include "fireshaderclass.h"
 #include "Fire.h"
 
+
 void Scene::render(D3DClass* D3D, float rotation)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoMatrix;
-	
+
 	// effet를 위한 변수 선언
 	XMFLOAT3 scrollSpeeds, scales;
 	XMFLOAT2 distortion1, distortion2, distortion3;
@@ -45,9 +46,9 @@ void Scene::render(D3DClass* D3D, float rotation)
 	D3D->GetWorldMatrix(worldMatrix);
 	D3D->GetProjectionMatrix(projectionMatrix);
 
-	for (int i = 0; i< (UINT)GROUP_TYPE::END; i++)
+	for (int i = 0; i < (UINT)GROUP_TYPE::END; i++)
 	{
-		for(int j = 0; j < m_arrModel[i].size(); j++)
+		for (int j = 0; j < m_arrModel[i].size(); j++)
 		{
 			if (m_arrModel[i][j]->IsDead()) continue;
 
@@ -61,12 +62,12 @@ void Scene::render(D3DClass* D3D, float rotation)
 			D3D->GetProjectionMatrix(projectionMatrix);
 
 			// 뷰 메트릭스 조절
-			viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0,-8,20);
+			viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0, -8, 20);
 
 			// 월드 메트릭스 조절
-			worldMatrix = 
+			worldMatrix =
 				m_arrModel[i][j]->getRotate() * m_arrModel[i][j]->getScale() *
-				XMMatrixTranslation(m_arrModel[i][j]->getPos().x, m_arrModel[i][j]->getPos().y-2, m_arrModel[i][j]->getPos().z);
+				XMMatrixTranslation(m_arrModel[i][j]->getPos().x, m_arrModel[i][j]->getPos().y - 2, m_arrModel[i][j]->getPos().z);
 
 			// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
 			m_arrModel[i][j]->Render(D3D->GetDeviceContext());
@@ -81,7 +82,7 @@ void Scene::render(D3DClass* D3D, float rotation)
 
 			m_arrModel[i][j]->finalUpdate();
 
-			assert(result); 
+			assert(result);
 		}
 	}
 
@@ -94,7 +95,7 @@ void Scene::render(D3DClass* D3D, float rotation)
 
 	result = m_Bitmap->Render(D3D->GetDeviceContext(), 0, 500);
 
-	m_TextureShader->Render(D3D->GetDeviceContext(), m_Bitmap->GetIndexCount(), 
+	m_TextureShader->Render(D3D->GetDeviceContext(), m_Bitmap->GetIndexCount(),
 		worldMatrix, viewMatrix, orthoMatrix, m_Bitmap->GetTexture());
 
 	D3D->GetWorldMatrix(worldMatrix);
@@ -104,7 +105,7 @@ void Scene::render(D3DClass* D3D, float rotation)
 	D3D->TurnOnAlphaBlending();
 
 	result = m_Text->Render(D3D->GetDeviceContext(), worldMatrix, orthoMatrix);
-	
+
 	D3D->TurnOffAlphaBlending();
 
 	D3D->TurnZBufferOn();
@@ -132,13 +133,14 @@ void Scene::render(D3DClass* D3D, float rotation)
 
 	D3D->TurnOnAlphaBlending();
 
+	// 이펙트를 화면에 띄운다.
 	for (int i = 0; i < (UINT)EFFECT_TYPE::END; ++i)
 	{
 		for (int j = 0; j < m_arrEffect[i].size(); ++j)
 		{
 			// 카메라의 위치에 기반하여 뷰 행렬을 생성합니다.
 			m_Camera->Render();
-			
+
 			// 카메라와 d3d객체에서 월드, 뷰, 투영 행렬을 가져옵니다.
 			D3D->GetWorldMatrix(worldMatrix);
 			m_Camera->GetViewMatrix(viewMatrix);
@@ -146,15 +148,40 @@ void Scene::render(D3DClass* D3D, float rotation)
 
 			m_Effect->Render(D3D->GetDeviceContext());
 			viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0, -8, 20);
-			worldMatrix *= XMMatrixRotationX(3.141592 / 2) * XMMatrixTranslation(0.0f, -4.55f, 0.0f) * XMMatrixScaling(0.5f, 0.5f, 0.5f) * XMMatrixTranslation(m_arrEffect[i][j]->getPos().x, m_arrEffect[i][j]->getPos().y -2 , m_arrEffect[i][j]->getPos().z);
+			worldMatrix *= XMMatrixRotationX(3.141592 / 2) * XMMatrixTranslation(0.0f, -4.55f, 0.0f) * XMMatrixScaling(0.5f, 0.5f, 0.5f) * XMMatrixTranslation(m_arrEffect[i][j]->getPos().x, m_arrEffect[i][j]->getPos().y - 2, m_arrEffect[i][j]->getPos().z);
 
 			result = m_FireShader->Render(D3D->GetDeviceContext(), m_arrEffect[i][j]->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
 				m_arrEffect[i][j]->GetTexture1(), m_arrEffect[i][j]->GetTexture2(), m_arrEffect[i][j]->GetTexture3(), frameTime, scrollSpeeds,
 				scales, distortion1, distortion2, distortion3, distortionScale, distortionBias);
-		
+
 			m_arrEffect[i][j]->finalUpdate();
 		}
 	}
+
+	// 파티클을 화면에 띄운다.
+
+	for (int i = 0; i < (UINT)PARTICLE_TYPE::END; ++i)
+	{
+		for (int j = 0; j < m_arrParticleSystem[i].size(); ++j)
+		{
+			// 카메라의 위치에 기반하여 뷰 행렬을 생성합니다.
+			m_Camera->Render();
+
+			// 카메라와 d3d객체에서 월드, 뷰, 투영 행렬을 가져옵니다.
+			D3D->GetWorldMatrix(worldMatrix);
+			m_Camera->GetViewMatrix(viewMatrix);
+			D3D->GetProjectionMatrix(projectionMatrix);
+
+			m_ParticleSystem->Render(D3D->GetDeviceContext());
+
+			worldMatrix *= XMMatrixTranslation(m_arrParticleSystem[i][j]->getPos().x, m_arrParticleSystem[i][j]->getPos().y - 2, m_arrParticleSystem[i][j]->getPos().z);
+			viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0, -8, 20);
+			
+			result = m_ParticleShader->Render(D3D->GetDeviceContext(), m_arrParticleSystem[i][j]->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
+				m_arrParticleSystem[i][j]->GetTexture());
+		}
+	}
+
 
 	// 알파 블렌딩을 끕니다.
 	D3D->TurnOffAlphaBlending();
@@ -194,6 +221,15 @@ void Scene::update(D3DClass* D3D)
 				m_arrEffect[i][j]->Update();
 		}
 	}
+	for (int i = 0; i < (UINT)PARTICLE_TYPE::END; i++)
+	{
+		for (int j = 0; j < m_arrParticleSystem[i].size(); i++)
+		{
+			m_arrParticleSystem[i][j]->Frame(SystemClass::GetInst()->GetTime(),D3D->GetDeviceContext());
+			
+		}
+	}
+
 }
 
 void Scene::AddObject(D3DClass* D3D, GROUP_TYPE _eType, Pos pos)
@@ -223,6 +259,15 @@ void Scene::AddEffect(D3DClass* D3D, EFFECT_TYPE _eType, Pos pos)
 	m_arrEffect[(UINT)_eType].push_back(m_Effect);
 }
 
+void Scene::AddParticle(D3DClass* D3D, PARTICLE_TYPE _eType, Pos pos)
+{
+	if (_eType == PARTICLE_TYPE::DEFAULT)
+	{
+		m_ParticleSystem = new ParticleSystemClass(D3D->GetDevice(), L".data/star.dds" ,pos);
+	}
+	m_arrParticleSystem[(UINT)_eType].push_back(m_ParticleSystem);
+}
+
 void Scene::ClearObjects(GROUP_TYPE _eType)
 {
 	m_arrModel[(UINT)_eType].clear();
@@ -242,7 +287,8 @@ Scene::Scene():
 	m_TextureShader(0),
 	m_Text(0),
 	m_Effect(0),
-	m_FireShader(0)
+	m_FireShader(0),
+	m_ParticleShader(0)
 {
 
 }
@@ -315,6 +361,23 @@ Scene::~Scene()
 		m_Text = 0;
 	}
 
+	// 파티클 시스템 객체를 해제합니다.
+	if (m_ParticleSystem)
+	{
+		m_ParticleSystem->Shutdown();
+		delete m_ParticleSystem;
+		m_ParticleSystem = 0;
+	}
+
+	// 파티클 셰이더 객체를 해제합니다.
+	if (m_ParticleShader)
+	{
+		m_ParticleShader->Shutdown();
+		delete m_ParticleShader;
+		m_ParticleShader = 0;
+	}
+
+
 	for (int i = 0; i < (UINT)GROUP_TYPE::END; i++)
 	{
 		for (int j = 0; j < m_arrModel[i].size(); j++)
@@ -331,4 +394,11 @@ Scene::~Scene()
 		}
 	}
 
+	for (int i = 0; i < (UINT)PARTICLE_TYPE::END; i++)
+	{
+		for (int j = 0; j < m_arrParticleSystem[i].size(); j++)
+		{
+			delete m_arrParticleSystem[i][j];
+		}
+	}
 }

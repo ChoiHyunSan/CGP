@@ -68,6 +68,9 @@
     <Image Include="data\alpha01.dds">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="data\star.dds">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\color.ps">
@@ -98,6 +101,12 @@
       <Filter>리소스 파일</Filter>
     </None>
     <None Include="data\fire.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\particle.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\particle.vs">
       <Filter>리소스 파일</Filter>
     </None>
   </ItemGroup>
@@ -219,6 +228,12 @@
     <ClInclude Include="TimerClass.h">
       <Filter>소스 파일\D3D</Filter>
     </ClInclude>
+    <ClInclude Include="particleshaderclass.h">
+      <Filter>소스 파일\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="particlesystemclass.h">
+      <Filter>소스 파일\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -328,6 +343,12 @@
     </ClCompile>
     <ClCompile Include="TimerClass.cpp">
       <Filter>소스 파일\D3D</Filter>
+    </ClCompile>
+    <ClCompile Include="particleshaderclass.cpp">
+      <Filter>소스 파일\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="particlesystemclass.cpp">
+      <Filter>소스 파일\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

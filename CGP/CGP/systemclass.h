@@ -46,7 +46,7 @@ public:
 
 	int GetFps()const { return m_Fps->GetFps(); }
 	int GetCpu()const { return m_Cpu->GetCpuPercentage(); }
-
+	int GetTime() const { return m_Timer->GetTime(); }
 private:
 	bool Frame();
 	void InitializeWindows(int&, int&);

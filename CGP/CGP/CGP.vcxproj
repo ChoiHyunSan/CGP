@@ -27,6 +27,7 @@
     <Image Include="data\noise01.dds" />
     <Image Include="data\player.dds" />
     <Image Include="data\seafloor.dds" />
+    <Image Include="data\star.dds" />
     <Image Include="data\UI.dds" />
   </ItemGroup>
   <ItemGroup>
@@ -38,6 +39,8 @@
     <None Include="data\font.vs" />
     <None Include="data\light.ps" />
     <None Include="data\light.vs" />
+    <None Include="data\particle.ps" />
+    <None Include="data\particle.vs" />
     <None Include="data\texture.ps" />
     <None Include="data\texture.vs" />
   </ItemGroup>
@@ -67,6 +70,8 @@
     <ClInclude Include="lightclass.h" />
     <ClInclude Include="lightshaderclass.h" />
     <ClInclude Include="modelclass.h" />
+    <ClInclude Include="particleshaderclass.h" />
+    <ClInclude Include="particlesystemclass.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
@@ -107,6 +112,8 @@
     <ClCompile Include="lightshaderclass.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="modelclass.cpp" />
+    <ClCompile Include="particleshaderclass.cpp" />
+    <ClCompile Include="particlesystemclass.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneMgr.cpp" />

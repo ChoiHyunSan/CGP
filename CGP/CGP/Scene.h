@@ -7,6 +7,8 @@
 #include "textclass.h"
 #include "EffectClass.h"
 #include "fireshaderclass.h"
+#include "particleshaderclass.h"
+#include "particlesystemclass.h"
 
 class ModelClass;
 class CameraClass;
@@ -25,6 +27,7 @@ private:
 protected:
 	ModelClass* m_Model;
 	EffectClass* m_Effect;
+	ParticleSystemClass* m_ParticleSystem;
 
 	CameraClass* m_Camera;
 	LightClass* m_Light;
@@ -34,6 +37,9 @@ protected:
 	TextureShaderClass* m_TextureShader;
 	BitmapClass* m_Bitmap;
 	TextClass* m_Text;
+
+	ParticleShaderClass* m_ParticleShader;
+	vector<ParticleSystemClass*> m_arrParticleSystem[(UINT)PARTICLE_TYPE::END];
 
 public:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
@@ -46,6 +52,7 @@ public:
 
 	void AddObject(D3DClass* D3D, GROUP_TYPE _eType, Pos pos = Pos());
 	void AddEffect(D3DClass* D3D, EFFECT_TYPE _eType, Pos pos);
+	void AddParticle(D3DClass* D3D, PARTICLE_TYPE _eType, Pos pos);
 
 	void ClearObjects(GROUP_TYPE _eType);
 	void ClearEffects(EFFECT_TYPE _eType);

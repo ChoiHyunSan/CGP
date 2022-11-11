@@ -41,6 +41,13 @@ enum class EFFECT_TYPE
 	END = 32
 };
 
+enum class PARTICLE_TYPE
+{
+	DEFAULT = 0,
+
+	END = 32
+};
+
 enum class SCENE_TYPE
 {
 	TOOL,

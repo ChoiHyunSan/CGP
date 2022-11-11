@@ -52,15 +52,14 @@ void Title_Scene::init(D3DClass* D3D)
 		{
 			// Map[i][j]의 값이 0인 경우에만 설치
 			AddObject(D3D, GROUP_TYPE::DEFAULT, Pos(i - (MAPSIZE / 2), 0, j));
-			if(map[i][j] == 1)
+			if(map[j][i] == 1)
 				AddObject(D3D, GROUP_TYPE::DEFAULT, Pos(i - (MAPSIZE / 2), 1, j));
 		}
 	}
 
-
-
 	AddObject(D3D, GROUP_TYPE::PLAYER, Pos(0,0,0));
 	AddObject(D3D, GROUP_TYPE::ENEMY, Pos(0, 0, 0));
+	AddParticle(D3D, PARTICLE_TYPE::DEFAULT, Pos(10, 2, 0));
 
 	// 라이트 효과 추가
 	if (m_Light == nullptr)
@@ -150,6 +149,21 @@ void Title_Scene::init(D3DClass* D3D)
 			MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the fire shader object.", L"Error", MB_OK);
 		}
 	}
+
+	
+	if (m_ParticleShader == nullptr)
+	{
+		m_ParticleShader = new ParticleShaderClass;
+
+		// 파티클 셰이더 객체를 초기화합니다.
+		result = m_ParticleShader->Initialize(D3D->GetDevice(), SystemClass::GetInst()->GetHwnd());
+		if (!result)
+		{
+			MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the particle shader object.", L"Error", MB_OK);
+		}
+		
+	}
+
 
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::ENEMY);
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::FIRE);
