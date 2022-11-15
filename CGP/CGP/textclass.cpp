@@ -205,9 +205,9 @@ void TextClass::update()
 	const char* temp_Fps = s_Fps.c_str();
 
 	// 정보를 업데이트
-	UpdateSentence(m_playTime, temp_playerTime, 200, 550, 1.0f, 1.0f, 1.0f, deviceContext);
-	UpdateSentence(m_playerLife, temp_playerLife, 100, 550, 1.0f, 1.0f, 1.0f, deviceContext);
-	UpdateSentence(m_playScore, temp_playScore, 300, 550, 1.0f, 1.0f, 1.0f, deviceContext);
+	UpdateSentence(m_playTime, temp_playerTime, 170, 550, 1.0f, 1.0f, 1.0f, deviceContext);
+	UpdateSentence(m_playerLife, temp_playerLife, 70, 550, 1.0f, 1.0f, 1.0f, deviceContext);
+	UpdateSentence(m_playScore, temp_playScore, 340, 550, 1.0f, 1.0f, 1.0f, deviceContext);
 
 	UpdateSentence(m_Cpu, temp_Cpu, 50, 50, 1.0f, 1.0f, 1.0f, deviceContext);
 	UpdateSentence(m_Fps, temp_Fps, 50, 100, 1.0f, 1.0f, 1.0f, deviceContext);

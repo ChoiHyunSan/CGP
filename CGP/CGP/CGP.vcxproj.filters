@@ -225,14 +225,14 @@
     <ClInclude Include="CpuClass.h">
       <Filter>소스 파일\D3D</Filter>
     </ClInclude>
-    <ClInclude Include="TimerClass.h">
-      <Filter>소스 파일\D3D</Filter>
-    </ClInclude>
     <ClInclude Include="particleshaderclass.h">
       <Filter>소스 파일\Effect</Filter>
     </ClInclude>
     <ClInclude Include="particlesystemclass.h">
       <Filter>소스 파일\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerClass.h">
+      <Filter>소스 파일\define</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

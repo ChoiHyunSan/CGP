@@ -3,7 +3,7 @@
 #include "SceneMgr.h"
 #include "Scene.h"
 #include "EventMgr.h"
-
+#include "GameMgr.h"
 void Fire::Update()
 {
 	if (timer < 0.5f)
@@ -37,6 +37,10 @@ void Fire::OnCollisionEnter(Collider* _pOther)
 		OutputDebugStringA("Bomb Collision \n");
 
 		_pOther->GetModel()->SetDead();
-	}
 
+		if (_pOther->GetModel()->GetName() == L"Enemy")
+		{
+			GameMgr::GetInst()->AddScore();
+		}
+	}
 }

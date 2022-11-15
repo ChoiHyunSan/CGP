@@ -692,7 +692,7 @@ void ModelClass::setInstPosInfo()
 		break;
 	}
 	case GROUP_TYPE::ENEMY:
-		m_vInstancePos.push_back(XMFLOAT3(0, -0.5f, 0));
+		m_vInstancePos.push_back(XMFLOAT3(0, 0.5f, 0));
 		break;
 }
 	}
@@ -717,8 +717,8 @@ void ModelClass::setFileInfo()
 		break;
 
 	case GROUP_TYPE::ENEMY:
-		m_modelFilename = (WCHAR*)L"./data/player.obj";
-		m_textureFilename1 = (WCHAR*)L"./data/bomb.dds";
+		m_modelFilename = (WCHAR*)L"./data/creeper.obj";
+		m_textureFilename1 = (WCHAR*)L"./data/creeper.dds";
 		break;
 	}
 	

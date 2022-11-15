@@ -15,11 +15,13 @@ public:
 
 	int		getPlayTime() const { return m_playTime; }
 	int		getPlayScore() const { return m_score; }
+	void	AddScore() { m_score += 100; }
 private:
 	int		m_score;
 	int		m_playTime;
 	int		m_playerLife;
 	int		m_playerPower;
+	float	m_timer;
 
 };
 
