@@ -1,4 +1,21 @@
 ﻿cl : 명령줄 warning D9014: '2665' 값이 '/wd'에 대해 잘못되었습니다. '5999'(으)로 가정합니다.
-  textclass.cpp
-C:\Users\user\Desktop\CGP\CGP\CGP\systemclass.h(49,47): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  CGP.vcxproj -> C:\Users\user\Desktop\CGP\CGP\x64\Debug\CGP.exe
+  Scene.cpp
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\systemclass.h(49,47): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\Scene.cpp(127,49): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\Scene.cpp(153,40): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\Scene.cpp(238,68): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\Scene.cpp(199,7): warning C4101: 'result' :참조되지 않은 지역 변수입니다.
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\Scene.cpp(317,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\Scene.cpp(318,11): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\Scene.cpp(325,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\Scene.cpp(326,11): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\Scene.cpp(336,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\Scene.cpp(337,11): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\Scene.cpp(347,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\Scene.cpp(348,11): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\Scene.cpp(374,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\Scene.cpp(381,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\Scene.cpp(391,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\Scene.cpp(401,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\최현산\Desktop\Study\CGP\CGP\CGP\Scene.cpp(294,7): warning C4101: 'result' :참조되지 않은 지역 변수입니다.
+  CGP.vcxproj -> C:\Users\최현산\Desktop\Study\CGP\CGP\x64\Debug\CGP.exe

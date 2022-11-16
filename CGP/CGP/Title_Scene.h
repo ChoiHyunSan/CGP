@@ -12,7 +12,6 @@ public:
     ~Title_Scene();
 
 public:
-
     virtual void init(D3DClass* D3D);
     virtual void Exit();
 };

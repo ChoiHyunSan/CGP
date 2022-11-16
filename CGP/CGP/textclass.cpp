@@ -7,7 +7,8 @@
 #include <string>
 #include "GameMgr.h"
 #include "systemclass.h"
-
+#include "SceneMgr.h"
+#include "Scene.h"
 using namespace std;
 
 TextClass::TextClass():
@@ -109,7 +110,7 @@ bool TextClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceCont
 		return false;
 	}
 
-	result = InitializeSentence(&m_CameraMode, 16, device);
+	result = InitializeSentence(&m_CameraMode, 32, device);
 	if (!result)
 	{
 		return false;
@@ -159,25 +160,38 @@ bool TextClass::Render(ID3D11DeviceContext* deviceContext, XMMATRIX worldMatrix,
 {
 	bool result;
 
-
-	// Draw the first sentence.
-	result = RenderSentence(deviceContext, m_playTime, worldMatrix, orthoMatrix);
-	if(!result)
+	if (SceneMgr::GetInst()->GetCurScene()->GetName() != L"Title Scene")
 	{
-		return false;
+		// Draw the first sentence.
+		result = RenderSentence(deviceContext, m_playTime, worldMatrix, orthoMatrix);
+		if (!result)
+		{
+			return false;
+		}
+
+		// Draw the second sentence.
+		result = RenderSentence(deviceContext, m_playerLife, worldMatrix, orthoMatrix);
+		if (!result)
+		{
+			return false;
+		}
+
+		result = RenderSentence(deviceContext, m_playScore, worldMatrix, orthoMatrix);
+		if (!result)
+		{
+			return false;
+		}
+
+		result = RenderSentence(deviceContext, m_CameraMode, worldMatrix, orthoMatrix);
+		if (!result)
+		{
+			return false;
+		}
 	}
-
-	// Draw the second sentence.
-	result = RenderSentence(deviceContext, m_playerLife, worldMatrix, orthoMatrix);
-	if(!result)
+	// 타이틀 씬의 경우에는 따로 하나의 텍스트를 만들어 띄운다.
+	if (SceneMgr::GetInst()->GetCurScene()->GetName() == L"Title Scene")
 	{
-		return false;
-	}
 
-	result = RenderSentence(deviceContext, m_playScore, worldMatrix, orthoMatrix);
-	if (!result)
-	{
-		return false;
 	}
 
 	result = RenderSentence(deviceContext, m_Cpu, worldMatrix, orthoMatrix);
@@ -187,12 +201,6 @@ bool TextClass::Render(ID3D11DeviceContext* deviceContext, XMMATRIX worldMatrix,
 	}
 
 	result = RenderSentence(deviceContext, m_Fps, worldMatrix, orthoMatrix);
-	if (!result)
-	{
-		return false;
-	}
-
-	result = RenderSentence(deviceContext, m_CameraMode, worldMatrix, orthoMatrix);
 	if (!result)
 	{
 		return false;
@@ -212,23 +220,18 @@ void TextClass::update()
 
 	string s_Cpu = "Cpu : " + to_string(SystemClass::GetInst()->GetCpu()) + "%";
 	string s_Fps = "Fps : " + to_string(SystemClass::GetInst()->GetFps());
-	
-	string s_CameraMode;
-	if (GameMgr::GetInst()->GetCameraMode())
-	{
-		s_CameraMode = "Camera Mode : Fix";
-	}
-	else
-	{
-		s_CameraMode = "Camera Mode : Move";
-	}
+
+	string s_CameraModeFix =  (string)"Camera Mode(F1) : Fix";
+	string s_CameraModeMove = (string)"Camera Mode(F1) : Move";
 
 	const char* temp_playerTime = s_playTime.c_str();
 	const char* temp_playerLife = s_playerLife.c_str();
 	const char* temp_playScore = s_playScore.c_str();
 	const char* temp_Cpu = s_Cpu .c_str();
 	const char* temp_Fps = s_Fps.c_str();
-	const char* temp_CameraMode = s_CameraMode.c_str();
+
+	const char* temp_CameraModeFix = s_CameraModeFix.c_str();
+	const char* temp_CameraModeMove = s_CameraModeMove.c_str();
 
 
 	// 정보를 업데이트
@@ -238,8 +241,11 @@ void TextClass::update()
 
 	UpdateSentence(m_Cpu, temp_Cpu, 50, 50, 1.0f, 1.0f, 1.0f, deviceContext);
 	UpdateSentence(m_Fps, temp_Fps, 50, 70, 1.0f, 1.0f, 1.0f, deviceContext);
-	UpdateSentence(m_CameraMode, temp_CameraMode, 50, 90, 1.0f, 1.0f, 1.0f, deviceContext);
-
+	UpdateSentence(m_CameraMode, temp_CameraModeFix, 50, 90, 1.0f, 1.0f, 1.0f, deviceContext);
+	if(GameMgr::GetInst()->GetCameraMode())
+		UpdateSentence(m_CameraMode, temp_CameraModeFix, 50, 90, 1.0f, 1.0f, 1.0f, deviceContext);
+	else 
+		UpdateSentence(m_CameraMode, temp_CameraModeMove, 50, 90, 1.0f, 1.0f, 1.0f, deviceContext);
 
 }
 

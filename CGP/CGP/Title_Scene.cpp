@@ -24,50 +24,6 @@ void Title_Scene::init(D3DClass* D3D)
 {
 	bool result;
 
-	char map[MAPSIZE][MAPSIZE] = {
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-	};
-
-	for (int i = 0; i < MAPSIZE; i++)
-	{
-		for (int j = 0; j < MAPSIZE; j++)
-		{
-			m_map[i][j] = map[i][j];
-		}
-	}
-
-	// 모델들을을 생성 후, 벡터에 추가
-
-	// TODO : 타이틀 씬에서 생성할 도형들을 벡터에 추가
-	for (int i = 0; i < MAPSIZE; i++)
-	{
-		for (int j = 0; j < MAPSIZE; j++)
-		{
-			// Map[i][j]의 값이 0인 경우에만 설치
-			AddObject(D3D, GROUP_TYPE::DEFAULT, Pos(i - (MAPSIZE / 2), 0, j));
-			if(map[j][i] == 1)
-				AddObject(D3D, GROUP_TYPE::DEFAULT, Pos(i - (MAPSIZE / 2), 1, j));
-		}
-	}
-
-	AddObject(D3D, GROUP_TYPE::PLAYER, Pos(0,0,0));
-	AddObject(D3D, GROUP_TYPE::ENEMY, Pos(0, 0, 0));
-	AddParticle(D3D, PARTICLE_TYPE::DEFAULT, Pos(10, 2, 0));
-
 	// 라이트 효과 추가
 	if (m_Light == nullptr)
 	{
@@ -114,7 +70,7 @@ void Title_Scene::init(D3DClass* D3D)
 		m_Bitmap = new BitmapClass;
 
 		// Initialize the bitmap object.
-		result = m_Bitmap->Initialize(D3D->GetDevice(), 800, 600, L"./data/UI.dds", 800, 100);
+		result = m_Bitmap->Initialize(D3D->GetDevice(), 800, 600, L"./data/Title.dds", 800, 600);
 		if (!result)
 		{
 			MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the bitmap object.", L"Error", MB_OK);
@@ -144,40 +100,6 @@ void Title_Scene::init(D3DClass* D3D)
 			MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the text object.", L"Error", MB_OK);
 		}
 	}
-
-	if (m_FireShader == nullptr)
-	{
-		m_FireShader = new FireShaderClass;
-
-		// 불꽃 셰이더 객체를 초기화합니다.
-		result = m_FireShader->Initialize(D3D->GetDevice(), SystemClass::GetInst()->GetHwnd());
-		if (!result)
-		{
-			MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the fire shader object.", L"Error", MB_OK);
-		}
-	}
-
-	
-	if (m_ParticleShader == nullptr)
-	{
-		m_ParticleShader = new ParticleShaderClass;
-
-		// 파티클 셰이더 객체를 초기화합니다.
-		result = m_ParticleShader->Initialize(D3D->GetDevice(), SystemClass::GetInst()->GetHwnd());
-		if (!result)
-		{
-			MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the particle shader object.", L"Error", MB_OK);
-		}
-		
-	}
-
-
-	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::ENEMY);
-	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::FIRE);
-	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::ENEMY, GROUP_TYPE::FIRE);
-
-	// 벽과의 충돌처리
-	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::DEFAULT);
 
 }
 

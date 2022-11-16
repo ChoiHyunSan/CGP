@@ -71,6 +71,9 @@
     <Image Include="data\star.dds">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="data\Title.dds">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\color.ps">

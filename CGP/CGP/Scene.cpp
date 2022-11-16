@@ -35,7 +35,6 @@ void Scene::render(D3DClass* D3D, float rotation)
 
 	bool result;
 	// Clear the buffers to begin the scene.
-	//D3D->BeginScene(163 / 255.0f, 230 / 255.0f, 163 / 255.0f, 1.0f);
 	D3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
 
 	// Generate the view matrix based on the camera's position.
@@ -45,10 +44,11 @@ void Scene::render(D3DClass* D3D, float rotation)
 	m_Camera->GetViewMatrix(viewMatrix);
 	D3D->GetWorldMatrix(worldMatrix);
 	D3D->GetProjectionMatrix(projectionMatrix);
-	//viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0, -8, 20) * XMMatrixLookAtLH(m_Eye, m_At, m_Up);
-	//viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixLookAtLH(m_Eye, m_At, m_Up);
-	viewMatrix *= XMMatrixRotationX(-0.3f) * XMMatrixTranslation(0, -7, -1.5) * XMMatrixLookAtLH(m_Eye, m_At, m_Up);
-	
+
+	if(m_fixCamera)
+		viewMatrix *= XMMatrixRotationX(-0.3f) * XMMatrixTranslation(0, -7, -1.5) * XMMatrixLookAtLH(m_Eye, m_At, m_Up);
+	else
+		viewMatrix *= XMMatrixTranslation(0, -7, -1.5) * XMMatrixLookAtLH(m_Eye, m_At, m_Up);
 
 	for (int i = 0; i < (UINT)GROUP_TYPE::END; i++)
 	{
@@ -60,13 +60,9 @@ void Scene::render(D3DClass* D3D, float rotation)
 			m_Camera->Render();
 
 			// Get the world, view, and projection matrices from the camera and d3d objects.
-			//m_Camera->GetViewMatrix(viewMatrix);
 
 			D3D->GetWorldMatrix(worldMatrix);
 			D3D->GetProjectionMatrix(projectionMatrix);
-
-			// 뷰 메트릭스 조절
-			//viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0, -8, 20) * XMMatrixLookAtLH(m_Eye, m_At, m_Up);
 
 			// 월드 메트릭스 조절
 			worldMatrix =
@@ -149,7 +145,6 @@ void Scene::render(D3DClass* D3D, float rotation)
 
 			// 카메라와 d3d객체에서 월드, 뷰, 투영 행렬을 가져옵니다.
 			D3D->GetWorldMatrix(worldMatrix);
-			//m_Camera->GetViewMatrix(viewMatrix);
 			D3D->GetProjectionMatrix(projectionMatrix);
 
 			m_ParticleSystem->Render(D3D->GetDeviceContext());
@@ -173,7 +168,14 @@ void Scene::render(D3DClass* D3D, float rotation)
 	D3D->GetOrthoMatrix(orthoMatrix);
 	D3D->TurnZBufferOff();
 
-	result = m_Bitmap->Render(D3D->GetDeviceContext(), 0, 500);
+	if (SceneMgr::GetInst()->GetCurScene()->GetName() == L"Title Scene")
+	{
+		result = m_Bitmap->Render(D3D->GetDeviceContext(), 0, 0);
+	}
+	else
+	{
+		result = m_Bitmap->Render(D3D->GetDeviceContext(), 0, 500);
+	}
 
 	m_TextureShader->Render(D3D->GetDeviceContext(), m_Bitmap->GetIndexCount(),
 		worldMatrix, viewMatrix, orthoMatrix, m_Bitmap->GetTexture());
@@ -197,11 +199,11 @@ void Scene::update(D3DClass* D3D)
 	bool result;
 
 	// TODO : 오브젝트들을 업데이트 시킨다.
-	if (InputClass::GetInst()->GetKeyState(0x60) & 0x80)
+	if (InputClass::GetInst()->GetKeyState(DIK_NUMPAD0) & 0x80)
 	{
 		SceneMgr::GetInst()->setCurScene(SCENE_TYPE::START);
 	}
-	else if (InputClass::GetInst()->GetKeyState(0x61) & 0x80)
+	else if (InputClass::GetInst()->GetKeyState(DIK_NUMPAD1) & 0x80)
 	{
 		SceneMgr::GetInst()->setCurScene(SCENE_TYPE::STAGE_01);
 	}

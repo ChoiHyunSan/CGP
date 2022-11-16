@@ -13,7 +13,7 @@ Player::Player(ID3D11Device* device)
 	SetName(L"Player");
 	//CreateCollider();
 	//GetCollider()->SetOffsetPos(Pos(0.f, 0.f, 0.f));
-	//GetCollider()->SetScale(Pos(0.8,0.8f,0.8f));
+	GetCollider()->SetScale(Pos(0.8,0.8f,0.8f));
 }
 
 Player::~Player()

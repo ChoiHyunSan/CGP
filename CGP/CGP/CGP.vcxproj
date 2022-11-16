@@ -28,6 +28,7 @@
     <Image Include="data\player.dds" />
     <Image Include="data\seafloor.dds" />
     <Image Include="data\star.dds" />
+    <Image Include="data\Title.dds" />
     <Image Include="data\UI.dds" />
   </ItemGroup>
   <ItemGroup>
