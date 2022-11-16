@@ -10,16 +10,17 @@
 
 using namespace std;
 
-TextClass::TextClass()
+TextClass::TextClass():
+	m_Font(0),
+	m_FontShader(0),
+	m_playTime(0),
+	m_playerLife(0),
+	m_playScore(0),
+	m_Cpu(0),
+	m_Fps(0),
+	m_CameraMode(0)
 {
-	m_Font = 0;
-	m_FontShader = 0;
 
-	m_playTime = 0;
-	m_playerLife = 0;
-	m_playScore = 0;
-	m_Cpu = 0;
-	m_Fps = 0;
 }
 
 
@@ -108,6 +109,12 @@ bool TextClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceCont
 		return false;
 	}
 
+	result = InitializeSentence(&m_CameraMode, 16, device);
+	if (!result)
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -125,6 +132,8 @@ void TextClass::Shutdown()
 	ReleaseSentence(&m_Cpu);
 
 	ReleaseSentence(&m_Fps);
+
+	ReleaseSentence(&m_CameraMode);
 
 	// Release the font shader object.
 	if(m_FontShader)
@@ -183,6 +192,12 @@ bool TextClass::Render(ID3D11DeviceContext* deviceContext, XMMATRIX worldMatrix,
 		return false;
 	}
 
+	result = RenderSentence(deviceContext, m_CameraMode, worldMatrix, orthoMatrix);
+	if (!result)
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -197,12 +212,24 @@ void TextClass::update()
 
 	string s_Cpu = "Cpu : " + to_string(SystemClass::GetInst()->GetCpu()) + "%";
 	string s_Fps = "Fps : " + to_string(SystemClass::GetInst()->GetFps());
+	
+	string s_CameraMode;
+	if (GameMgr::GetInst()->GetCameraMode())
+	{
+		s_CameraMode = "Camera Mode : Fix";
+	}
+	else
+	{
+		s_CameraMode = "Camera Mode : Move";
+	}
 
 	const char* temp_playerTime = s_playTime.c_str();
 	const char* temp_playerLife = s_playerLife.c_str();
 	const char* temp_playScore = s_playScore.c_str();
 	const char* temp_Cpu = s_Cpu .c_str();
 	const char* temp_Fps = s_Fps.c_str();
+	const char* temp_CameraMode = s_CameraMode.c_str();
+
 
 	// 정보를 업데이트
 	UpdateSentence(m_playTime, temp_playerTime, 170, 550, 1.0f, 1.0f, 1.0f, deviceContext);
@@ -210,7 +237,8 @@ void TextClass::update()
 	UpdateSentence(m_playScore, temp_playScore, 340, 550, 1.0f, 1.0f, 1.0f, deviceContext);
 
 	UpdateSentence(m_Cpu, temp_Cpu, 50, 50, 1.0f, 1.0f, 1.0f, deviceContext);
-	UpdateSentence(m_Fps, temp_Fps, 50, 100, 1.0f, 1.0f, 1.0f, deviceContext);
+	UpdateSentence(m_Fps, temp_Fps, 50, 70, 1.0f, 1.0f, 1.0f, deviceContext);
+	UpdateSentence(m_CameraMode, temp_CameraMode, 50, 90, 1.0f, 1.0f, 1.0f, deviceContext);
 
 
 }

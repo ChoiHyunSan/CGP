@@ -1,12 +1,14 @@
 #include "GameMgr.h"
 #include "pch.h"
 #include "TimeMgr.h"
+
 GameMgr::GameMgr():
 	m_score(0),
 	m_playTime(100),
-	m_playerLife(0),
+	m_playerLife(2),
 	m_playerPower(2),
-	m_timer(0)
+	m_timer(0),
+	m_CameraMode(true)
 {
 
 }
@@ -26,4 +28,10 @@ void GameMgr::update()
 	}
 	else
 		m_timer += fDT;
+
+	// 플레이어의 라이프 확인 (게임 오버 조건)
+
+
+	// 적 오브젝트들의 개수 확인 (스테이지 클리어 조건)
+
 }

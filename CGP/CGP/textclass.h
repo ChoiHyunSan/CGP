@@ -60,9 +60,10 @@ private:
 	SentenceType* m_playerLife;
 	SentenceType* m_playScore;
 
-
 	SentenceType* m_Cpu;
 	SentenceType* m_Fps;
+	SentenceType* m_CameraMode;
+
 };
 
 #endif

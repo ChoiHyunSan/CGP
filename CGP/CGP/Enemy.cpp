@@ -2,7 +2,8 @@
 #include "Inputclass.h"
 #include "TimeMgr.h"
 #include "pch.h"
-
+#include "Scene.h"
+#include "SceneMgr.h"
 void Enemy::Update()
 {	
 	Move();
@@ -17,18 +18,42 @@ void Enemy::setTargetPos(DIR dir)
 	case DIR::UP:
 		targetPos.z += 1;
 		setRotate('y', 3.141592f / 1);
+		//if (SceneMgr::GetInst()->GetCurScene()->isEmptyPlace(targetPos.x + MAPSIZE / 2, targetPos.z))
+		//{
+		//	targetPos.z -= 1;
+		//	isMove = false;
+		//	Move();
+		//}
 		break;
 	case DIR::DOWN:
 		targetPos.z -= 1;
 		setRotate('y', 0);
+		//if (SceneMgr::GetInst()->GetCurScene()->isEmptyPlace(targetPos.x + MAPSIZE / 2, targetPos.z))
+		//{
+		//	targetPos.z += 1;
+		//	isMove = false;
+		//	Move();
+		//}
 		break;
 	case DIR::LEFT:
 		targetPos.x -= 1;
 		setRotate('y', 3.141592f / 2);
+		//if (SceneMgr::GetInst()->GetCurScene()->isEmptyPlace(targetPos.x + MAPSIZE / 2, targetPos.z))
+		//{
+		//	targetPos.x += 1;
+		//	isMove = false;
+		//	Move();
+		//}
 		break;
 	case DIR::RIGHT:
 		targetPos.x += 1;
 		setRotate('y', 3.141592f / 2 * 3);
+		//if (SceneMgr::GetInst()->GetCurScene()->isEmptyPlace(targetPos.x + MAPSIZE / 2, targetPos.z))
+		//{
+		//	targetPos.x -= 1;
+		//	isMove = false;
+		//	Move();
+		//}
 		break;
 	}
 

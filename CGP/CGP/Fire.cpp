@@ -31,16 +31,28 @@ Fire::~Fire()
 
 void Fire::OnCollisionEnter(Collider* _pOther)
 {
-	if (_pOther->GetModel()->GetName() == L"Player" 
-		|| _pOther->GetModel()->GetName() == L"Enemy")
+	if (_pOther->GetModel()->GetName() == L"Player")
 	{
-		OutputDebugStringA("Bomb Collision \n");
+		int playerLife = GameMgr::GetInst()->getPlayerLife();
+		if (playerLife > 1)
+		{
+			// 플레이어의 라이프 개수를 깎는 이벤트를 만들어서 해당 부분을 처리하도록 수정하기
+			GameMgr::GetInst()->AddLife(-1);
+			_pOther->GetModel()->setPos(0.f, 0.f, 0.f);
+		}
+		else
+		{
+			GameMgr::GetInst()->AddLife(-1);
+			_pOther->GetModel()->SetDead();
+		}
+	}
 
+	if (_pOther->GetModel()->GetName() == L"Enemy")
+	{
+		// 점수 추가도 이벤트에서 처리하게끔 수정하기
+		GameMgr::GetInst()->AddScore();
 		_pOther->GetModel()->SetDead();
 
-		if (_pOther->GetModel()->GetName() == L"Enemy")
-		{
-			GameMgr::GetInst()->AddScore();
-		}
+		OutputDebugStringA("Bomb Collision \n");
 	}
 }

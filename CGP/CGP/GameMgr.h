@@ -16,12 +16,18 @@ public:
 	int		getPlayTime() const { return m_playTime; }
 	int		getPlayScore() const { return m_score; }
 	void	AddScore() { m_score += 100; }
+
+	void	AddLife(const int value) { m_playerLife += value; }
+	void    SetCameraMode(const bool state) { m_CameraMode = state; }
+	bool	GetCameraMode()const { return m_CameraMode; }
 private:
 	int		m_score;
 	int		m_playTime;
 	int		m_playerLife;
 	int		m_playerPower;
 	float	m_timer;
+	
+	bool    m_CameraMode;
 
 };
 

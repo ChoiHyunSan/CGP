@@ -42,6 +42,13 @@ void Title_Scene::init(D3DClass* D3D)
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 	};
 
+	for (int i = 0; i < MAPSIZE; i++)
+	{
+		for (int j = 0; j < MAPSIZE; j++)
+		{
+			m_map[i][j] = map[i][j];
+		}
+	}
 
 	// 모델들을을 생성 후, 벡터에 추가
 

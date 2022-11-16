@@ -45,6 +45,10 @@ void Scene::render(D3DClass* D3D, float rotation)
 	m_Camera->GetViewMatrix(viewMatrix);
 	D3D->GetWorldMatrix(worldMatrix);
 	D3D->GetProjectionMatrix(projectionMatrix);
+	//viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0, -8, 20) * XMMatrixLookAtLH(m_Eye, m_At, m_Up);
+	//viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixLookAtLH(m_Eye, m_At, m_Up);
+	viewMatrix *= XMMatrixRotationX(-0.3f) * XMMatrixTranslation(0, -7, -1.5) * XMMatrixLookAtLH(m_Eye, m_At, m_Up);
+	
 
 	for (int i = 0; i < (UINT)GROUP_TYPE::END; i++)
 	{
@@ -56,13 +60,13 @@ void Scene::render(D3DClass* D3D, float rotation)
 			m_Camera->Render();
 
 			// Get the world, view, and projection matrices from the camera and d3d objects.
-			m_Camera->GetViewMatrix(viewMatrix);
+			//m_Camera->GetViewMatrix(viewMatrix);
 
 			D3D->GetWorldMatrix(worldMatrix);
 			D3D->GetProjectionMatrix(projectionMatrix);
 
 			// 뷰 메트릭스 조절
-			viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0, -8, 20);
+			//viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0, -8, 20) * XMMatrixLookAtLH(m_Eye, m_At, m_Up);
 
 			// 월드 메트릭스 조절
 			worldMatrix =
@@ -85,30 +89,6 @@ void Scene::render(D3DClass* D3D, float rotation)
 			assert(result);
 		}
 	}
-
-	m_Camera->GetViewMatrix(viewMatrix);
-
-	D3D->GetWorldMatrix(worldMatrix);
-	D3D->GetProjectionMatrix(projectionMatrix);
-	D3D->GetOrthoMatrix(orthoMatrix);
-	D3D->TurnZBufferOff();
-
-	result = m_Bitmap->Render(D3D->GetDeviceContext(), 0, 500);
-
-	m_TextureShader->Render(D3D->GetDeviceContext(), m_Bitmap->GetIndexCount(),
-		worldMatrix, viewMatrix, orthoMatrix, m_Bitmap->GetTexture());
-
-	D3D->GetWorldMatrix(worldMatrix);
-	D3D->GetProjectionMatrix(projectionMatrix);
-	D3D->GetOrthoMatrix(orthoMatrix);
-
-	D3D->TurnOnAlphaBlending();
-
-	result = m_Text->Render(D3D->GetDeviceContext(), worldMatrix, orthoMatrix);
-
-	D3D->TurnOffAlphaBlending();
-
-	D3D->TurnZBufferOn();
 
 	// frameTime 카운터를 증가시킵니다.
 	frameTime += 0.01f;
@@ -143,11 +123,11 @@ void Scene::render(D3DClass* D3D, float rotation)
 
 			// 카메라와 d3d객체에서 월드, 뷰, 투영 행렬을 가져옵니다.
 			D3D->GetWorldMatrix(worldMatrix);
-			m_Camera->GetViewMatrix(viewMatrix);
+			//m_Camera->GetViewMatrix(viewMatrix);
 			D3D->GetProjectionMatrix(projectionMatrix);
 
 			m_Effect->Render(D3D->GetDeviceContext());
-			viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0, -8, 20);
+			//viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0, -8, 20);
 			worldMatrix *= XMMatrixRotationX(3.141592 / 2) * XMMatrixTranslation(0.0f, -4.55f, 0.0f) * XMMatrixScaling(0.5f, 0.5f, 0.5f) * XMMatrixTranslation(m_arrEffect[i][j]->getPos().x, m_arrEffect[i][j]->getPos().y - 2, m_arrEffect[i][j]->getPos().z);
 
 			result = m_FireShader->Render(D3D->GetDeviceContext(), m_arrEffect[i][j]->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
@@ -169,7 +149,7 @@ void Scene::render(D3DClass* D3D, float rotation)
 
 			// 카메라와 d3d객체에서 월드, 뷰, 투영 행렬을 가져옵니다.
 			D3D->GetWorldMatrix(worldMatrix);
-			m_Camera->GetViewMatrix(viewMatrix);
+			//m_Camera->GetViewMatrix(viewMatrix);
 			D3D->GetProjectionMatrix(projectionMatrix);
 
 			m_ParticleSystem->Render(D3D->GetDeviceContext());
@@ -183,8 +163,32 @@ void Scene::render(D3DClass* D3D, float rotation)
 	}
 
 
-	// 알파 블렌딩을 끕니다.
+	// 알파 블렌딩을 끕니다.       
 	D3D->TurnOffAlphaBlending();
+
+	m_Camera->GetViewMatrix(viewMatrix);
+
+	D3D->GetWorldMatrix(worldMatrix);
+	D3D->GetProjectionMatrix(projectionMatrix);
+	D3D->GetOrthoMatrix(orthoMatrix);
+	D3D->TurnZBufferOff();
+
+	result = m_Bitmap->Render(D3D->GetDeviceContext(), 0, 500);
+
+	m_TextureShader->Render(D3D->GetDeviceContext(), m_Bitmap->GetIndexCount(),
+		worldMatrix, viewMatrix, orthoMatrix, m_Bitmap->GetTexture());
+
+	D3D->GetWorldMatrix(worldMatrix);
+	D3D->GetProjectionMatrix(projectionMatrix);
+	D3D->GetOrthoMatrix(orthoMatrix);
+
+	D3D->TurnOnAlphaBlending();
+
+	result = m_Text->Render(D3D->GetDeviceContext(), worldMatrix, orthoMatrix);
+
+	D3D->TurnOffAlphaBlending();
+
+	D3D->TurnZBufferOn();
 
 }
 
@@ -200,6 +204,10 @@ void Scene::update(D3DClass* D3D)
 	else if (InputClass::GetInst()->GetKeyState(0x61) & 0x80)
 	{
 		SceneMgr::GetInst()->setCurScene(SCENE_TYPE::STAGE_01);
+	}
+	else if (InputClass::GetInst()->GetKeyState(DIK_F1) & 0x80)
+	{
+		FixCamera();
 	}
 	GameMgr::GetInst()->update();
 	m_Text->update();
@@ -230,6 +238,8 @@ void Scene::update(D3DClass* D3D)
 		}
 	}
 
+	if(!m_fixCamera)
+		updateCamera();
 }
 
 void Scene::AddObject(D3DClass* D3D, GROUP_TYPE _eType, Pos pos)
@@ -278,6 +288,135 @@ void Scene::ClearEffects(EFFECT_TYPE _eType)
 	m_arrEffect[(UINT)_eType].clear();
 }
 
+void Scene::updateCamera()
+{bool result;
+	bool isClip = true;
+	static float rotation = 0.1f;
+
+	// Update the rotation variable each frame.
+	rotation += XM_PI * 0.005f;
+	if (rotation > 360.0f)
+	{
+		rotation -= 360.0f;
+	}
+
+	DWORD dwCurTime = GetTickCount();
+	static DWORD dwOldTime = GetTickCount();
+	DWORD m_dwElapsedTime = dwCurTime - dwOldTime;
+	dwOldTime = dwCurTime;
+
+	float rotSpeed = 0.08f;
+	float moveSpeed = 0.02f;
+
+	if (GetAsyncKeyState(0x57))
+	{
+		XMVECTOR Direction;
+		Direction = XMVector3Normalize(m_At - m_Eye);
+		m_Eye += m_dwElapsedTime * Direction * moveSpeed;
+		m_At += m_dwElapsedTime * Direction * moveSpeed;
+	}
+
+	if (GetAsyncKeyState(0x53)) 
+	{
+		XMVECTOR Direction;
+		Direction = XMVector3Normalize(m_At - m_Eye);
+		m_Eye -= m_dwElapsedTime * Direction * moveSpeed;
+		m_At -= m_dwElapsedTime * Direction * moveSpeed;
+	}
+
+	if (GetAsyncKeyState(0x41))
+	{
+		XMVECTOR UpNormal, ForwardNormal, Direction;
+		UpNormal = XMVector3Normalize(m_Up);
+		ForwardNormal = XMVector3Normalize(m_At - m_Eye);
+		Direction = XMVector3Cross(ForwardNormal, UpNormal);
+		Direction = XMVector3Normalize(Direction);
+		m_Eye += m_dwElapsedTime * Direction * moveSpeed;
+		m_At += m_dwElapsedTime * Direction * moveSpeed;
+	}
+
+	if (GetAsyncKeyState(0x44)) 
+	{
+		XMVECTOR UpNormal, ForwardNormal, Direction;
+		UpNormal = XMVector3Normalize(m_Up);
+		ForwardNormal = XMVector3Normalize(m_At - m_Eye);
+		Direction = XMVector3Cross(ForwardNormal, UpNormal);
+		Direction = XMVector3Normalize(Direction);
+		m_Eye -= m_dwElapsedTime * Direction * moveSpeed;
+		m_At -= m_dwElapsedTime * Direction * moveSpeed;
+	}
+
+	POINT curPt;
+	GetCursorPos(&curPt);
+	DWORD _CurTime = GetTickCount();
+	static DWORD _OldTime = GetTickCount();
+	if (_CurTime - _OldTime > 500.f)
+	{
+		if (GetAsyncKeyState(VK_ESCAPE))
+		{
+			if (isClip)
+				isClip = false;
+			else
+				isClip = true;
+			_OldTime = _CurTime;
+		}
+	}
+	int screenWidth = 800;
+	int screenHeight = 600;
+	if (isClip) {
+		SetCursorPos(screenWidth / 2, screenHeight / 2);
+		if (curPt.y < screenHeight / 2)
+		{
+			XMVECTOR UpNormal;
+			UpNormal = XMVector3Normalize(m_Up);
+			m_At += m_dwElapsedTime * UpNormal * rotSpeed;
+		}
+
+		if (curPt.y > screenHeight / 2)
+		{
+			XMVECTOR UpNormal;
+			UpNormal = XMVector3Normalize(m_Up);
+			m_At -= m_dwElapsedTime * UpNormal * rotSpeed;
+		}
+
+		if (curPt.x < screenWidth / 2)
+		{
+			XMVECTOR UpNormal, ForwardNormal, Left;
+			UpNormal = XMVector3Normalize(m_Up);
+			ForwardNormal = XMVector3Normalize(m_At - m_Eye);
+			Left = XMVector3Cross(ForwardNormal, UpNormal);
+			Left = XMVector3Normalize(Left);
+			m_At += m_dwElapsedTime * Left * rotSpeed;
+		}
+
+		if (curPt.x > screenWidth / 2)
+		{
+			XMVECTOR UpNormal, ForwardNormal, Right;
+			UpNormal = XMVector3Normalize(m_Up);
+			ForwardNormal = XMVector3Normalize(m_At - m_Eye);
+			Right = XMVector3Cross(ForwardNormal, UpNormal);
+			Right = XMVector3Normalize(Right);
+			m_At -= m_dwElapsedTime * Right * rotSpeed;
+		}
+	}
+}
+
+void Scene::FixCamera()
+{
+	if (m_fixCamera)
+	{
+		m_fixCamera = false;
+	}
+	else
+	{
+		m_fixCamera = true;
+		m_Eye = XMVectorSet(0.0f, 8.0f, -10.0f, 1.0f);
+		m_At = XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
+		m_Up = XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f);
+	}
+	GameMgr::GetInst()->SetCameraMode(m_fixCamera);
+}
+
 Scene::Scene():
 	m_Model(0),
 	m_Camera(0),
@@ -288,9 +427,12 @@ Scene::Scene():
 	m_Text(0),
 	m_Effect(0),
 	m_FireShader(0),
-	m_ParticleShader(0)
+	m_ParticleShader(0),
+	m_fixCamera(true)
 {
-
+	m_Eye = XMVectorSet(0.0f, 8.0f, -10.0f, 1.0f);
+	m_At = XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
+	m_Up = XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f);
 }
 
 Scene::~Scene()

@@ -23,6 +23,7 @@ private:
 	vector<ModelClass*> m_arrModel[(UINT)GROUP_TYPE::END];	// 오브젝트를 저장 및 관리할 벡터를 그룹만큼 선언
 	vector<EffectClass*> m_arrEffect[(UINT)EFFECT_TYPE::END];	// 오브젝트를 저장 및 관리할 벡터를 그룹만큼 선언
 	wstring				m_strName;							// Scene 이름
+	bool				m_fixCamera;
 
 protected:
 	ModelClass* m_Model;
@@ -68,8 +69,20 @@ public:
 	vector<ModelClass*> GetGroupObject(GROUP_TYPE eType) { return m_arrModel[(UINT)eType]; }
 	vector<EffectClass*> GetGroupEffect(EFFECT_TYPE eType) { return m_arrEffect[(UINT)eType]; }
 
+	bool isEmptyPlace(int x, int z) { return !m_map[x][z]; }
+
+	void updateCamera();
+	void FixCamera();
+private:
+
+
 protected:
 	XMMATRIX m_baseViewMatrix;
+	char m_map[MAPSIZE][MAPSIZE];
+
+	XMVECTOR   m_Eye;					// 카메라 위치   (위치)
+	XMVECTOR   m_At;					// 카메라가 보는 곳 (위치)
+	XMVECTOR   m_Up;                    // 카메라의 기준 축 ( 축이 위로 향하는 카메라 방향 )
 
 public:
 	Scene();
