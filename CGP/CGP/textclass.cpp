@@ -9,6 +9,8 @@
 #include "systemclass.h"
 #include "SceneMgr.h"
 #include "Scene.h"
+#include "TimeMgr.h"
+#include "pch.h"
 using namespace std;
 
 TextClass::TextClass():
@@ -19,7 +21,10 @@ TextClass::TextClass():
 	m_playScore(0),
 	m_Cpu(0),
 	m_Fps(0),
-	m_CameraMode(0)
+	m_CameraMode(0),
+	m_GameStart(0),
+	m_delayCount(0.f),
+	m_TitleName(0)
 {
 
 }
@@ -116,6 +121,17 @@ bool TextClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceCont
 		return false;
 	}
 
+	result = InitializeSentence(&m_GameStart, 32, device);
+	if (!result)
+	{
+		return false;
+	}
+
+	result = InitializeSentence(&m_TitleName, 32, device);
+	if (!result)
+	{
+		return false;
+	}
 	return true;
 }
 
@@ -135,6 +151,10 @@ void TextClass::Shutdown()
 	ReleaseSentence(&m_Fps);
 
 	ReleaseSentence(&m_CameraMode);
+
+	ReleaseSentence(&m_GameStart);
+
+	ReleaseSentence(&m_TitleName);
 
 	// Release the font shader object.
 	if(m_FontShader)
@@ -191,7 +211,20 @@ bool TextClass::Render(ID3D11DeviceContext* deviceContext, XMMATRIX worldMatrix,
 	// 타이틀 씬의 경우에는 따로 하나의 텍스트를 만들어 띄운다.
 	if (SceneMgr::GetInst()->GetCurScene()->GetName() == L"Title Scene")
 	{
+		result = RenderSentence(deviceContext, m_TitleName, worldMatrix, orthoMatrix);
+		if (!result)
+		{
+			return false;
+		}
 
+		if (m_bGameStartOn)
+		{
+			result = RenderSentence(deviceContext, m_GameStart, worldMatrix, orthoMatrix);
+			if (!result)
+			{
+				return false;
+			}
+		}
 	}
 
 	result = RenderSentence(deviceContext, m_Cpu, worldMatrix, orthoMatrix);
@@ -221,18 +254,23 @@ void TextClass::update()
 	string s_Cpu = "Cpu : " + to_string(SystemClass::GetInst()->GetCpu()) + "%";
 	string s_Fps = "Fps : " + to_string(SystemClass::GetInst()->GetFps());
 
-	string s_CameraModeFix =  (string)"Camera Mode(F1) : Fix";
+	string s_CameraModeFix = (string)"Camera Mode(F1) : Fix";
 	string s_CameraModeMove = (string)"Camera Mode(F1) : Move";
+
+	string s_TitleName = (string)"Bomb Game";
+	string s_GameStart = (string)"- Press S Key To Start -";
 
 	const char* temp_playerTime = s_playTime.c_str();
 	const char* temp_playerLife = s_playerLife.c_str();
 	const char* temp_playScore = s_playScore.c_str();
-	const char* temp_Cpu = s_Cpu .c_str();
+	const char* temp_Cpu = s_Cpu.c_str();
 	const char* temp_Fps = s_Fps.c_str();
 
 	const char* temp_CameraModeFix = s_CameraModeFix.c_str();
 	const char* temp_CameraModeMove = s_CameraModeMove.c_str();
 
+	const char* temp_TitleName = s_TitleName.c_str();
+	const char* temp_GameStart = s_GameStart.c_str();
 
 	// 정보를 업데이트
 	UpdateSentence(m_playTime, temp_playerTime, 170, 550, 1.0f, 1.0f, 1.0f, deviceContext);
@@ -242,11 +280,32 @@ void TextClass::update()
 	UpdateSentence(m_Cpu, temp_Cpu, 50, 50, 1.0f, 1.0f, 1.0f, deviceContext);
 	UpdateSentence(m_Fps, temp_Fps, 50, 70, 1.0f, 1.0f, 1.0f, deviceContext);
 	UpdateSentence(m_CameraMode, temp_CameraModeFix, 50, 90, 1.0f, 1.0f, 1.0f, deviceContext);
-	if(GameMgr::GetInst()->GetCameraMode())
+
+	if (GameMgr::GetInst()->GetCameraMode())
 		UpdateSentence(m_CameraMode, temp_CameraModeFix, 50, 90, 1.0f, 1.0f, 1.0f, deviceContext);
-	else 
+	else
 		UpdateSentence(m_CameraMode, temp_CameraModeMove, 50, 90, 1.0f, 1.0f, 1.0f, deviceContext);
 
+	UpdateSentence(m_TitleName, temp_TitleName, 352, 280, 1.0f, 1.0f, 1.0f, deviceContext);
+	UpdateSentence(m_GameStart, temp_GameStart, 297, 320, 1.0f, 0.83f, 0.0f, deviceContext);
+
+	if (m_delayCount >= 0.5f)
+	{
+		m_bGameStartOn = false;
+	}
+	else if (m_delayCount < 0.f)
+	{
+		m_bGameStartOn = true;
+	}
+
+	if (m_bGameStartOn)
+	{
+		m_delayCount += fDT;
+	}
+	else
+	{
+		m_delayCount -= fDT;
+	}
 }
 
 
@@ -258,7 +317,6 @@ bool TextClass::InitializeSentence(SentenceType** sentence, int maxLength, ID3D1
     D3D11_SUBRESOURCE_DATA vertexData, indexData;
 	HRESULT result;
 	int i;
-
 
 	// Create a new sentence object.
 	*sentence = new SentenceType;
@@ -471,6 +529,18 @@ bool TextClass::RenderSentence(ID3D11DeviceContext* deviceContext, SentenceType*
 
 	// Create a pixel color vector with the input sentence color.
 	pixelColor = XMFLOAT4(sentence->red, sentence->green, sentence->blue, 1.0f);
+
+
+	worldMatrix *= XMMatrixScaling(1.0f, 1.0f, 1.0f);
+
+	if (sentence == m_GameStart)
+	{
+		worldMatrix *= XMMatrixScaling(3.0f, 3.0f, 3.0f);
+	}
+	else if (sentence == m_TitleName)
+	{
+		worldMatrix *= XMMatrixScaling(7.0f, 7.0f,7.0f);
+	}
 
 	// Render the text using the font shader.
 	result = m_FontShader->Render(deviceContext, sentence->indexCount, worldMatrix, m_baseViewMatrix, 

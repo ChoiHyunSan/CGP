@@ -203,7 +203,7 @@ void Scene::update(D3DClass* D3D)
 	{
 		SceneMgr::GetInst()->setCurScene(SCENE_TYPE::START);
 	}
-	else if (InputClass::GetInst()->GetKeyState(DIK_NUMPAD1) & 0x80)
+	else if (InputClass::GetInst()->GetKeyState(DIK_S) & 0x80)
 	{
 		SceneMgr::GetInst()->setCurScene(SCENE_TYPE::STAGE_01);
 	}

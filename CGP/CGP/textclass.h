@@ -29,7 +29,9 @@ private:
 		XMFLOAT3 position;
 	    XMFLOAT2 texture;
 	};
-
+private:
+	float m_delayCount;
+	bool  m_bGameStartOn = true;
 public:
 	TextClass();
 	TextClass(const TextClass&);
@@ -63,6 +65,10 @@ private:
 	SentenceType* m_Cpu;
 	SentenceType* m_Fps;
 	SentenceType* m_CameraMode;
+
+	// Title Scene
+	SentenceType* m_GameStart;
+	SentenceType* m_TitleName;
 
 };
 

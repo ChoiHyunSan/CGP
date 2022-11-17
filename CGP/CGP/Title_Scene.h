@@ -14,5 +14,7 @@ public:
 public:
     virtual void init(D3DClass* D3D);
     virtual void Exit();
+
+
 };
 
