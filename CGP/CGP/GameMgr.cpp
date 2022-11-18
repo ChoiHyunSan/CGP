@@ -36,3 +36,15 @@ void GameMgr::update()
 	// 적 오브젝트들의 개수 확인 (스테이지 클리어 조건)
 
 }
+
+void GameMgr::init()
+{
+	// 값들을 초기화 한다.
+	m_score = 0;
+	m_playTime = 100;
+	m_playerLife = 2;
+	m_playerPower = 2;
+	m_timer = 0;
+	m_CameraMode = true;
+	m_eGameState = GAME_STATE::GAME_PLAY;
+}

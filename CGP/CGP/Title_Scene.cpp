@@ -115,3 +115,7 @@ void Title_Scene::finalUpdate(D3DClass* D3D)
 		SceneMgr::GetInst()->setCurScene(SCENE_TYPE::STAGE_01);
 	}
 }
+
+void Title_Scene::SetObjects(D3DClass* D3D)
+{
+}

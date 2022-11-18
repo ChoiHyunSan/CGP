@@ -24,50 +24,8 @@ Stage01_Scene::~Stage01_Scene()
 void Stage01_Scene::init(D3DClass* D3D)
 {
 	bool result;
-
-	char map[MAPSIZE][MAPSIZE] = {
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-	};
-
-	for (int i = 0; i < MAPSIZE; i++)
-	{
-		for (int j = 0; j < MAPSIZE; j++)
-		{
-			m_map[i][j] = map[i][j];
-		}
-	}
-
-	// 모델들을을 생성 후, 벡터에 추가
-
-	// TODO : 타이틀 씬에서 생성할 도형들을 벡터에 추가
-	for (int i = 0; i < MAPSIZE; i++)
-	{
-		for (int j = 0; j < MAPSIZE; j++)
-		{
-			// Map[i][j]의 값이 0인 경우에만 설치
-			AddObject(D3D, GROUP_TYPE::DEFAULT, Pos(i - (MAPSIZE / 2), 0, j));
-			if (map[j][i] == 1)
-				AddObject(D3D, GROUP_TYPE::DEFAULT, Pos(i - (MAPSIZE / 2), 1, j));
-		}
-	}
-
-	AddObject(D3D, GROUP_TYPE::PLAYER, Pos(0, 0, 0));
-	AddObject(D3D, GROUP_TYPE::ENEMY, Pos(0, 0, 0));
-	AddParticle(D3D, PARTICLE_TYPE::DEFAULT, Pos(10, 2, 0));
+	
+	SetObjects(D3D);
 
 	// 라이트 효과 추가
 	if (m_Light == nullptr)
@@ -196,4 +154,51 @@ void Stage01_Scene::finalUpdate(D3DClass* D3D)
 		SceneMgr::GetInst()->setCurScene(SCENE_TYPE::GAME_OVER);
 	}
 
+}
+
+void Stage01_Scene::SetObjects(D3DClass* D3D)
+{
+	char map[MAPSIZE][MAPSIZE] = {
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+	};
+
+	for (int i = 0; i < MAPSIZE; i++)
+	{
+		for (int j = 0; j < MAPSIZE; j++)
+		{
+			m_map[i][j] = map[i][j];
+		}
+	}
+
+	// 모델들을을 생성 후, 벡터에 추가
+
+	// TODO : 타이틀 씬에서 생성할 도형들을 벡터에 추가
+	for (int i = 0; i < MAPSIZE; i++)
+	{
+		for (int j = 0; j < MAPSIZE; j++)
+		{
+			// Map[i][j]의 값이 0인 경우에만 설치
+			AddObject(D3D, GROUP_TYPE::DEFAULT, Pos(i - (MAPSIZE / 2), 0, j));
+			if (map[j][i] == 1)
+				AddObject(D3D, GROUP_TYPE::DEFAULT, Pos(i - (MAPSIZE / 2), 1, j));
+		}
+	}
+
+	AddObject(D3D, GROUP_TYPE::PLAYER, Pos(0, 0, 0));
+	AddObject(D3D, GROUP_TYPE::ENEMY, Pos(0, 0, 0));
+	AddParticle(D3D, PARTICLE_TYPE::DEFAULT, Pos(10, 2, 0));
 }

@@ -75,6 +75,10 @@ public:
 
 	void updateCamera();
 	void FixCamera();
+
+	void Reload();
+	virtual void SetObjects(D3DClass* D3D) = 0;
+
 private:
 
 

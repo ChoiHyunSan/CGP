@@ -108,8 +108,13 @@ void GameClear_Scene::finalUpdate(D3DClass* D3D)
 {
 	if (InputClass::GetInst()->GetKeyState(DIK_R) & 0x80)
 	{
-		SceneMgr::GetInst()->setCurScene(SCENE_TYPE::START);
-
 		// 스테이지들을 초기화 하는 함수를 만들어 추가
+		SceneMgr::GetInst()->Reload();
+
+		SceneMgr::GetInst()->setCurScene(SCENE_TYPE::START);
 	}
+}
+
+void GameClear_Scene::SetObjects(D3DClass* D3D)
+{
 }

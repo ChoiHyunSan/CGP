@@ -61,6 +61,19 @@ private:
 	SentenceType* m_GameResult;
 	SentenceType* m_GameReplay;
 
+	SentenceType* m_playTime;
+	SentenceType* m_playerLife;
+	SentenceType* m_playScore;
+
+
+	SentenceType* m_TitleName;
+	SentenceType* m_GameStart;
+
+
+	SentenceType* m_Fps;
+	SentenceType* m_Cpu;
+	SentenceType* m_CameraMode;
+
 };
 
 #endif

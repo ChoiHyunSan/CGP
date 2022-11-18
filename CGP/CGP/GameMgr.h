@@ -26,6 +26,8 @@ public:
 	GAME_STATE GetGameState() { return m_eGameState; }
 	void	SetGameState(GAME_STATE eState) { m_eGameState = eState; }
 
+	void	init();
+
 private:
 	int		m_score;
 	int		m_playTime;

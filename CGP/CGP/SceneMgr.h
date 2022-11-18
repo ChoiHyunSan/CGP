@@ -23,6 +23,7 @@ public:
 	void setCurScene(SCENE_TYPE _eType);
 	Scene* GetCurScene() const {return m_pCurScene;}
 
+	void Reload();
 public:
 
 };

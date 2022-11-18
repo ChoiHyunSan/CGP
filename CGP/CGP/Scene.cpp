@@ -168,7 +168,9 @@ void Scene::render(D3DClass* D3D, float rotation)
 	D3D->GetOrthoMatrix(orthoMatrix);
 	D3D->TurnZBufferOff();
 
-	if (SceneMgr::GetInst()->GetCurScene()->GetName() == L"Title Scene")
+	if (SceneMgr::GetInst()->GetCurScene()->GetName() == L"Title Scene" 
+		|| SceneMgr::GetInst()->GetCurScene()->GetName() == L"GameClear_Scene"
+		|| SceneMgr::GetInst()->GetCurScene()->GetName() == L"GameOver_Scene")
 	{
 		result = m_BackGround->Render(D3D->GetDeviceContext(), 0, 0);
 	}
@@ -428,6 +430,45 @@ void Scene::FixCamera()
 		m_Up = XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f);
 	}
 	GameMgr::GetInst()->SetCameraMode(m_fixCamera);
+}
+
+void Scene::Reload()
+{
+	// 게임 정보값 초기화
+	GameMgr::GetInst()->init();
+
+	// 모든 오브젝트들을 삭제
+	for (int i = 0; i < (UINT)GROUP_TYPE::END; i++)
+	{
+		for (int j = 0; j < m_arrModel[i].size(); j++)
+		{
+			delete m_arrModel[i][j];
+		}
+		m_arrModel[i].clear();
+	}
+	
+
+	for (int i = 0; i < (UINT)EFFECT_TYPE::END; i++)
+	{
+		for (int j = 0; j < m_arrEffect[i].size(); j++)
+		{
+			delete m_arrEffect[i][j];
+		}
+		m_arrEffect[i].clear();
+	}
+
+	for (int i = 0; i < (UINT)PARTICLE_TYPE::END; i++)
+	{
+		for (int j = 0; j < m_arrParticleSystem[i].size(); j++)
+		{
+			delete m_arrParticleSystem[i][j];
+		}
+		m_arrParticleSystem[i].clear();
+	}
+
+	// 오브젝트들을 다시 생성
+	SetObjects(GraphicsClass::GetInst()->GetD3D());
+
 }
 
 Scene::Scene():

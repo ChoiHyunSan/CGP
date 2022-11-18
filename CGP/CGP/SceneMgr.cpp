@@ -55,6 +55,17 @@ void SceneMgr::setCurScene(SCENE_TYPE _eType)
 	m_pCurScene = m_arrScene[(UINT)_eType];
 }
 
+void SceneMgr::Reload()
+{
+	for (const auto& Scene : m_arrScene)
+	{
+		if (Scene != nullptr)
+		{
+			Scene->Reload();
+		}
+	}
+}
+
 SceneMgr::SceneMgr()
 	: m_arrScene{}, m_pCurScene(nullptr)
 {

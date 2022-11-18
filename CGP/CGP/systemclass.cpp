@@ -9,7 +9,8 @@ SystemClass::SystemClass()
 	m_Graphics(0),
 	m_Fps(0),
 	m_Cpu(0),
-	m_Timer(0)
+	m_Timer(0),
+	m_Sound(0)
 {
 
 }
@@ -88,6 +89,20 @@ bool SystemClass::Initialize()
 		return false;
 	}
 
+	// Create the sound object.
+	m_Sound = new SoundClass;
+	if (!m_Sound)
+	{
+		return false;
+	}
+
+	// Initialize the sound object.
+	result = m_Sound->Initialize(m_hwnd);
+	if (!result)
+	{
+		MessageBox(m_hwnd, L"Could not initialize Direct Sound.", L"Error", MB_OK);
+		return false;
+	}
 
 	return true;
 }
@@ -128,6 +143,12 @@ void SystemClass::Shutdown()
 		m_Fps = 0;
 	}
 
+	if (m_Sound)
+	{
+		m_Sound->Shutdown();
+		delete m_Sound;
+		m_Sound = 0;
+	}
 	// Shutdown the window.
 	ShutdownWindows();
 	
