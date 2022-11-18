@@ -90,11 +90,15 @@ bool GraphicsClass::Render(float rotation)
 	// 货肺款 纠阑 积己
 
 	SceneMgr::GetInst()->update(m_D3D);
+
 	SceneMgr::GetInst()->render(m_D3D, rotation);
 
 	CollisionMgr::GetInst()->update();
+	
 	EventMgr::GetInst()->update();
-	// Present the rendered scene to the screen.
+
+	SceneMgr::GetInst()->finalUpdate(m_D3D);
+
 	m_D3D->EndScene();
 
 	return true;

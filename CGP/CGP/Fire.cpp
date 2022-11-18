@@ -44,6 +44,8 @@ void Fire::OnCollisionEnter(Collider* _pOther)
 		{
 			GameMgr::GetInst()->AddLife(-1);
 			_pOther->GetModel()->SetDead();
+
+			GameMgr::GetInst()->SetGameState(GAME_STATE::GAME_OVER);
 		}
 	}
 
@@ -52,6 +54,11 @@ void Fire::OnCollisionEnter(Collider* _pOther)
 		// 점수 추가도 이벤트에서 처리하게끔 수정하기
 		GameMgr::GetInst()->AddScore();
 		_pOther->GetModel()->SetDead();
+
+		if (SceneMgr::GetInst()->GetCurScene()->isModelAllDead(GROUP_TYPE::ENEMY))
+		{
+			GameMgr::GetInst()->SetGameState(GAME_STATE::GAME_CLEAR);
+		}
 
 		OutputDebugStringA("Bomb Collision \n");
 	}

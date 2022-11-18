@@ -237,6 +237,12 @@
     <ClInclude Include="TimerClass.h">
       <Filter>소스 파일\define</Filter>
     </ClInclude>
+    <ClInclude Include="GameClear_Scene.h">
+      <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOver_Scene.h">
+      <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -352,6 +358,12 @@
     </ClCompile>
     <ClCompile Include="particlesystemclass.cpp">
       <Filter>소스 파일\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOver_Scene.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClear_Scene.cpp">
+      <Filter>소스 파일\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

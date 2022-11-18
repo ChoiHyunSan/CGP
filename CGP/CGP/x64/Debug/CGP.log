@@ -1,4 +1,64 @@
 ﻿cl : 명령줄 warning D9014: '2665' 값이 '/wd'에 대해 잘못되었습니다. '5999'(으)로 가정합니다.
+  Bomb.cpp
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Bomb.cpp(41,123): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Bomb.cpp(42,120): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Bomb.cpp(45,129): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Bomb.cpp(46,127): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  CollisionMgr.cpp
+  EffectClass.cpp
+  Enemy.cpp
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Enemy.cpp(132,45): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+  EventMgr.cpp
+  Fire.cpp
+  GameClear_Scene.cpp
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\systemclass.h(49,47): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  GameOver_Scene.cpp
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\systemclass.h(49,47): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Player.cpp
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Player.cpp(15,43): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+  Scene.cpp
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\systemclass.h(49,47): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Scene.cpp(127,49): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Scene.cpp(153,40): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Scene.cpp(235,68): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Scene.cpp(199,7): warning C4101: 'result' :참조되지 않은 지역 변수입니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Scene.cpp(328,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Scene.cpp(329,11): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Scene.cpp(336,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Scene.cpp(337,11): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Scene.cpp(347,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Scene.cpp(348,11): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Scene.cpp(358,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Scene.cpp(359,11): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Scene.cpp(385,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Scene.cpp(392,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Scene.cpp(402,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Scene.cpp(412,12): warning C4244: '인수': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Scene.cpp(305,7): warning C4101: 'result' :참조되지 않은 지역 변수입니다.
+  SceneMgr.cpp
+  Stage01_Scene.cpp
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\systemclass.h(49,47): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Stage01_Scene.cpp(62,66): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Stage01_Scene.cpp(62,46): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Stage01_Scene.cpp(64,67): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\Stage01_Scene.cpp(64,47): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  TimeMgr.cpp
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\systemclass.h(49,47): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Title_Scene.cpp
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\systemclass.h(49,47): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  graphicsclass.cpp
+  inputclass.cpp
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\systemclass.h(49,47): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  main.cpp
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\systemclass.h(49,47): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  modelclass.cpp
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\modelclass.cpp(234,77): warning C4267: '=': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\modelclass.cpp(368,30): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\modelclass.cpp(381,14): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\modelclass.cpp(386,14): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  systemclass.cpp
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\systemclass.h(49,47): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   textclass.cpp
-C:\Users\user\Desktop\CGP\CGP\CGP\systemclass.h(49,47): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  CGP.vcxproj -> C:\Users\user\Desktop\CGP\CGP\x64\Debug\CGP.exe
+C:\Users\B409_13\Desktop\CGP\CGP\CGP\systemclass.h(49,47): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
+  CGP.vcxproj -> C:\Users\B409_13\Desktop\CGP\CGP\x64\Debug\CGP.exe

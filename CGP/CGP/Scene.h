@@ -36,8 +36,8 @@ protected:
 	FireShaderClass* m_FireShader;
 
 	TextureShaderClass* m_TextureShader;
-	BitmapClass* m_Bitmap;
-	TextClass* m_Text;
+	BitmapClass*	m_BackGround;
+	TextClass*		m_UiText;
 
 	ParticleShaderClass* m_ParticleShader;
 	vector<ParticleSystemClass*> m_arrParticleSystem[(UINT)PARTICLE_TYPE::END];
@@ -50,6 +50,7 @@ public:
 
 	void render(D3DClass* D3D, float rotation);
 	void update(D3DClass* D3D);
+	virtual void finalUpdate(D3DClass* D3D);
 
 	void AddObject(D3DClass* D3D, GROUP_TYPE _eType, Pos pos = Pos());
 	void AddEffect(D3DClass* D3D, EFFECT_TYPE _eType, Pos pos);
@@ -59,12 +60,13 @@ public:
 	void ClearEffects(EFFECT_TYPE _eType);
 
 	virtual void init(D3DClass* D3D) = 0;	// 해당 Scene 에 진입 시 호출
-	virtual void Exit() = 0;	// 해당 Scene 을 탈출 시 호출
+	virtual void Exit() = 0;				// 해당 Scene 을 탈출 시 호출
 
 	Pos getPlayerPos() { return m_arrModel[(UINT)GROUP_TYPE::PLAYER][0]->getPos(); }
 	Pos getBombPos() { return m_arrModel[(UINT)GROUP_TYPE::BOMB][0]->getPos(); }
 
 	bool isModelArrEmpty(GROUP_TYPE type) { return m_arrModel[(UINT)type].size() == 0; }
+	bool isModelAllDead(GROUP_TYPE type);
 
 	vector<ModelClass*> GetGroupObject(GROUP_TYPE eType) { return m_arrModel[(UINT)eType]; }
 	vector<EffectClass*> GetGroupEffect(EFFECT_TYPE eType) { return m_arrEffect[(UINT)eType]; }

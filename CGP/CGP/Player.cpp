@@ -5,14 +5,13 @@
 #include "SceneMgr.h"
 #include "Scene.h"
 #include "graphicsclass.h"
+#include "GameMgr.h"
 
 Player::Player(ID3D11Device* device)
 	: ModelClass(device, GROUP_TYPE::PLAYER)
 {
 	setPos(0.f, 0.f, 0.f);
 	SetName(L"Player");
-	//CreateCollider();
-	//GetCollider()->SetOffsetPos(Pos(0.f, 0.f, 0.f));
 	GetCollider()->SetScale(Pos(0.8,0.8f,0.8f));
 }
 

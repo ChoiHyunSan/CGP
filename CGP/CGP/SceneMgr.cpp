@@ -4,6 +4,8 @@
 #include "Title_Scene.h"
 #include "graphicsclass.h"
 #include "Stage01_Scene.h"
+#include "GameClear_Scene.h"
+#include "GameOver_Scene.h"
 
 void SceneMgr::init()
 {
@@ -13,6 +15,12 @@ void SceneMgr::init()
 
 	m_arrScene[(UINT)SCENE_TYPE::STAGE_01] = new Stage01_Scene;
 	m_arrScene[(UINT)SCENE_TYPE::STAGE_01]->SetName(L"Stage01_Scene");
+
+	m_arrScene[(UINT)SCENE_TYPE::GAME_CLEAR] = new GameClear_Scene;
+	m_arrScene[(UINT)SCENE_TYPE::GAME_CLEAR]->SetName(L"GameClear_Scene");
+
+	m_arrScene[(UINT)SCENE_TYPE::GAME_OVER] = new GameOver_Scene;
+	m_arrScene[(UINT)SCENE_TYPE::GAME_OVER]->SetName(L"GameOver_Scene");
 
 	// 만들어진 모든 씬에 대해서 초기화를 진행한다.
 	for (const auto& Scene : m_arrScene)
@@ -30,6 +38,11 @@ void SceneMgr::init()
 void SceneMgr::update(D3DClass* D3D)
 {
 	m_pCurScene->update(D3D);
+}
+
+void SceneMgr::finalUpdate(D3DClass* D3D)
+{
+	m_pCurScene->finalUpdate(D3D);
 }
 
 void SceneMgr::render(D3DClass* D3D, float rotation)

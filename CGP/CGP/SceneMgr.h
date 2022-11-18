@@ -16,6 +16,8 @@ public:
 	void init();
 
 	void update(D3DClass* D3D);
+	void finalUpdate(D3DClass* D3D);
+
 	void render(D3DClass* D3D, float rotation);
 
 	void setCurScene(SCENE_TYPE _eType);

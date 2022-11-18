@@ -1,6 +1,8 @@
 #pragma once
 #include "pch.h"
 
+
+
 class GameMgr
 {
 	SINGLE(GameMgr)
@@ -19,7 +21,11 @@ public:
 
 	void	AddLife(const int value) { m_playerLife += value; }
 	void    SetCameraMode(const bool state) { m_CameraMode = state; }
-	bool	GetCameraMode()const { return m_CameraMode; }
+	bool	GetCameraMode() const { return m_CameraMode; }
+
+	GAME_STATE GetGameState() { return m_eGameState; }
+	void	SetGameState(GAME_STATE eState) { m_eGameState = eState; }
+
 private:
 	int		m_score;
 	int		m_playTime;
@@ -28,6 +34,8 @@ private:
 	float	m_timer;
 	
 	bool    m_CameraMode;
+
+	GAME_STATE m_eGameState;
 
 };
 

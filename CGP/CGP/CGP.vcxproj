@@ -65,7 +65,9 @@
     <ClInclude Include="fontclass.h" />
     <ClInclude Include="fontshaderclass.h" />
     <ClInclude Include="FpsClass.h" />
+    <ClInclude Include="GameClear_Scene.h" />
     <ClInclude Include="GameMgr.h" />
+    <ClInclude Include="GameOver_Scene.h" />
     <ClInclude Include="graphicsclass.h" />
     <ClInclude Include="inputclass.h" />
     <ClInclude Include="lightclass.h" />
@@ -106,7 +108,9 @@
     <ClCompile Include="fontclass.cpp" />
     <ClCompile Include="fontshaderclass.cpp" />
     <ClCompile Include="FpsClass.cpp" />
+    <ClCompile Include="GameClear_Scene.cpp" />
     <ClCompile Include="GameMgr.cpp" />
+    <ClCompile Include="GameOver_Scene.cpp" />
     <ClCompile Include="graphicsclass.cpp" />
     <ClCompile Include="inputclass.cpp" />
     <ClCompile Include="lightclass.cpp" />

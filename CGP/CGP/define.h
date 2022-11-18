@@ -54,7 +54,8 @@ enum class SCENE_TYPE
 	START,
 	STAGE_01,
 	STAGE_02,
-
+	GAME_OVER,
+	GAME_CLEAR,
 	END,
 };
 
@@ -66,4 +67,11 @@ enum class EVENT_TYPE
 
 
 	END,
+};
+
+enum class GAME_STATE
+{
+	GAME_PLAY = 0,
+	GAME_OVER,
+	GAME_CLEAR	
 };

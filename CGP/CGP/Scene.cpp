@@ -170,15 +170,15 @@ void Scene::render(D3DClass* D3D, float rotation)
 
 	if (SceneMgr::GetInst()->GetCurScene()->GetName() == L"Title Scene")
 	{
-		result = m_Bitmap->Render(D3D->GetDeviceContext(), 0, 0);
+		result = m_BackGround->Render(D3D->GetDeviceContext(), 0, 0);
 	}
 	else
 	{
-		result = m_Bitmap->Render(D3D->GetDeviceContext(), 0, 500);
+		result = m_BackGround->Render(D3D->GetDeviceContext(), 0, 500);
 	}
 
-	m_TextureShader->Render(D3D->GetDeviceContext(), m_Bitmap->GetIndexCount(),
-		worldMatrix, viewMatrix, orthoMatrix, m_Bitmap->GetTexture());
+	m_TextureShader->Render(D3D->GetDeviceContext(), m_BackGround->GetIndexCount(),
+		worldMatrix, viewMatrix, orthoMatrix, m_BackGround->GetTexture());
 
 	D3D->GetWorldMatrix(worldMatrix);
 	D3D->GetProjectionMatrix(projectionMatrix);
@@ -186,7 +186,7 @@ void Scene::render(D3DClass* D3D, float rotation)
 
 	D3D->TurnOnAlphaBlending();
 
-	result = m_Text->Render(D3D->GetDeviceContext(), worldMatrix, orthoMatrix);
+	result = m_UiText->Render(D3D->GetDeviceContext(), worldMatrix, orthoMatrix);
 
 	D3D->TurnOffAlphaBlending();
 
@@ -203,16 +203,13 @@ void Scene::update(D3DClass* D3D)
 	{
 		SceneMgr::GetInst()->setCurScene(SCENE_TYPE::START);
 	}
-	else if (InputClass::GetInst()->GetKeyState(DIK_S) & 0x80)
-	{
-		SceneMgr::GetInst()->setCurScene(SCENE_TYPE::STAGE_01);
-	}
-	else if (InputClass::GetInst()->GetKeyState(DIK_F1) & 0x80)
+	if (InputClass::GetInst()->GetKeyState(DIK_F1) & 0x80)
 	{
 		FixCamera();
 	}
+
 	GameMgr::GetInst()->update();
-	m_Text->update();
+	m_UiText->update();
 
 	for (UINT i = 0; i < (UINT)GROUP_TYPE::END; i++)
 	{
@@ -242,6 +239,10 @@ void Scene::update(D3DClass* D3D)
 
 	if(!m_fixCamera)
 		updateCamera();
+}
+
+void Scene::finalUpdate(D3DClass* D3D)
+{
 }
 
 void Scene::AddObject(D3DClass* D3D, GROUP_TYPE _eType, Pos pos)
@@ -288,6 +289,16 @@ void Scene::ClearObjects(GROUP_TYPE _eType)
 void Scene::ClearEffects(EFFECT_TYPE _eType)
 {
 	m_arrEffect[(UINT)_eType].clear();
+}
+
+bool Scene::isModelAllDead(GROUP_TYPE type)
+{
+	for (const auto& index : m_arrModel[(UINT)type])
+	{
+		if (!index->IsDead())
+			return false;
+	}
+	return true;
 }
 
 void Scene::updateCamera()
@@ -424,9 +435,9 @@ Scene::Scene():
 	m_Camera(0),
 	m_Light(0),
 	m_LightShader(0),
-	m_Bitmap(0),
+	m_BackGround(0),
 	m_TextureShader(0),
-	m_Text(0),
+	m_UiText(0),
 	m_Effect(0),
 	m_FireShader(0),
 	m_ParticleShader(0),
@@ -466,11 +477,11 @@ Scene::~Scene()
 		m_LightShader = 0;
 	}
 	// Release the bitmap object.
-	if (m_Bitmap)
+	if (m_BackGround)
 	{
-		m_Bitmap->Shutdown();
-		delete m_Bitmap;
-		m_Bitmap = 0;
+		m_BackGround->Shutdown();
+		delete m_BackGround;
+		m_BackGround = 0;
 	}
 
 	// Release the texture shader object.
@@ -498,11 +509,11 @@ Scene::~Scene()
 	}
 
 	// Release the text object.
-	if (m_Text)
+	if (m_UiText)
 	{
-		m_Text->Shutdown();
-		delete m_Text;
-		m_Text = 0;
+		m_UiText->Shutdown();
+		delete m_UiText;
+		m_UiText = 0;
 	}
 
 	// 파티클 시스템 객체를 해제합니다.

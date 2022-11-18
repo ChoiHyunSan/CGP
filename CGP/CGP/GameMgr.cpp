@@ -8,7 +8,8 @@ GameMgr::GameMgr():
 	m_playerLife(2),
 	m_playerPower(2),
 	m_timer(0),
-	m_CameraMode(true)
+	m_CameraMode(true),
+	m_eGameState(GAME_STATE::GAME_PLAY)
 {
 
 }

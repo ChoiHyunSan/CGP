@@ -257,7 +257,7 @@ void TextClass::update()
 	string s_CameraModeFix = (string)"Camera Mode(F1) : Fix";
 	string s_CameraModeMove = (string)"Camera Mode(F1) : Move";
 
-	string s_TitleName = (string)"Bomb Game";
+	string s_TitleName = (string)" Bomb Game";
 	string s_GameStart = (string)"- Press S Key To Start -";
 
 	const char* temp_playerTime = s_playTime.c_str();
@@ -272,7 +272,7 @@ void TextClass::update()
 	const char* temp_TitleName = s_TitleName.c_str();
 	const char* temp_GameStart = s_GameStart.c_str();
 
-	// 정보를 업데이트
+	// 스테이지 UI
 	UpdateSentence(m_playTime, temp_playerTime, 170, 550, 1.0f, 1.0f, 1.0f, deviceContext);
 	UpdateSentence(m_playerLife, temp_playerLife, 70, 550, 1.0f, 1.0f, 1.0f, deviceContext);
 	UpdateSentence(m_playScore, temp_playScore, 340, 550, 1.0f, 1.0f, 1.0f, deviceContext);
@@ -285,6 +285,7 @@ void TextClass::update()
 		UpdateSentence(m_CameraMode, temp_CameraModeFix, 50, 90, 1.0f, 1.0f, 1.0f, deviceContext);
 	else
 		UpdateSentence(m_CameraMode, temp_CameraModeMove, 50, 90, 1.0f, 1.0f, 1.0f, deviceContext);
+
 
 	UpdateSentence(m_TitleName, temp_TitleName, 352, 280, 1.0f, 1.0f, 1.0f, deviceContext);
 	UpdateSentence(m_GameStart, temp_GameStart, 297, 320, 1.0f, 0.83f, 0.0f, deviceContext);

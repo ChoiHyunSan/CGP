@@ -8,6 +8,8 @@
 #include "bitmapclass.h"
 #include "textureclass.h"
 #include "CollisionMgr.h"
+#include "GameMgr.h"
+#include "SceneMgr.h"
 
 Stage01_Scene::Stage01_Scene()
 {
@@ -108,12 +110,12 @@ void Stage01_Scene::init(D3DClass* D3D)
 	}
 
 	// Create the bitmap object.
-	if (m_Bitmap == nullptr)
+	if (m_BackGround == nullptr)
 	{
-		m_Bitmap = new BitmapClass;
+		m_BackGround = new BitmapClass;
 
 		// Initialize the bitmap object.
-		result = m_Bitmap->Initialize(D3D->GetDevice(), 800, 600, L"./data/UI.dds", 800, 100);
+		result = m_BackGround->Initialize(D3D->GetDevice(), 800, 600, L"./data/UI.dds", 800, 100);
 		if (!result)
 		{
 			MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the bitmap object.", L"Error", MB_OK);
@@ -129,15 +131,15 @@ void Stage01_Scene::init(D3DClass* D3D)
 	}
 
 	// Create the text object.
-	if (m_Text == nullptr)
+	if (m_UiText == nullptr)
 	{
 		m_Camera->Render();
 		m_Camera->GetViewMatrix(m_baseViewMatrix);
 
-		m_Text = new TextClass;
+		m_UiText = new TextClass;
 
 		// Initialize the text object.
-		result = m_Text->Initialize(D3D->GetDevice(), D3D->GetDeviceContext(), SystemClass::GetInst()->GetHwnd(), 800, 600, m_baseViewMatrix);
+		result = m_UiText->Initialize(D3D->GetDevice(), D3D->GetDeviceContext(), SystemClass::GetInst()->GetHwnd(), 800, 600, m_baseViewMatrix);
 		if (!result)
 		{
 			MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the text object.", L"Error", MB_OK);
@@ -170,7 +172,6 @@ void Stage01_Scene::init(D3DClass* D3D)
 
 	}
 
-
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::ENEMY);
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::FIRE);
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::ENEMY, GROUP_TYPE::FIRE);
@@ -181,5 +182,18 @@ void Stage01_Scene::init(D3DClass* D3D)
 
 void Stage01_Scene::Exit()
 {
+
+}
+
+void Stage01_Scene::finalUpdate(D3DClass* D3D)
+{
+	if (GameMgr::GetInst()->GetGameState() == GAME_STATE::GAME_CLEAR)
+	{
+		SceneMgr::GetInst()->setCurScene(SCENE_TYPE::GAME_CLEAR);
+	}
+	else if (GameMgr::GetInst()->GetGameState() == GAME_STATE::GAME_OVER)
+	{
+		SceneMgr::GetInst()->setCurScene(SCENE_TYPE::GAME_OVER);
+	}
 
 }
