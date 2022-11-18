@@ -132,6 +132,19 @@ bool TextClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceCont
 	{
 		return false;
 	}
+
+	result = InitializeSentence(&m_GameResult, 32, device);
+	if (!result)
+	{
+		return false;
+	}
+
+	result = InitializeSentence(&m_GameReplay, 32, device);
+	if (!result)
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -155,6 +168,10 @@ void TextClass::Shutdown()
 	ReleaseSentence(&m_GameStart);
 
 	ReleaseSentence(&m_TitleName);
+
+	ReleaseSentence(&m_GameResult);
+
+	ReleaseSentence(&m_GameReplay);
 
 	// Release the font shader object.
 	if(m_FontShader)
@@ -180,7 +197,9 @@ bool TextClass::Render(ID3D11DeviceContext* deviceContext, XMMATRIX worldMatrix,
 {
 	bool result;
 
-	if (SceneMgr::GetInst()->GetCurScene()->GetName() != L"Title Scene")
+	if (SceneMgr::GetInst()->GetCurScene()->GetName() != L"Title Scene"
+		&& SceneMgr::GetInst()->GetCurScene()->GetName() != L"GameOver_Scene"
+		&& SceneMgr::GetInst()->GetCurScene()->GetName() != L"GameClear_Scene")
 	{
 		// Draw the first sentence.
 		result = RenderSentence(deviceContext, m_playTime, worldMatrix, orthoMatrix);
@@ -208,6 +227,7 @@ bool TextClass::Render(ID3D11DeviceContext* deviceContext, XMMATRIX worldMatrix,
 			return false;
 		}
 	}
+
 	// 타이틀 씬의 경우에는 따로 하나의 텍스트를 만들어 띄운다.
 	if (SceneMgr::GetInst()->GetCurScene()->GetName() == L"Title Scene")
 	{
@@ -217,7 +237,7 @@ bool TextClass::Render(ID3D11DeviceContext* deviceContext, XMMATRIX worldMatrix,
 			return false;
 		}
 
-		if (m_bGameStartOn)
+		if (m_bUIDelayOn)
 		{
 			result = RenderSentence(deviceContext, m_GameStart, worldMatrix, orthoMatrix);
 			if (!result)
@@ -227,6 +247,27 @@ bool TextClass::Render(ID3D11DeviceContext* deviceContext, XMMATRIX worldMatrix,
 		}
 	}
 
+	// 게임 오버 씬의 경우에는 게임 결과창에 해당하는 UI를 출력한다.
+	if (SceneMgr::GetInst()->GetCurScene()->GetName() == L"GameOver_Scene" 
+		|| SceneMgr::GetInst()->GetCurScene()->GetName() == L"GameClear_Scene")
+	{
+		result = RenderSentence(deviceContext, m_GameResult, worldMatrix, orthoMatrix);
+		if (!result)
+		{
+			return false;
+		}
+
+		if (m_bUIDelayOn)
+		{
+			result = RenderSentence(deviceContext, m_GameReplay, worldMatrix, orthoMatrix);
+			if (!result)
+			{
+				return false;
+			}
+		}
+	}
+
+	// 기본적인 UI는 무조건 출력을 해준다.
 	result = RenderSentence(deviceContext, m_Cpu, worldMatrix, orthoMatrix);
 	if (!result)
 	{
@@ -254,11 +295,16 @@ void TextClass::update()
 	string s_Cpu = "Cpu : " + to_string(SystemClass::GetInst()->GetCpu()) + "%";
 	string s_Fps = "Fps : " + to_string(SystemClass::GetInst()->GetFps());
 
-	string s_CameraModeFix = (string)"Camera Mode(F1) : Fix";
+	string s_CameraModeFix	= (string)"Camera Mode(F1) : Fix";
 	string s_CameraModeMove = (string)"Camera Mode(F1) : Move";
 
 	string s_TitleName = (string)" Bomb Game";
 	string s_GameStart = (string)"- Press S Key To Start -";
+
+	string s_GameClear	= "Game Clear";
+	string s_GameOver	= "Game Over";
+	string s_GameReplay = "Press R to Replay";
+
 
 	const char* temp_playerTime = s_playTime.c_str();
 	const char* temp_playerLife = s_playerLife.c_str();
@@ -272,11 +318,16 @@ void TextClass::update()
 	const char* temp_TitleName = s_TitleName.c_str();
 	const char* temp_GameStart = s_GameStart.c_str();
 
+	const char* temp_GameClear = s_GameClear.c_str();
+	const char* temp_GameOver = s_GameOver.c_str();
+	const char* temp_GameReplay = s_GameReplay.c_str();
+
 	// 스테이지 UI
 	UpdateSentence(m_playTime, temp_playerTime, 170, 550, 1.0f, 1.0f, 1.0f, deviceContext);
 	UpdateSentence(m_playerLife, temp_playerLife, 70, 550, 1.0f, 1.0f, 1.0f, deviceContext);
 	UpdateSentence(m_playScore, temp_playScore, 340, 550, 1.0f, 1.0f, 1.0f, deviceContext);
 
+	// 기본 UI
 	UpdateSentence(m_Cpu, temp_Cpu, 50, 50, 1.0f, 1.0f, 1.0f, deviceContext);
 	UpdateSentence(m_Fps, temp_Fps, 50, 70, 1.0f, 1.0f, 1.0f, deviceContext);
 	UpdateSentence(m_CameraMode, temp_CameraModeFix, 50, 90, 1.0f, 1.0f, 1.0f, deviceContext);
@@ -286,20 +337,32 @@ void TextClass::update()
 	else
 		UpdateSentence(m_CameraMode, temp_CameraModeMove, 50, 90, 1.0f, 1.0f, 1.0f, deviceContext);
 
-
+	// 타이틀 씬 UI
 	UpdateSentence(m_TitleName, temp_TitleName, 352, 280, 1.0f, 1.0f, 1.0f, deviceContext);
 	UpdateSentence(m_GameStart, temp_GameStart, 297, 320, 1.0f, 0.83f, 0.0f, deviceContext);
 
+	// 게임 결과 씬 UI
+	if (SceneMgr::GetInst()->GetCurScene()->GetName() == L"GameOver_Scene")
+	{
+		UpdateSentence(m_GameResult, temp_GameOver, 352, 280, 1.0f, 1.0f, 1.0f, deviceContext);
+	}
+	else if(SceneMgr::GetInst()->GetCurScene()->GetName() == L"GameClear_Scene")
+	{
+		UpdateSentence(m_GameResult, temp_GameClear, 352, 280, 1.0f, 1.0f, 1.0f, deviceContext);
+	}
+	UpdateSentence(m_GameReplay, temp_GameReplay, 297, 320, 1.0f, 0.83f, 0.0f, deviceContext);
+
+	// UI 깜빡거림 딜레이
 	if (m_delayCount >= 0.5f)
 	{
-		m_bGameStartOn = false;
+		m_bUIDelayOn = false;
 	}
 	else if (m_delayCount < 0.f)
 	{
-		m_bGameStartOn = true;
+		m_bUIDelayOn = true;
 	}
 
-	if (m_bGameStartOn)
+	if (m_bUIDelayOn)
 	{
 		m_delayCount += fDT;
 	}
@@ -541,6 +604,14 @@ bool TextClass::RenderSentence(ID3D11DeviceContext* deviceContext, SentenceType*
 	else if (sentence == m_TitleName)
 	{
 		worldMatrix *= XMMatrixScaling(7.0f, 7.0f,7.0f);
+	}
+	else if (sentence == m_GameResult)
+	{
+		worldMatrix *= XMMatrixScaling(7.0f, 7.0f, 7.0f);
+	}
+	else if (sentence == m_GameReplay)
+	{
+		worldMatrix *= XMMatrixScaling(3.0f, 3.0f, 3.0f);
 	}
 
 	// Render the text using the font shader.
