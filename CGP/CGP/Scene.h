@@ -9,6 +9,7 @@
 #include "fireshaderclass.h"
 #include "particleshaderclass.h"
 #include "particlesystemclass.h"
+#include "SkyBox.h"
 
 class ModelClass;
 class CameraClass;
@@ -38,6 +39,7 @@ protected:
 	TextureShaderClass* m_TextureShader;
 	BitmapClass*	m_BackGround;
 	TextClass*		m_UiText;
+	SkyBox*			m_SkyBox;
 
 	ParticleShaderClass* m_ParticleShader;
 	vector<ParticleSystemClass*> m_arrParticleSystem[(UINT)PARTICLE_TYPE::END];

@@ -157,6 +157,14 @@ void Scene::render(D3DClass* D3D, float rotation)
 		}
 	}
 
+	// 스카이 박스를 화면에 띄운다.
+	m_Camera->GetViewMatrix(viewMatrix);
+	D3D->GetWorldMatrix(worldMatrix);
+	D3D->GetProjectionMatrix(projectionMatrix);
+
+	if(m_SkyBox != nullptr)
+		m_SkyBox->CreateSphere(10, 10);
+
 
 	// 알파 블렌딩을 끕니다.       
 	D3D->TurnOffAlphaBlending();
@@ -482,7 +490,8 @@ Scene::Scene():
 	m_Effect(0),
 	m_FireShader(0),
 	m_ParticleShader(0),
-	m_fixCamera(true)
+	m_fixCamera(true),
+	m_SkyBox(0)
 {
 	m_Eye = XMVectorSet(0.0f, 8.0f, -10.0f, 1.0f);
 	m_At = XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
@@ -539,6 +548,13 @@ Scene::~Scene()
 		m_Effect->Shutdown();
 		delete m_Effect;
 		m_Effect = 0;
+	}
+
+	if (m_SkyBox)
+	{
+		m_SkyBox->ShutDown();
+		delete m_SkyBox;
+		m_SkyBox = 0;
 	}
 
 	// Release the fire shader object.

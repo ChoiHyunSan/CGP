@@ -79,6 +79,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneMgr.h" />
+    <ClInclude Include="SkyBox.h" />
     <ClInclude Include="SoundClass.h" />
     <ClInclude Include="Stage01_Scene.h" />
     <ClInclude Include="struct.h" />
@@ -123,6 +124,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneMgr.cpp" />
+    <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="SoundClass.cpp" />
     <ClCompile Include="Stage01_Scene.cpp" />
     <ClCompile Include="systemclass.cpp" />
@@ -139,6 +141,12 @@
   </ItemGroup>
   <ItemGroup>
     <Media Include="data\sound01.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="data\Effects.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+    </FxCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

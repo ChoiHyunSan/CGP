@@ -54,7 +54,6 @@ public:
 
 	void TurnOnAlphaBlending();
 	void TurnOffAlphaBlending();
-
 private:
 	bool m_vsync_enabled;
 	int m_videoCardMemory;

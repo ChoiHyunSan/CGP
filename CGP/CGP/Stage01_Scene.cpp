@@ -130,6 +130,13 @@ void Stage01_Scene::init(D3DClass* D3D)
 
 	}
 
+	if (m_SkyBox == nullptr)
+	{
+		m_SkyBox = new SkyBox;
+
+		m_SkyBox->init();
+	}
+
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::ENEMY);
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::FIRE);
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::ENEMY, GROUP_TYPE::FIRE);

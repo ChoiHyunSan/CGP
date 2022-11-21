@@ -246,6 +246,9 @@
     <ClInclude Include="SoundClass.h">
       <Filter>소스 파일\D3D</Filter>
     </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>소스 파일\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -371,6 +374,9 @@
     <ClCompile Include="SoundClass.cpp">
       <Filter>소스 파일\D3D</Filter>
     </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>소스 파일\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\square.txt">
@@ -381,5 +387,10 @@
     <Media Include="data\sound01.wav">
       <Filter>리소스 파일</Filter>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="data\Effects.fx">
+      <Filter>리소스 파일</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

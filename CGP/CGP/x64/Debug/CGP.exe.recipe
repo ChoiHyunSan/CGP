@@ -2,10 +2,14 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\최현산\Desktop\Study\CGP\CGP\x64\Debug\CGP.exe</FullPath>
+      <FullPath>C:\Users\user\Desktop\CGP\CGP\x64\Debug\CGP.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
-  <ContentFiles />
+  <ContentFiles>
+    <ContentFile>
+      <FullPath>C:\Users\user\Desktop\CGP\CGP\x64\Debug\Effects.cso</FullPath>
+    </ContentFile>
+  </ContentFiles>
   <SatelliteDlls />
   <NonRecipeFileRefs />
 </Project>
