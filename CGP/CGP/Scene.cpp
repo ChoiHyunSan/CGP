@@ -40,12 +40,38 @@ void Scene::render(D3DClass* D3D, float rotation)
 	// Generate the view matrix based on the camera's position.
 	m_Camera->Render();
 
+	// 스카이 박스를 화면에 띄운다.
+	m_Camera->GetViewMatrix(viewMatrix);
+	D3D->GetWorldMatrix(worldMatrix);
+	D3D->GetProjectionMatrix(projectionMatrix);
+
+	worldMatrix *= XMMatrixScaling(1.5f, 1.5f, 1.5f);
+
+	// Turn off back face culling.
+	D3D->TurnOffCulling();
+
+	// Turn off the Z buffer.
+	D3D->TurnZBufferOff();
+
+	// Render the sky dome using the sky dome shader.
+	if (m_SkyDome != nullptr && m_SkyDomeShader != nullptr)
+	{
+		m_SkyDome->Render(D3D->GetDeviceContext());
+		m_SkyDomeShader->Render(D3D->GetDeviceContext(), m_SkyDome->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
+			m_SkyDome->GetApexColor(), m_SkyDome->GetCenterColor());
+	}
+	// Turn back face culling back on.
+	D3D->TurnOnCulling();
+
+	// Turn the Z buffer back on.
+	D3D->TurnZBufferOn();
+
 	// Get the world, view, and projection matrices from the camera and d3d objects.
 	m_Camera->GetViewMatrix(viewMatrix);
 	D3D->GetWorldMatrix(worldMatrix);
 	D3D->GetProjectionMatrix(projectionMatrix);
 
-	if(m_fixCamera)
+	if (m_fixCamera)
 		viewMatrix *= XMMatrixRotationX(-0.3f) * XMMatrixTranslation(0, -7, -1.5) * XMMatrixLookAtLH(m_Eye, m_At, m_Up);
 	else
 		viewMatrix *= XMMatrixTranslation(0, -7, -1.5) * XMMatrixLookAtLH(m_Eye, m_At, m_Up);
@@ -157,13 +183,6 @@ void Scene::render(D3DClass* D3D, float rotation)
 		}
 	}
 
-	// 스카이 박스를 화면에 띄운다.
-	m_Camera->GetViewMatrix(viewMatrix);
-	D3D->GetWorldMatrix(worldMatrix);
-	D3D->GetProjectionMatrix(projectionMatrix);
-
-	if(m_SkyBox != nullptr)
-		m_SkyBox->CreateSphere(10, 10);
 
 
 	// 알파 블렌딩을 끕니다.       
@@ -490,8 +509,7 @@ Scene::Scene():
 	m_Effect(0),
 	m_FireShader(0),
 	m_ParticleShader(0),
-	m_fixCamera(true),
-	m_SkyBox(0)
+	m_fixCamera(true)
 {
 	m_Eye = XMVectorSet(0.0f, 8.0f, -10.0f, 1.0f);
 	m_At = XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
@@ -549,14 +567,6 @@ Scene::~Scene()
 		delete m_Effect;
 		m_Effect = 0;
 	}
-
-	if (m_SkyBox)
-	{
-		m_SkyBox->ShutDown();
-		delete m_SkyBox;
-		m_SkyBox = 0;
-	}
-
 	// Release the fire shader object.
 	if (m_FireShader)
 	{
@@ -589,6 +599,21 @@ Scene::~Scene()
 		m_ParticleShader = 0;
 	}
 
+	// Release the sky dome shader object.
+	if (m_SkyDomeShader)
+	{
+		m_SkyDomeShader->Shutdown();
+		delete m_SkyDomeShader;
+		m_SkyDomeShader = 0;
+	}
+
+	// Release the sky dome object.
+	if (m_SkyDome)
+	{
+		m_SkyDome->Shutdown();
+		delete m_SkyDome;
+		m_SkyDome = 0;
+	}
 
 	for (int i = 0; i < (UINT)GROUP_TYPE::END; i++)
 	{

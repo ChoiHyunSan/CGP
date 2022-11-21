@@ -130,12 +130,29 @@ void Stage01_Scene::init(D3DClass* D3D)
 
 	}
 
-	if (m_SkyBox == nullptr)
+	if (m_SkyDome == nullptr)
 	{
-		m_SkyBox = new SkyBox;
+		m_SkyDome = new SkyDomeClass;
 
-		m_SkyBox->init();
+		result = m_SkyDome->Initialize(D3D->GetDevice());
+		if (!result)
+		{
+			MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the sky dome object.", L"Error", MB_OK);
+		}
 	}
+
+
+	if (m_SkyDomeShader == nullptr)
+	{
+		m_SkyDomeShader = new SkyDomeShaderClass;
+
+		result = m_SkyDomeShader->Initialize(D3D->GetDevice(), SystemClass::GetInst()->GetHwnd());
+		if (!result)
+		{
+			MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the sky dome shader object.", L"Error", MB_OK);
+		}
+	}
+
 
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::ENEMY);
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::FIRE);

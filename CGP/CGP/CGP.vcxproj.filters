@@ -246,8 +246,11 @@
     <ClInclude Include="SoundClass.h">
       <Filter>소스 파일\D3D</Filter>
     </ClInclude>
-    <ClInclude Include="SkyBox.h">
+    <ClInclude Include="skydomeclass.h">
       <Filter>소스 파일\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="skydomeshaderclass.h">
+      <Filter>소스 파일\Shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -374,8 +377,11 @@
     <ClCompile Include="SoundClass.cpp">
       <Filter>소스 파일\D3D</Filter>
     </ClCompile>
-    <ClCompile Include="SkyBox.cpp">
+    <ClCompile Include="skydomeclass.cpp">
       <Filter>소스 파일\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="skydomeshaderclass.cpp">
+      <Filter>소스 파일\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

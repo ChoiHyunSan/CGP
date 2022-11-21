@@ -54,6 +54,11 @@ public:
 
 	void TurnOnAlphaBlending();
 	void TurnOffAlphaBlending();
+
+	void TurnOnCulling();
+	void TurnOffCulling();
+
+
 private:
 	bool m_vsync_enabled;
 	int m_videoCardMemory;
@@ -74,6 +79,7 @@ private:
 	ID3D11BlendState* m_alphaEnableBlendingState;
 	ID3D11BlendState* m_alphaDisableBlendingState;
 
+	ID3D11RasterizerState* m_rasterStateNoCulling;
 };
 
 #endif

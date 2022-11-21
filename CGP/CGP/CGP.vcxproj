@@ -79,7 +79,8 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneMgr.h" />
-    <ClInclude Include="SkyBox.h" />
+    <ClInclude Include="skydomeclass.h" />
+    <ClInclude Include="skydomeshaderclass.h" />
     <ClInclude Include="SoundClass.h" />
     <ClInclude Include="Stage01_Scene.h" />
     <ClInclude Include="struct.h" />
@@ -124,7 +125,8 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneMgr.cpp" />
-    <ClCompile Include="SkyBox.cpp" />
+    <ClCompile Include="skydomeclass.cpp" />
+    <ClCompile Include="skydomeshaderclass.cpp" />
     <ClCompile Include="SoundClass.cpp" />
     <ClCompile Include="Stage01_Scene.cpp" />
     <ClCompile Include="systemclass.cpp" />
