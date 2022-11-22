@@ -35,17 +35,53 @@ void Bomb::Update()
 
 		for (int i = 0; i < power; ++i)
 		{
-			// TODO : 폭탄을 생성하면서 같은 위치에 충돌판정을 일으킬 오브젝트를 같이 생성한다.
-
+			if (!SceneMgr::GetInst()->GetCurScene()->isEmptyPlace(MAPSIZE - getPos().z - 1, (getPos().x + (i + 1)) + MAPSIZE / 2))
+			{
+				break;
+			}
+			if (getPos().x + (i + 1) > MAPSIZE / 2)
+			{
+				break;
+			}
 			// 폭탄 좌우 생성
 			SceneMgr::GetInst()->GetCurScene()->AddEffect(GraphicsClass::GetInst()->GetD3D(), EFFECT_TYPE::FIRE, getPos() + Pos((i + 1), 0, 0));
-			SceneMgr::GetInst()->GetCurScene()->AddEffect(GraphicsClass::GetInst()->GetD3D(), EFFECT_TYPE::FIRE, getPos() + Pos(-(i + 1), 0, 0));
-
-			// 폭탄 상하 생성
-			SceneMgr::GetInst()->GetCurScene()->AddEffect(GraphicsClass::GetInst()->GetD3D(), EFFECT_TYPE::FIRE, getPos() + Pos(0,0,  (i + 1)));
-			SceneMgr::GetInst()->GetCurScene()->AddEffect(GraphicsClass::GetInst()->GetD3D(), EFFECT_TYPE::FIRE, getPos() + Pos(0, 0 , -(i + 1)));
 		}
-		//OutputDebugStringA("Fire");
+		for (int i = 0; i < power; ++i)
+		{
+			if (!SceneMgr::GetInst()->GetCurScene()->isEmptyPlace(MAPSIZE - getPos().z - 1, (getPos().x - (i + 1)) + MAPSIZE / 2))
+			{
+				break;
+			}
+			if (getPos().x - (i + 1) < -MAPSIZE / 2)
+			{
+				break;
+			}
+			SceneMgr::GetInst()->GetCurScene()->AddEffect(GraphicsClass::GetInst()->GetD3D(), EFFECT_TYPE::FIRE, getPos() + Pos(-(i + 1), 0, 0));
+		}		
+		for (int i = 0; i < power; ++i)
+		{
+			if (!SceneMgr::GetInst()->GetCurScene()->isEmptyPlace(MAPSIZE - getPos().z - (i + 1) - 1, getPos().x + MAPSIZE / 2))
+			{
+				break;
+			}
+			if (MAPSIZE - getPos().z - (i + 1) - 1 < 0)
+			{
+				break;
+			}
+			SceneMgr::GetInst()->GetCurScene()->AddEffect(GraphicsClass::GetInst()->GetD3D(), EFFECT_TYPE::FIRE, getPos() + Pos(0, 0, (i + 1)));
+		}		
+		for (int i = 0; i < power; ++i)
+		{
+			if (!SceneMgr::GetInst()->GetCurScene()->isEmptyPlace(MAPSIZE - getPos().z + (i + 1) - 1, getPos().x + MAPSIZE / 2))
+			{
+				break;
+			}
+			if (MAPSIZE - getPos().z + (i + 1) > MAPSIZE)
+			{
+				break;
+			}
+			SceneMgr::GetInst()->GetCurScene()->AddEffect(GraphicsClass::GetInst()->GetD3D(), EFFECT_TYPE::FIRE, getPos() + Pos(0, 0, -(i + 1)));
+		}
 
 		SceneMgr::GetInst()->GetCurScene()->ClearObjects(GROUP_TYPE::BOMB);
 	}
