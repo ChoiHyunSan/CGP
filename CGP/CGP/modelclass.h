@@ -158,6 +158,7 @@ protected:
 	vector<XMFLOAT3> m_vInstancePos;
 	friend class EventMgr;
 	friend class Fire;
+	friend class Player;
 };
 
 #endif

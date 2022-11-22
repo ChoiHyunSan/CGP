@@ -10,6 +10,9 @@
 							~type();
 
 #define MAPSIZE 15
+
+
+
 enum class DIR
 {
 	UP = 0,
@@ -64,7 +67,8 @@ enum class EVENT_TYPE
 	CREATE_OBJECT,
 	DELETE_OBJECT,
 	SCENE_CHANGE,
-
+	DEAD_OBJECT,
+	DEAD_PLAYER,
 
 	END,
 };

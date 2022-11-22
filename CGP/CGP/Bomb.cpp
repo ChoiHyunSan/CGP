@@ -7,7 +7,7 @@
 #include "GameMgr.h"
 #include "graphicsclass.h"
 
-Bomb::Bomb(ID3D11Device* device)
+Bomb::Bomb(ID3D11Device* device, GROUP_TYPE type, Pos pos)
 	: ModelClass(device, GROUP_TYPE::BOMB),
 	timer(0.0f)
 {

@@ -18,7 +18,7 @@ private:
     void Move();
 
 public:
-    Enemy(ID3D11Device* device);
+    Enemy(ID3D11Device* device, GROUP_TYPE, Pos);
     ~Enemy();
 };
 

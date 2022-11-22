@@ -42,6 +42,8 @@
     <None Include="data\light.vs" />
     <None Include="data\particle.ps" />
     <None Include="data\particle.vs" />
+    <None Include="data\skydome.ps" />
+    <None Include="data\skydome.vs" />
     <None Include="data\texture.ps" />
     <None Include="data\texture.vs" />
   </ItemGroup>

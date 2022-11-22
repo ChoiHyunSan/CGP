@@ -22,11 +22,10 @@ class EffectClass;
 class Scene
 {
 private:
-	vector<ModelClass*> m_arrModel[(UINT)GROUP_TYPE::END];	// 오브젝트를 저장 및 관리할 벡터를 그룹만큼 선언
+	vector<ModelClass*> m_arrModel[(UINT)GROUP_TYPE::END];		// 오브젝트를 저장 및 관리할 벡터를 그룹만큼 선언
 	vector<EffectClass*> m_arrEffect[(UINT)EFFECT_TYPE::END];	// 오브젝트를 저장 및 관리할 벡터를 그룹만큼 선언
-	wstring				m_strName;							// Scene 이름
+	wstring				m_strName;								// Scene 이름
 	bool				m_fixCamera;
-
 protected:
 	ModelClass* m_Model;
 	EffectClass* m_Effect;
@@ -47,6 +46,7 @@ protected:
 	SkyDomeClass* m_SkyDome;
 	SkyDomeShaderClass* m_SkyDomeShader;
 
+	XMFLOAT3 cameraPosition; 
 public:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
 	const wstring& GetName() { return m_strName; }
@@ -76,7 +76,7 @@ public:
 	vector<ModelClass*> GetGroupObject(GROUP_TYPE eType) { return m_arrModel[(UINT)eType]; }
 	vector<EffectClass*> GetGroupEffect(EFFECT_TYPE eType) { return m_arrEffect[(UINT)eType]; }
 
-	bool isEmptyPlace(int x, int z) { return !m_map[x][z]; }
+	bool isEmptyPlace(int x, int z) { return m_map[x][z] == 0; }
 
 	void updateCamera();
 	void FixCamera();

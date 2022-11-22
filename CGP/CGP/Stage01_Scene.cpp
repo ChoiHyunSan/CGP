@@ -152,7 +152,7 @@ void Stage01_Scene::init(D3DClass* D3D)
 			MessageBox(SystemClass::GetInst()->GetHwnd(), L"Could not initialize the sky dome shader object.", L"Error", MB_OK);
 		}
 	}
-
+	cameraPosition = m_Camera->GetPosition();
 
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::ENEMY);
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::FIRE);
@@ -183,21 +183,21 @@ void Stage01_Scene::finalUpdate(D3DClass* D3D)
 void Stage01_Scene::SetObjects(D3DClass* D3D)
 {
 	char map[MAPSIZE][MAPSIZE] = {
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,1,1,1,1,0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,1,1,1,1,1,1,1,1,1,1,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,1,1,1,1,1,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,1,1,0,1,1,1,1,1,1,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 	};
 
 	for (int i = 0; i < MAPSIZE; i++)
@@ -216,13 +216,15 @@ void Stage01_Scene::SetObjects(D3DClass* D3D)
 		for (int j = 0; j < MAPSIZE; j++)
 		{
 			// Map[i][j]의 값이 0인 경우에만 설치
-			AddObject(D3D, GROUP_TYPE::DEFAULT, Pos(i - (MAPSIZE / 2), 0, j));
+			AddObject(D3D, GROUP_TYPE::DEFAULT, Pos(i - (MAPSIZE / 2), 0, MAPSIZE - j - 1));
 			if (map[j][i] == 1)
-				AddObject(D3D, GROUP_TYPE::DEFAULT, Pos(i - (MAPSIZE / 2), 1, j));
+				AddObject(D3D, GROUP_TYPE::DEFAULT, Pos(i - (MAPSIZE / 2), 1, MAPSIZE - j - 1));
 		}
 	}
 
 	AddObject(D3D, GROUP_TYPE::PLAYER, Pos(0, 0, 0));
-	AddObject(D3D, GROUP_TYPE::ENEMY, Pos(0, 0, 0));
+	AddObject(D3D, GROUP_TYPE::ENEMY, Pos(5, 0, 0));
+	AddObject(D3D, GROUP_TYPE::ENEMY, Pos(-5, 0, 0));
+	AddObject(D3D, GROUP_TYPE::ENEMY, Pos(8, 0, 0));
 	AddParticle(D3D, PARTICLE_TYPE::DEFAULT, Pos(10, 2, 0));
 }

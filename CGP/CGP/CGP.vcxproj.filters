@@ -112,6 +112,12 @@
     <None Include="data\particle.vs">
       <Filter>리소스 파일</Filter>
     </None>
+    <None Include="data\skydome.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\skydome.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bomb.h">

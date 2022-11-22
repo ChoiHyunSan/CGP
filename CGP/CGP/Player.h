@@ -6,7 +6,7 @@ class Player :
 
 
 public:
-    Player(ID3D11Device*);
+    Player(ID3D11Device* device, GROUP_TYPE type, Pos pos);
     ~Player();
 
 public:

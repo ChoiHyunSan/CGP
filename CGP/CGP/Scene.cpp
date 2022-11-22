@@ -45,7 +45,7 @@ void Scene::render(D3DClass* D3D, float rotation)
 	D3D->GetWorldMatrix(worldMatrix);
 	D3D->GetProjectionMatrix(projectionMatrix);
 
-	worldMatrix *= XMMatrixScaling(1.5f, 1.5f, 1.5f);
+	worldMatrix *= XMMatrixTranslation(cameraPosition.x, cameraPosition.y, cameraPosition.z);
 
 	// Turn off back face culling.
 	D3D->TurnOffCulling();
@@ -280,13 +280,13 @@ void Scene::AddObject(D3DClass* D3D, GROUP_TYPE _eType, Pos pos)
 		m_Model = new ModelClass(D3D->GetDevice(), GROUP_TYPE::DEFAULT, pos);
 
 	if (_eType == GROUP_TYPE::PLAYER)
-		m_Model = new Player(D3D->GetDevice());
+		m_Model = new Player(D3D->GetDevice(), GROUP_TYPE::PLAYER, pos);
 
 	if (_eType == GROUP_TYPE::BOMB)
-		m_Model = new Bomb(D3D->GetDevice());
+		m_Model = new Bomb(D3D->GetDevice(), GROUP_TYPE::BOMB, pos);
 
 	if (_eType == GROUP_TYPE::ENEMY)
-		m_Model = new Enemy(D3D->GetDevice());
+		m_Model = new Enemy(D3D->GetDevice(), GROUP_TYPE::ENEMY, pos);
 
 	m_arrModel[(UINT)_eType].push_back(m_Model);
 }

@@ -7,10 +7,10 @@
 #include "graphicsclass.h"
 #include "GameMgr.h"
 
-Player::Player(ID3D11Device* device)
+Player::Player(ID3D11Device* device, GROUP_TYPE type, Pos pos)
 	: ModelClass(device, GROUP_TYPE::PLAYER)
 {
-	setPos(0.f, 0.f, 0.f);
+	setPos(pos.x,pos.y,pos.z);
 	SetName(L"Player");
 	GetCollider()->SetScale(Pos(0.8,0.8f,0.8f));
 }
@@ -58,8 +58,23 @@ void Player::Update()
 void Player::OnCollisionEnter(Collider* _pOther)
 
 {
-	if(_pOther->GetModel() != nullptr && _pOther->GetModel()->GetName() == L"Enemy")
-		OutputDebugStringA("OnCollision Enter \n");
+	if (_pOther->GetModel() != nullptr && _pOther->GetModel()->GetName() == L"Enemy")
+	{
+		int playerLife = GameMgr::GetInst()->getPlayerLife();
+		if (playerLife > 1)
+		{
+			// 플레이어의 라이프 개수를 깎는 이벤트를 만들어서 해당 부분을 처리하도록 수정하기
+			GameMgr::GetInst()->AddLife(-1);
+			setPos(0.f, 0.f, 0.f);
+		}
+		else
+		{
+			GameMgr::GetInst()->AddLife(-1);
+			SetDead();
+
+			GameMgr::GetInst()->SetGameState(GAME_STATE::GAME_OVER);
+		}
+	}
 
 	if (_pOther->GetModel() != nullptr && _pOther->GetModel()->GetName() == L"Default")
 	{

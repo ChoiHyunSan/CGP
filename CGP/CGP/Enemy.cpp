@@ -18,44 +18,24 @@ void Enemy::setTargetPos(DIR dir)
 	case DIR::UP:
 		targetPos.z += 1;
 		setRotate('y', 3.141592f / 1);
-		//if (SceneMgr::GetInst()->GetCurScene()->isEmptyPlace(targetPos.x + MAPSIZE / 2, targetPos.z))
-		//{
-		//	targetPos.z -= 1;
-		//	isMove = false;
-		//	Move();
-		//}
 		break;
 	case DIR::DOWN:
 		targetPos.z -= 1;
 		setRotate('y', 0);
-		//if (SceneMgr::GetInst()->GetCurScene()->isEmptyPlace(targetPos.x + MAPSIZE / 2, targetPos.z))
-		//{
-		//	targetPos.z += 1;
-		//	isMove = false;
-		//	Move();
-		//}
+
 		break;
 	case DIR::LEFT:
 		targetPos.x -= 1;
 		setRotate('y', 3.141592f / 2);
-		//if (SceneMgr::GetInst()->GetCurScene()->isEmptyPlace(targetPos.x + MAPSIZE / 2, targetPos.z))
-		//{
-		//	targetPos.x += 1;
-		//	isMove = false;
-		//	Move();
-		//}
 		break;
 	case DIR::RIGHT:
 		targetPos.x += 1;
 		setRotate('y', 3.141592f / 2 * 3);
-		//if (SceneMgr::GetInst()->GetCurScene()->isEmptyPlace(targetPos.x + MAPSIZE / 2, targetPos.z))
-		//{
-		//	targetPos.x -= 1;
-		//	isMove = false;
-		//	Move();
-		//}
 		break;
 	}
+	OutputDebugStringA((to_string(targetPos.x) + " ").c_str());
+	OutputDebugStringA((to_string(targetPos.z)+ "\n").c_str());
+	// 목표 위치가 비어있지 않다면
 
 	 //targetPos가 맵을 벗어난다면 이동하지 않게 조정한다.
 	if (targetPos.x > MAPSIZE / 2)
@@ -63,22 +43,48 @@ void Enemy::setTargetPos(DIR dir)
 		targetPos.x -= 1;
 		isMove = false;
 		Move();
+		return;
 	}
 	if (targetPos.z > MAPSIZE) 
 	{ 
 		targetPos.z -= 1;
 		isMove = false;
 		Move();
+		return;
 	}
 	if (targetPos.x < -MAPSIZE / 2) 
 	{ 
 		targetPos.x += 1;
 		isMove = false;
 		Move();
+		return;
 	}
 	if (targetPos.z < 0) 
 	{ 
 		targetPos.z += 1; 
+		isMove = false;
+		Move();
+		return;
+	}
+
+	if (!SceneMgr::GetInst()->GetCurScene()->isEmptyPlace(MAPSIZE - targetPos.z - 1, targetPos.x + MAPSIZE / 2))
+	{
+		switch (dir)
+		{
+		case DIR::UP:
+			targetPos.z -= 1;
+			break;
+		case DIR::DOWN:
+			targetPos.z += 1;
+			break;
+		case DIR::LEFT:
+			targetPos.x -= 1;
+			break;
+		case DIR::RIGHT:
+			targetPos.x += 1;
+			break;
+		}
+
 		isMove = false;
 		Move();
 	}
@@ -116,19 +122,14 @@ void Enemy::Move()
 }
 
 
-Enemy::Enemy(ID3D11Device* device)
+Enemy::Enemy(ID3D11Device* device , GROUP_TYPE type, Pos pos)
 	: ModelClass(device, GROUP_TYPE::ENEMY),
 	targetPos(0, 0, 0), isMove(false), speed(1.3f)
 {
-	setPos(0.f,1.f,1.f);
-	
+	setPos(pos.x, pos.y +1, pos.z);
 	SetName(L"Enemy");
-
 	// 이동 목적지의 초기위치는 Enemy Class의 스폰 위치로 지정한다.
 	targetPos = this->getPos();
-
-	//CreateCollider();
-	//GetCollider()->SetOffsetPos(Pos(0.f, 0.f, 0.f));
 	GetCollider()->SetScale(Pos(0.8, 0.8f, 0.8f));
 }
 
