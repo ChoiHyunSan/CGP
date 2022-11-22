@@ -40,27 +40,46 @@ bool ParticleSystemClass::Initialize(ID3D11Device* device, const WCHAR* textureF
 {
 	bool result;
 
-	// Initialize the particle system.
-	result = InitializeParticleSystem();
-	if (!result)
-	{
-		return false;
-	}
+	//// Initialize the particle system.
+	//result = InitializeParticleSystem();
+	//if (!result)
+	//{
+	//	return false;
+	//}
 
-	// Create the buffers that will be used to render the particles with.
-	result = InitializeBuffers(device);
-	if (!result)
-	{
-		return false;
-	}
+	//// Create the buffers that will be used to render the particles with.
+	//result = InitializeBuffers(device);
+	//if (!result)
+	//{
+	//	return false;
+	//}
 
-	// Load the texture that is used for the particles.
+	//// Load the texture that is used for the particles.
+	//result = LoadTexture(device, textureFilename);
+	//if (!result)
+	//{
+	//	return false;
+	//}
+	 //파티클에 사용할 텍스쳐를 불러옵니다.
 	result = LoadTexture(device, textureFilename);
 	if (!result)
 	{
 		return false;
 	}
 
+	// 파티클 시스템을 초기화합니다.
+	result = InitializeParticleSystem();
+	if (!result)
+	{
+		return false;
+	}
+
+	// 파티클을 그리는 데 사용할 버퍼들을 생성합니다.
+	result = InitializeBuffers(device);
+	if (!result)
+	{
+		return false;
+	}
 	return true;
 }
 
@@ -83,7 +102,6 @@ void ParticleSystemClass::Shutdown()
 bool ParticleSystemClass::Frame(float frameTime, ID3D11DeviceContext* deviceContext)
 {
 	bool result;
-
 
 	// Release old particles.
 	KillParticles();

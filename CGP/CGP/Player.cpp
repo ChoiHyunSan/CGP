@@ -23,7 +23,6 @@ Player::~Player()
 
 void Player::Update()
 {
-
 	if (InputClass::GetInst()->GetKeyState(DIK_LEFT) & 0x80)
 	{
 		setRotate('y', 3.141592f / 2);

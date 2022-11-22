@@ -149,7 +149,6 @@ void Scene::render(D3DClass* D3D, float rotation)
 			D3D->GetProjectionMatrix(projectionMatrix);
 
 			m_Effect->Render(D3D->GetDeviceContext());
-			//viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0, -8, 20);
 			worldMatrix *= XMMatrixRotationX(3.141592 / 2) * XMMatrixTranslation(0.0f, -4.55f, 0.0f) * XMMatrixScaling(0.5f, 0.5f, 0.5f) * XMMatrixTranslation(m_arrEffect[i][j]->getPos().x, m_arrEffect[i][j]->getPos().y - 2, m_arrEffect[i][j]->getPos().z);
 
 			result = m_FireShader->Render(D3D->GetDeviceContext(), m_arrEffect[i][j]->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
@@ -161,6 +160,7 @@ void Scene::render(D3DClass* D3D, float rotation)
 	}
 
 	// 파티클을 화면에 띄운다.
+
 
 	for (int i = 0; i < (UINT)PARTICLE_TYPE::END; ++i)
 	{
@@ -176,14 +176,11 @@ void Scene::render(D3DClass* D3D, float rotation)
 			m_ParticleSystem->Render(D3D->GetDeviceContext());
 
 			worldMatrix *= XMMatrixTranslation(m_arrParticleSystem[i][j]->getPos().x, m_arrParticleSystem[i][j]->getPos().y - 2, m_arrParticleSystem[i][j]->getPos().z);
-			viewMatrix *= XMMatrixRotationX(-0.8) * XMMatrixTranslation(0, -8, 20);
 			
 			result = m_ParticleShader->Render(D3D->GetDeviceContext(), m_arrParticleSystem[i][j]->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
 				m_arrParticleSystem[i][j]->GetTexture());
 		}
 	}
-
-
 
 	// 알파 블렌딩을 끕니다.       
 	D3D->TurnOffAlphaBlending();
@@ -305,7 +302,7 @@ void Scene::AddParticle(D3DClass* D3D, PARTICLE_TYPE _eType, Pos pos)
 {
 	if (_eType == PARTICLE_TYPE::DEFAULT)
 	{
-		m_ParticleSystem = new ParticleSystemClass(D3D->GetDevice(), L".data/star.dds" ,pos);
+		m_ParticleSystem = new ParticleSystemClass(D3D->GetDevice(), L"./data/star.dds" ,pos);
 	}
 	m_arrParticleSystem[(UINT)_eType].push_back(m_ParticleSystem);
 }
