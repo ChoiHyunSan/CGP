@@ -36,9 +36,9 @@ void Stage01_Scene::init(D3DClass* D3D)
 		assert(m_Light);
 
 		// Initialize the light object.
-		m_Light->SetAmbientColor(0.8f, 0.8f, 0.8f, 1.0f);
+		m_Light->SetAmbientColor(0.5f, 0.5f, 0.5f, 1.0f);
 		m_Light->SetDiffuseColor(1.0f, 1.0f, 1.0f, 1.0f);
-		m_Light->SetDirection(0.0f, 0.5f, 0.5f);
+		m_Light->SetDirection(0.5f, 0.5f, 0.5f);
 		m_Light->SetSpecularColor(1.0f, 1.0f, 1.0f, 1.0f);
 		m_Light->SetSpecularPower(32.0f);
 	}

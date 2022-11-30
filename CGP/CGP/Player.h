@@ -21,5 +21,10 @@ private:
     // 1 : UP, 2 : DONW, 3: RIGHT, 4 : LEFT
     int dir = 0;
 
+    bool canMoveLeft;
+    bool canMoveRight;
+    bool canMoveUp;
+    bool canMoveDown;
+
 };
 

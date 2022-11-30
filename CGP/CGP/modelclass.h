@@ -154,6 +154,14 @@ private:
 
 	wstring m_strName;
 
+	// new
+public:
+	bool left = false;
+	bool right = false;
+	bool up = false;
+	bool down = false;
+
+
 protected:
 	vector<XMFLOAT3> m_vInstancePos;
 	friend class EventMgr;
