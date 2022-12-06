@@ -302,7 +302,7 @@ void Scene::AddParticle(D3DClass* D3D, PARTICLE_TYPE _eType, Pos pos)
 {
 	if (_eType == PARTICLE_TYPE::DEFAULT)
 	{
-		m_ParticleSystem = new ParticleSystemClass(D3D->GetDevice(), L"./data/star.dds" ,pos);
+		m_ParticleSystem = new ParticleSystemClass(D3D->GetDevice(), L"./data/snow.dds" ,pos);
 	}
 	m_arrParticleSystem[(UINT)_eType].push_back(m_ParticleSystem);
 }

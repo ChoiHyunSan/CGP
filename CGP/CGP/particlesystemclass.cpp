@@ -40,26 +40,6 @@ bool ParticleSystemClass::Initialize(ID3D11Device* device, const WCHAR* textureF
 {
 	bool result;
 
-	//// Initialize the particle system.
-	//result = InitializeParticleSystem();
-	//if (!result)
-	//{
-	//	return false;
-	//}
-
-	//// Create the buffers that will be used to render the particles with.
-	//result = InitializeBuffers(device);
-	//if (!result)
-	//{
-	//	return false;
-	//}
-
-	//// Load the texture that is used for the particles.
-	//result = LoadTexture(device, textureFilename);
-	//if (!result)
-	//{
-	//	return false;
-	//}
 	 //파티클에 사용할 텍스쳐를 불러옵니다.
 	result = LoadTexture(device, textureFilename);
 	if (!result)
@@ -185,11 +165,10 @@ bool ParticleSystemClass::InitializeParticleSystem()
 {
 	int i;
 
-
 	// Set the random deviation of where the particles can be located when emitted.
-	m_particleDeviationX = 0.5f;
+	m_particleDeviationX = 5.0f;
 	m_particleDeviationY = 0.1f;
-	m_particleDeviationZ = 2.0f;
+	m_particleDeviationZ = 5.0f;
 
 	// Set the speed and speed variation of particles.
 	m_particleVelocity = 1.0f;
@@ -199,10 +178,10 @@ bool ParticleSystemClass::InitializeParticleSystem()
 	m_particleSize = 0.2f;
 
 	// Set the number of particles to emit per second.
-	m_particlesPerSecond = 250.0f;
+	m_particlesPerSecond = 20.0f;
 
 	// Set the maximum number of particles allowed in the particle system.
-	m_maxParticles = 5000;
+	m_maxParticles = 50;
 
 	// Create the particle list.
 	m_particleList = new ParticleType[m_maxParticles];
@@ -498,36 +477,42 @@ bool ParticleSystemClass::UpdateBuffers(ID3D11DeviceContext* deviceContext)
 		m_vertices[index].position = XMFLOAT3(m_particleList[i].positionX - m_particleSize, m_particleList[i].positionY - m_particleSize, m_particleList[i].positionZ);
 		m_vertices[index].texture = XMFLOAT2(0.0f, 1.0f);
 		m_vertices[index].color = XMFLOAT4(m_particleList[i].red, m_particleList[i].green, m_particleList[i].blue, 1.0f);
+		m_vertices[index].color = XMFLOAT4(255, 255, 255, 1.0f);
 		index++;
 
 		// Top left.
 		m_vertices[index].position = XMFLOAT3(m_particleList[i].positionX - m_particleSize, m_particleList[i].positionY + m_particleSize, m_particleList[i].positionZ);
 		m_vertices[index].texture = XMFLOAT2(0.0f, 0.0f);
 		m_vertices[index].color = XMFLOAT4(m_particleList[i].red, m_particleList[i].green, m_particleList[i].blue, 1.0f);
+		m_vertices[index].color = XMFLOAT4(255, 255, 255, 1.0f);
 		index++;
 
 		// Bottom right.
 		m_vertices[index].position = XMFLOAT3(m_particleList[i].positionX + m_particleSize, m_particleList[i].positionY - m_particleSize, m_particleList[i].positionZ);
 		m_vertices[index].texture = XMFLOAT2(1.0f, 1.0f);
 		m_vertices[index].color = XMFLOAT4(m_particleList[i].red, m_particleList[i].green, m_particleList[i].blue, 1.0f);
+		m_vertices[index].color = XMFLOAT4(255, 255, 255, 1.0f);
 		index++;
 
 		// Bottom right.
 		m_vertices[index].position = XMFLOAT3(m_particleList[i].positionX + m_particleSize, m_particleList[i].positionY - m_particleSize, m_particleList[i].positionZ);
 		m_vertices[index].texture = XMFLOAT2(1.0f, 1.0f);
 		m_vertices[index].color = XMFLOAT4(m_particleList[i].red, m_particleList[i].green, m_particleList[i].blue, 1.0f);
+		m_vertices[index].color = XMFLOAT4(255, 255, 255, 1.0f);
 		index++;
 
 		// Top left.
 		m_vertices[index].position = XMFLOAT3(m_particleList[i].positionX - m_particleSize, m_particleList[i].positionY + m_particleSize, m_particleList[i].positionZ);
 		m_vertices[index].texture = XMFLOAT2(0.0f, 0.0f);
 		m_vertices[index].color = XMFLOAT4(m_particleList[i].red, m_particleList[i].green, m_particleList[i].blue, 1.0f);
+		m_vertices[index].color = XMFLOAT4(255, 255, 255, 1.0f);
 		index++;
 
 		// Top right.
 		m_vertices[index].position = XMFLOAT3(m_particleList[i].positionX + m_particleSize, m_particleList[i].positionY + m_particleSize, m_particleList[i].positionZ);
 		m_vertices[index].texture = XMFLOAT2(1.0f, 0.0f);
 		m_vertices[index].color = XMFLOAT4(m_particleList[i].red, m_particleList[i].green, m_particleList[i].blue, 1.0f);
+		m_vertices[index].color = XMFLOAT4(255, 255, 255, 1.0f);
 		index++;
 	}
 	

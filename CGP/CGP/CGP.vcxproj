@@ -27,6 +27,7 @@
     <Image Include="data\noise01.dds" />
     <Image Include="data\player.dds" />
     <Image Include="data\seafloor.dds" />
+    <Image Include="data\snow.dds" />
     <Image Include="data\star.dds" />
     <Image Include="data\Title.dds" />
     <Image Include="data\UI.dds" />

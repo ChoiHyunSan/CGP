@@ -226,5 +226,5 @@ void Stage01_Scene::SetObjects(D3DClass* D3D)
 	AddObject(D3D, GROUP_TYPE::ENEMY, Pos(5, 0, 0));
 	AddObject(D3D, GROUP_TYPE::ENEMY, Pos(-5, 0, 0));
 	AddObject(D3D, GROUP_TYPE::ENEMY, Pos(8, 0, 0));
-	AddParticle(D3D, PARTICLE_TYPE::DEFAULT, Pos(10, 1, 0));
+	AddParticle(D3D, PARTICLE_TYPE::DEFAULT, Pos(0, 7, 7));
 }
