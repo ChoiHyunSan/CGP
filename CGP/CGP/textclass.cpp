@@ -24,7 +24,8 @@ TextClass::TextClass():
 	m_CameraMode(0),
 	m_GameStart(0),
 	m_delayCount(0.f),
-	m_TitleName(0)
+	m_TitleName(0),
+	m_stageScene(0)
 {
 
 }
@@ -145,6 +146,12 @@ bool TextClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceCont
 		return false;
 	}
 
+	result = InitializeSentence(&m_stageScene, 32, device);
+	if (!result)
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -172,6 +179,8 @@ void TextClass::Shutdown()
 	ReleaseSentence(&m_GameResult);
 
 	ReleaseSentence(&m_GameReplay);
+
+	ReleaseSentence(&m_stageScene);
 
 	// Release the font shader object.
 	if(m_FontShader)
@@ -216,6 +225,12 @@ bool TextClass::Render(ID3D11DeviceContext* deviceContext, XMMATRIX worldMatrix,
 		}
 
 		result = RenderSentence(deviceContext, m_playScore, worldMatrix, orthoMatrix);
+		if (!result)
+		{
+			return false;
+		}
+
+		result = RenderSentence(deviceContext, m_stageScene, worldMatrix, orthoMatrix);
 		if (!result)
 		{
 			return false;
@@ -291,6 +306,7 @@ void TextClass::update()
 	string s_playTime = "Time : " + to_string(GameMgr::GetInst()->getPlayTime());
 	string s_playerLife = "Life : " + to_string(GameMgr::GetInst()->getPlayerLife());
 	string s_playScore = "Score : " + to_string(GameMgr::GetInst()->getPlayScore());
+	string s_stageScene = "Stage : Stage_1";
 
 	string s_Cpu = "Cpu : " + to_string(SystemClass::GetInst()->GetCpu()) + "%";
 	string s_Fps = "Fps : " + to_string(SystemClass::GetInst()->GetFps());
@@ -309,6 +325,8 @@ void TextClass::update()
 	const char* temp_playerTime = s_playTime.c_str();
 	const char* temp_playerLife = s_playerLife.c_str();
 	const char* temp_playScore = s_playScore.c_str();
+	const char* temp_stageScene = s_stageScene.c_str();
+
 	const char* temp_Cpu = s_Cpu.c_str();
 	const char* temp_Fps = s_Fps.c_str();
 
@@ -326,6 +344,7 @@ void TextClass::update()
 	UpdateSentence(m_playTime, temp_playerTime, 170, 550, 1.0f, 1.0f, 1.0f, deviceContext);
 	UpdateSentence(m_playerLife, temp_playerLife, 70, 550, 1.0f, 1.0f, 1.0f, deviceContext);
 	UpdateSentence(m_playScore, temp_playScore, 340, 550, 1.0f, 1.0f, 1.0f, deviceContext);
+	UpdateSentence(m_stageScene, temp_stageScene, 520, 550, 1.0f, 1.0f, 1.0f, deviceContext);
 
 	// ±âº» UI
 	UpdateSentence(m_Cpu, temp_Cpu, 50, 50, 1.0f, 1.0f, 1.0f, deviceContext);

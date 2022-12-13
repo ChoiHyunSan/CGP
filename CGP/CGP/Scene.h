@@ -49,7 +49,7 @@ protected:
 	XMFLOAT3 cameraPosition; 
 public:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
-	const wstring& GetName() { return m_strName; }
+	wstring GetName() { return m_strName; }
 
 	ModelClass* GetModel() { return m_Model; }
 

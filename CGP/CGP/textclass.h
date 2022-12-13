@@ -64,6 +64,7 @@ private:
 	SentenceType* m_playTime;
 	SentenceType* m_playerLife;
 	SentenceType* m_playScore;
+	SentenceType* m_stageScene;
 
 
 	SentenceType* m_TitleName;
